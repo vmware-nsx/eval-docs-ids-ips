@@ -10,11 +10,6 @@
 * [Logging](#logging)
 * [Sample Execution](#sample-execution)
     * [Lab Deployment Script](#lab-deployment-script)
-    * [Enable Workload Management](#enable-workload-management)
-    * [Create Namespace](#create-namespace)
-    * [Deploy Sample K8s Application](#deploy-sample-k8s-application)
-    * [Deploy Tanzu Kubernetes Cluster](#deploy-tanzu-kubernetes-cluster)
-    * [Network Topology](#network-topology)
 
 ## Description
 
