@@ -1,4 +1,4 @@
-# vGhetto Automated vSphere with Kubernetes Lab Deployment
+# NSX-T and Nested ESXi Automated Deployed for IDPS Evaluation
 
 ## Table of Contents
 
