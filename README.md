@@ -253,8 +253,5 @@ Here is an example output of a complete deployment:
 
 **Note:** Deployment time will vary based on underlying physical infrastructure resources. In my lab, this took ~40min to complete.
 
-Once completed, you will end up with your deployed vSphere with Kubernetes Lab which is placed into a vApp
-
-![](screenshots/screenshot-3.png)
 
 
