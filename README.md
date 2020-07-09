@@ -1,4 +1,4 @@
-# NSX-T and Nested ESXi Automated Deployed for IDPS Evaluation
+# NSX-T Distributed IDS/IPS Proof of Concept Lab
 
 ## Table of Contents
 
@@ -12,9 +12,14 @@
     * [Lab Deployment Script](#lab-deployment-script)
 
 ## Description
+The goal of this Proof of Concept (PoC) is to allow customers to get hands-on experience with the NSX Distributed IDS/IPS. The expectation from people participating in the PoC is that they will complete the exercises outline in this guide in order to become familair with the key capabilities offered by the NSX Distributed IDS/IPS. While not the focus of this PoC guide, particpants will also gain basic experience with the Distributed Firewall and other NSX capabilities during this PoC. 
+
+While this PoC guide is quite prescriptive, participants can choose to modify any part of the workflow as desired. The guide is primarily focused on getting customers familiar with IDS, hence the deployment of the lab environment and rest of the configuration is automated through the use of a provided PowerShell script. After meeting the-requisites and running the script, a fully configured nested NSX-T environment is available to particpants, including a number of attacker and victim workload which are used as part of the IDS/IPS exercises. 
 
 This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
 
+## Disclaimer
+This lab provides and leverages common pen-test tools including Metasploit as well as purposfully vulnerable workloads built using Vulhub (https://github.com/vulhub/vulhub) . Please only use these tools for the intended purpose of completing the PoC, isolate the lab enviornment properly from any other environment and discard when the PoC has been completed.
 
 Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab
 
@@ -22,7 +27,7 @@ Below is a diagram of what is deployed as part of the solution and you simply ne
 
 ## Changelog
 
-* **06/27=5/2020**
+* **06/275/2020**
   * Intial draft of the guide
 
 ## Requirements
