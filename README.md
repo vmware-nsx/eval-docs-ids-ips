@@ -54,6 +54,7 @@ Below is a diagram of what is deployed as part of the solution and you simply ne
     * Storage
         * Ability to provision up to 1TB of storage
 
+* Preferrably, the deployed NSX Manager should have Internet access in order to download the lastest set of IDS/IPS signatures.
 * Desktop (Windows, Mac or Linux) with latest PowerShell Core and PowerCLI 12.0 Core installed. See [ instructions here](https://blogs.vmware.com/PowerCLI/2018/03/installing-powercli-10-0-0-macos.html) for more details
 * vSphere 7 & NSX-T OVAs:
     * [vCenter Server Appliance 7.0.0B] (https://my.vmware.com/group/vmware/downloads/details?downloadGroup=VC700B&productId=974&rPId=47905)
@@ -81,7 +82,7 @@ The expected time commitment to complete the PoC process is about 5 hours. This 
 | Customize Deployment Script Variables  | 60 minutes  | Week 1 | 
 | Run Deployment Script  | 60 minutes | Week 1 | 
 | Verify Lab Deployment  | 30 minutes | Week 1 | 
-| Basic IDS/IPS Configuration  | 30 minutes | Week 1 | 
+| Initial IDS/IPS Configuration  | 30 minutes | Week 1 | 
 | Simple Attack Scenario | 30 minutes | Week 2 | 
 | Lateral Attack Scenario | 30 minutes | Week 2 | 
 | Advanced Attack and configuration tuning | 30 minutes | Week 2 | 
@@ -312,3 +313,20 @@ Once the Deployment Script has completed the installation and setup process. You
 * APP-2-APP-TIER connected to **InternalSegment** Portgroup
 
 ![](Images/IDPS_POC_4.PNG)
+
+[TO BE COMPLETED]
+
+## Initial IDS/IPS Configuration
+**Estimated Time to Complete: 30 minutes**
+
+Now that we have verified the lab has been deployed correctly, basic NSX networking configuration has been applied and the appropriate vunlerable application VMs have been deployed, we can configure the NSX Distributed IDS/IPS.
+
+**Enable Intrusion Detection**
+*	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Settings
+*	Under Enable Intrusion Detection for Cluster(s), set **Workload-Cluster** to Enabled
+
+NSX can automatically update it’s IDS signatures by checking our cloud-based service. By default, NSX manager will check once per day and we publish new signature update versions every two week (with additional non-scheduled 0-day updates). NSX can also be configured to optionally automatically apply newly updated signatures to all hosts that have IDS enabled.
+
+**Enable Automated Signature Update propagation**
+* Under Intrusion Detection Signatures, select **Auto Update new versions (recommended)** in order to propagate the latest signature updates from the cloud to the distributed IDS instances
+* Optionally, click **View and Change Versions** and expand one of the signature sets to see what signatures have been added/updated/disabled in this particular release 
