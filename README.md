@@ -195,7 +195,7 @@ $NSXAuditUsername = "audit"
 $NSXAuditPassword = "VMware1!VMware1!"
 $NSXSSHEnable = "true"
 $NSXEnableRootLogin = "true"
-$NSXVTEPNetwork = "VLAN-194" # This portgroup needs be created before running script
+$NSXVTEPNetwork = "VLAN-194" # Replace with the appropriate pre-existing port-group 
 
 # Transport Node Profile
 $TransportNodeProfileName = "PoC-Transport-Node-Profile"
@@ -237,7 +237,7 @@ $EdgeOverlayUplinkName = "uplink1"
 $EdgeOverlayUplinkProfileActivepNIC = "fp-eth1"
 $EdgeUplinkName = "tep-uplink"
 $EdgeUplinkProfileActivepNIC = "fp-eth2"
-$EdgeUplinkProfileTransportVLAN = "0"
+$EdgeUplinkProfileTransportVLAN = "0" # Do not changes this VLAN
 $EdgeUplinkProfileMTU = "1600"
 
 # Edge Cluster  - Default Values are sufficient
@@ -263,27 +263,25 @@ $NSXTEdgeHostnameToIPs = @{
 
 Once you have saved your changes, you can now run the PowerCLI script as you normally would.
 
-## Logging
-
-There is additional verbose logging that outputs as a log file in your current working directory **pacific-nsxt-external-vghetto-lab-deployment.log**
 
 ## Sample Execution
 
-In this example below, I will be using a single /27 subnet(172.17.31.0/24)  on a single VLAN (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for POC and testing purposes.
+In this example below, I will be using a single /27 subnet(10.114.209.128/27)  on a single port-group (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for POC and testing purposes.
 
-| Hostname                   | IP Address                     | Function                     |
+| Name                       | IP Address                     | Function                     |
 |----------------------------|--------------------------------|------------------------------|
-| Nested_ESXi_1              | 172.17.31.112                  | vCenter Server               |
-| pacific-esxi-7.cpbu.corp   | 172.17.31.113                  | ESXi                         |
-| pacific-esxi-8.cpbu.corp   | 172.17.31.114                  | ESXi                         |
-| pacific-esxi-9.cpbu.corp   | 172.17.31.115                  | ESXi                         |
-| pacific-nsx-edge.cpbu.corp | 172.17.31.116                  | NSX-T Edge                   |
-| pacific-nsx-ua.cpbu.corp   | 172.17.31.118                  | NSX-T Unified Appliance      |
-| n/a                        | 172.17.31.119                  | T0 Static Route Address      |
-| n/a                        | 172.17.31.120 to 172.17.31.125 | K8s Master Control Plane VMs |
-| n/a                        | 172.17.31.140/27               | Ingress CIDR Range           |
-| n/a                        | 172.17.31.160/27               | Egress CIDR Range            |
-
+| poc-vcsa                   | 10.114.209.143                 | vCenter Server               |
+| Nested_ESXi_1              | 10.114.209.140                 | ESXi                         |
+| Nested_ESXi_2              | 10.114.209.142                 | ESXi                         |
+| Nested_ESXi_3              | 10.114.209.143                 | ESXi                         |
+| poc-nsx                    | 10.114.209.149                 | NSX-T Manager                |
+| poc-nsx-edge               | 10.114.209.150                 | NSX-T Edge                   |
+| T0-uplink                  | 10.114.209.148                 | T0 GW Interface IP           |
+| TunnelEndpointGateway      | 10.114.209.129                 | Existing default GW          |
+| T0 Static Default GW       | 10.114.209.129                 | Existing default GW          |
+| TEP Pool                   | 10.114.209.144-10.114.209.147  | Tunnel Endpoint IPs          |
+| External VM                | 10.114.209.151                 | Attacker VM and Syslog Srv   |
+| Syslog Serer               | 10.114.209.151                 | Attacker VM and Syslog Srv   |
 
 
 ### Lab Deployment Script
@@ -296,7 +294,7 @@ Here is an example output of a complete deployment:
 
 ![](screenshots/screenshot-2.png)
 
-**Note:** Deployment time will vary based on underlying physical infrastructure resources. In my lab, this took ~40min to complete.
+**Note:** Deployment time will vary based on underlying physical infrastructure resources. On average, it can take between 45 minutes to 90 minutes. 
 
 
 
