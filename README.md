@@ -78,8 +78,7 @@ The expected time commitment to complete the PoC process is about 5 hours. This 
 
 | Task  | Estimated Time to Complete | Suggested Week | 
 | ------------- | ------------- | ------------- |
-| Ensure Pre-requisites are met  | 30 minutes | Week 1 | 
-| Customize Deployment Script Varaibles  | 30 minutes  | Week 1 | 
+| Customize Deployment Script Variables  | 60 minutes  | Week 1 | 
 | Run Deployment Script  | 60 minutes | Week 1 | 
 | Verify Lab Deployment  | 30 minutes | Week 1 | 
 | Basic IDS/IPS Configuration  | 30 minutes | Week 1 | 
@@ -92,9 +91,27 @@ The expected time commitment to complete the PoC process is about 5 hours. This 
 
 Existing NSX customers should reach out to their account team for support during the PoC process, or to the NSX PoC lead that has been assigend to the customer. In additon, any participant can reach out to x@vmware.com for support during the PoC.
 
-## Configuration
+## Customize Deployment Script Variables
+**Estimated Time to Complete: 60 minutes**
+Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used my sample lab environment. The variables that need to adjusted are called out specifically. Other variables can in almost all cases be left to their default values.
 
-Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used my sample lab environment. The variables that almost certaily need to adjusted are called out specifically. Other variables can in almost all cases be left to their default values.
+In this example below, I will be using a single /27 subnet(10.114.209.128/27)  on a single port-group (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for POC and testing purposes.
+
+| Name                       | IP Address                     | Function                     |
+|----------------------------|--------------------------------|------------------------------|
+| poc-vcsa                   | 10.114.209.143                 | vCenter Server               |
+| Nested_ESXi_1              | 10.114.209.140                 | ESXi                         |
+| Nested_ESXi_2              | 10.114.209.142                 | ESXi                         |
+| Nested_ESXi_3              | 10.114.209.143                 | ESXi                         |
+| poc-nsx                    | 10.114.209.149                 | NSX-T Manager                |
+| poc-nsx-edge               | 10.114.209.150                 | NSX-T Edge                   |
+| T0-uplink                  | 10.114.209.148                 | T0 GW Interface IP           |
+| TunnelEndpointGateway      | 10.114.209.129                 | Existing default GW          |
+| T0 Static Default GW       | 10.114.209.129                 | Existing default GW          |
+| TEP Pool                   | 10.114.209.144-10.114.209.147  | Tunnel Endpoint IPs          |
+| External VM                | 10.114.209.151                 | Attacker VM and Syslog Srv   |
+| Syslog Serer               | 10.114.209.151                 | Attacker VM and Syslog Srv   |
+
 
 This section describes the credentials to your physical environment vCenter Server in which the nestedc lab environment will be deployed to. Make sure to adjust **all** of the below variables to match your physical environment vCenter:
 ```console
@@ -261,30 +278,9 @@ $NSXTEdgeHostnameToIPs = @{
 }
 ```
 
+## Run Deployment Scrip
+**Estimated Time to Complete: 60 minutes**
 Once you have saved your changes, you can now run the PowerCLI script as you normally would.
-
-
-## Sample Execution
-
-In this example below, I will be using a single /27 subnet(10.114.209.128/27)  on a single port-group (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for POC and testing purposes.
-
-| Name                       | IP Address                     | Function                     |
-|----------------------------|--------------------------------|------------------------------|
-| poc-vcsa                   | 10.114.209.143                 | vCenter Server               |
-| Nested_ESXi_1              | 10.114.209.140                 | ESXi                         |
-| Nested_ESXi_2              | 10.114.209.142                 | ESXi                         |
-| Nested_ESXi_3              | 10.114.209.143                 | ESXi                         |
-| poc-nsx                    | 10.114.209.149                 | NSX-T Manager                |
-| poc-nsx-edge               | 10.114.209.150                 | NSX-T Edge                   |
-| T0-uplink                  | 10.114.209.148                 | T0 GW Interface IP           |
-| TunnelEndpointGateway      | 10.114.209.129                 | Existing default GW          |
-| T0 Static Default GW       | 10.114.209.129                 | Existing default GW          |
-| TEP Pool                   | 10.114.209.144-10.114.209.147  | Tunnel Endpoint IPs          |
-| External VM                | 10.114.209.151                 | Attacker VM and Syslog Srv   |
-| Syslog Serer               | 10.114.209.151                 | Attacker VM and Syslog Srv   |
-
-
-### Lab Deployment Script
 
 Here is a screenshot of running the script if all basic pre-reqs have been  met and the confirmation message before starting the deployment:
 
@@ -296,5 +292,11 @@ Here is an example output of a complete deployment:
 
 **Note:** Deployment time will vary based on underlying physical infrastructure resources. On average, it can take between 45 minutes to 90 minutes. 
 
+## Verify Lab Deployment
+
+Once the Deployment Script has completed the installation and setup process. Your lab environment is fully ready to start testing the NSX Distributed IDS/IPS. Verify vCenter and NSX has been configured as intended.
+
+* Physical Infrastructure Host/vCenter: Verify 
+* vCenter: Login to vCenter and verify the cluster of 3 nested ESXi appliances is he
 
 
