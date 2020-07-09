@@ -18,6 +18,8 @@ While this PoC guide is quite prescriptive, participants can choose to modify an
 
 This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
 
+Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab
+
 ![](Images/IDPS_POC_1.PNG)
 * Gray: Pre-requisites (Physical ESXi Server, vCenter managing the server and a Port group to provide connectivity of nested lab environment
 * Blue: Management and Edge Components (vCenter, NSX Manager and NSX Edge) Deployed by PowerCLI Script
@@ -29,8 +31,6 @@ This script makes it very easy for anyone to deploy a nested vSphere vSphere lab
 
 ## Disclaimer
 This lab provides and leverages common pen-test tools including Metasploit as well as purposfully vulnerable workloads built using Vulhub (https://github.com/vulhub/vulhub) . Please only use these tools for the intended purpose of completing the PoC, isolate the lab enviornment properly from any other environment and discard when the PoC has been completed.
-
-Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab
 
 ## Changelog
 
@@ -330,3 +330,10 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
 **Enable Automated Signature Update propagation**
 * Under Intrusion Detection Signatures, select **Auto Update new versions (recommended)** in order to propagate the latest signature updates from the cloud to the distributed IDS instances
 * Optionally, click **View and Change Versions** and expand one of the signature sets to see what signatures have been added/updated/disabled in this particular release 
+*	Note: if a proxy server is configured for NSX Manager to access the internet, click Proxy Settings and complete the configuration
+
+
+**Create IDS Profiles**
+[TO BE COMPLETED]
+
+**Simple Attack Scenario**
