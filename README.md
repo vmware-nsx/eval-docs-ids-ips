@@ -293,6 +293,7 @@ Here is an example output of a complete deployment:
 **Note:** Deployment time will vary based on underlying physical infrastructure resources. On average, it can take between 45 minutes to 90 minutes. 
 
 ## Verify Lab Deployment
+**Estimated Time to Complete: 30 minutes**
 
 Once the Deployment Script has completed the installation and setup process. Your lab environment is fully ready to start testing the NSX Distributed IDS/IPS. Verify vCenter and NSX has been configured as intended.
 
@@ -306,8 +307,8 @@ Once the Deployment Script has completed the installation and setup process. You
 
 **Lab vCenter**: Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is functional and 4 vulnerable VMs have been deployed on the cluster:
 * APP-1-WEB-TIER connected to **DMZSegment** Portgroup
-* APP-1-WEB-TIER connected to **DMZSegment** Portgroup
-* APP-1-WEB-TIER connected to **DMZSegment** Portgroup
-* APP-1-WEB-TIER connected to **DMZSegment** Portgroup
+* APP-2-WEB-TIER connected to **DMZSegment** Portgroup
+* APP-1-APP-TIER connected to **InternalSegment** Portgroup
+* APP-2-APP-TIER connected to **InternalSegment** Portgroup
 
-![](Images/IDPS_POC_3.PNG)
+![](Images/IDPS_POC_4.PNG)
