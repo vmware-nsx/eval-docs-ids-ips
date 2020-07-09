@@ -93,11 +93,11 @@ Existing NSX customers should reach out to their account team for support during
 
 ## Configuration
 
-Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used in my home lab environment. The variables that almost certaily need to adjusted are highighted in red. Other variables (in gray) can in almost all cases be left to their default values.
+Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used in my home lab environment. The variables that almost certaily need to adjusted are highighted in **bold**. Other variables (in gray) can in almost all cases be left to their default values.
 
 This section describes the credentials to your physical vCenter Server in which the nestedc lab environment will be deployed to:
 ```console
-$VIServer = "vcenter-north.lab.svanveer.pa"
+**$VIServer**  = "vcenter-north.lab.svanveer.pa"
 $VIUsername = "administrator@vsphere.local"
 $VIPassword = "VMware1!"
 ```
