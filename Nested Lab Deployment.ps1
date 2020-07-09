@@ -26,7 +26,7 @@ $NestedESXiCapacityvDisk = "100" #GB
 
 # VCSA Deployment Configuration
 $VCSADeploymentSize = "tiny"
-$VCSADisplayName = "poc2-vcsa-1"
+$VCSADisplayName = "poc-vcsa-1"
 $VCSAIPAddress = "10.114.209.143"
 $VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS
 $VCSAPrefix = "28"
