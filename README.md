@@ -55,7 +55,22 @@ Below is a diagram of what is deployed as part of the solution and you simply ne
     
 Note: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
 
-## FAQ
+## Intended Audience and Resource Commitment
+This PoC guide is intended for existing and future NSX customers who want to evaluate the NSX Distributed IDS/IPS functionality. Ideally, this PoC involves people covring these roles:
+
+* CISO Representative
+* Data Center Infrastructure Team
+* Network Architects
+* Security Architects
+* Security Operations Center Analyst
+* Enterprise Applicatoin Owner
+
+The expected time commitment to complete the PoC process is a total of 6 hours. This included the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. Participtants 
+
+
+## Support during the PoC Process
+
+Existing NSX customers should reach out to their account team for support during the PoC process, or to the NSX PoC lead that has been assigend to the customer. In additon, any participant can reach out to x@vmware.com for support during the PoC.
 
 ## Configuration
 
