@@ -75,8 +75,8 @@ This PoC guide is intended for existing and future NSX customers who want to eva
 ## Resources commitment and suggsted timeline
 The expected time commitment to complete the PoC process is about 5 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
 
-| Task  | Estimated Time to Complete | Suggested Week
-| ------------- | ------------- |
+| Task  | Estimated Time to Complete | Suggested Week | 
+| ------------- | ------------- | ------------- |
 | Ensure Pre-requisites are met  | 30 minutes | Week 1 | 
 | Customize Deployment Script Varaibles  | 30 minutes  | Week 1 | 
 | Run Deployment Script  | 60 minutes | Week 1 | 
