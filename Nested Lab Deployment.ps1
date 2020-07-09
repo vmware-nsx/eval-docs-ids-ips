@@ -1,6 +1,6 @@
 # Based on work by William Lam / www.virtuallyghetto.com 
 
-# vCenter Server used to deploy vSphere with Kubernetes Lab
+# vCenter Server used to deploy vSphere with NSX lab
 $VIServer = "vcenter-north.lab.svanveer.pa"
 $VIUsername = "administrator@vsphere.local"
 $VIPassword = "VMware1!"
@@ -13,14 +13,14 @@ $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova
 
 # Nested ESXi VMs to deploy
 $NestedESXiHostnameToIPs = @{
-    "10.114.209.140" = "10.114.209.140" #Use IP if you don't have valid DNS
-    "10.114.209.141" = "10.114.209.141" #Use IP if you don't have valid DNS
-    "10.114.209.142" = "10.114.209.142" #Use IP if you don't have valid DNS
+    "Nested_ESXi_1" = "10.114.209.140" 
+    "Nested_ESXi_2" = "10.114.209.141" 
+    "Nested_ESXi_3" = "10.114.209.142" 
 }
 
 # Nested ESXi VM Resources
 $NestedESXivCPU = "4"
-$NestedESXivMEM = "24" #GB
+$NestedESXivMEM = "12" #GB
 $NestedESXiCachingvDisk = "8" #GB
 $NestedESXiCapacityvDisk = "100" #GB
 
@@ -129,7 +129,7 @@ $NSXTMgrDeploymentSize = "small"
 $NSXTMgrvCPU = "6" #override default size
 $NSXTMgrvMEM = "24" #override default size
 $NSXTMgrDisplayName = "poc2-nsx"
-$NSXTMgrHostname = "poc2"
+$NSXTMgrHostname = "10.114.209.149"
 $NSXTMgrIPAddress = "10.114.209.149"
 
 # NSX-T Edge Configuration
