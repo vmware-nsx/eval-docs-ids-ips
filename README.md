@@ -106,6 +106,7 @@ $VIPassword = "VMware1!"
 This section describes the location of the files required for deployment.
 
 ```console
+# 2014, The year of [Blue](#)
 <div class="text-purple">$NestedESXiApplianceOVA</div> = "C:\Users\stijn\downloads\ESXI\Nested_ESXi7.0_Appliance_Template_v1.ova"
 $VCSAInstallerPath = "C:\Users\stijn\downloads\VCSA\VMware-VCSA-all-7.0.0-16189094"
 $NSXTManagerOVA = "C:\Users\stijn\downloads\NSXMgr\nsx-unified-appliance-3.0.0.0.0.15946739.ova"
