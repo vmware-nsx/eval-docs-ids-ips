@@ -47,9 +47,10 @@ Below is a diagram of what is deployed as part of the solution and you simply ne
         * Ability to provision up to 64 GB of memory
     * Network
         * Single Standard or Distributed Portgroup (Management VLAN) used to deploy all VMs
-            * 6 x IP Addresses for VCSA, ESXi, NSX-T UA and Edge VM
+            * 7 x IP Addresses for VCSA, ESXi, NSX-T UA, Edge VM Uplink and External VM
+            * 4 x IP Addresses for TEP (Tunnel Endpoint) interfaces on ESXi and Edge VM
             * 1 x IP Address for T0 Static Route (optional)
-            * All IP Addresses should be able to communicate with each other
+            * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the exampe configuration provides the 10.114.209.128/27 subnet is used for all these IP addresses
     * Storage
         * Ability to provision up to 1TB of storage
 
@@ -93,21 +94,21 @@ Existing NSX customers should reach out to their account team for support during
 
 ## Configuration
 
-Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used in my home lab environment. The variables that almost certaily need to adjusted are highighted in **bold**. Other variables (in gray) can in almost all cases be left to their default values.
+Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used my sample lab environment. The variables that almost certaily need to adjusted are called out specifically. Other variables can in almost all cases be left to their default values.
 
-This section describes the credentials to your physical vCenter Server in which the nestedc lab environment will be deployed to:
+This section describes the credentials to your physical vCenter Server in which the nestedc lab environment will be deployed to. Make sure to adjust the below variables :
 ```console
-**$VIServer**  = "vcenter-north.lab.svanveer.pa"
+$VIServer  = "vcenter-north.lab.svanveer.pa"
 $VIUsername = "administrator@vsphere.local"
 $VIPassword = "VMware1!"
 ```
 
 
-This section describes the location of the files required for deployment.
+This section describes the location of the files required for deployment. Update the variables with the actual location of the downloaded OVAs/extracted files on the local machine you run this PowerShell script from
 
 ```console
 # 2014, The year of [Blue](#)
-<div class="text-purple">$NestedESXiApplianceOVA</div> = "C:\Users\stijn\downloads\ESXI\Nested_ESXi7.0_Appliance_Template_v1.ova"
+$NestedESXiApplianceOVA</div> = "C:\Users\stijn\downloads\ESXI\Nested_ESXi7.0_Appliance_Template_v1.ova"
 $VCSAInstallerPath = "C:\Users\stijn\downloads\VCSA\VMware-VCSA-all-7.0.0-16189094"
 $NSXTManagerOVA = "C:\Users\stijn\downloads\NSXMgr\nsx-unified-appliance-3.0.0.0.0.15946739.ova"
 $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova"
@@ -115,7 +116,7 @@ $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova
 **Note:** The path to the VCSA Installer must be the extracted contents of the ISO
 
 
-This section defines the number of Nested ESXi VMs to deploy along with their associated IP Address(s). The names are merely the display name of the VMs when deployed. At a minimum, you should deploy at least three hosts, but you can always add additional hosts and the script will automatically take care of provisioning them correctly. For simplicity, these IP addresses should part of the same Management submit used for the nested vCenter and NSX Manager. 
+This section defines the number of Nested ESXi VMs to deploy along with their associated IP Address(s). The names are merely the display name of the VMs when deployed. At a minimum, you should deploy at least three hosts, but you can always add additional hosts and the script will automatically take care of provisioning them correctly. Adjust the IP addresses for the 3 below hosts. For simplicity, these IP addresses should part of the same Management subnet for the nested vCenter and NSX Manager. 
 ```console
 $NestedESXiHostnameToIPs = @{
     "Nested_ESXi_1" = "10.114.209.140" 
@@ -124,7 +125,7 @@ $NestedESXiHostnameToIPs = @{
 }
 ```
 
-This section describes the resources allocated to each of the Nested ESXi VM(s). Depending on your usage, you may need to increase the resources. For Memory and Disk configuration, the unit is in GB.
+This section describes the resources allocated to each of the Nested ESXi VM(s). Depending on your usage, you may need to increase the resources. For Memory and Disk configuration, the unit is in GB. The values set are the minimum required for this lab. I suggest leaving these values to their defaults.
 ```console
 $NestedESXivCPU = "4"
 $NestedESXivMEM = "12" #GB
@@ -132,13 +133,13 @@ $NestedESXiCachingvDisk = "8" #GB
 $NestedESXiCapacityvDisk = "100" #GB
 ```
 
-This section describes the VCSA deployment configuration such as the VCSA deployment size, Networking & SSO configurations. If you have ever used the VCSA CLI Installer, these options should look familiar. 
+This section describes the VCSA deployment configuration such as the VCSA deployment size, Networking & SSO configurations. If you have ever used the VCSA CLI Installer, these options should look familiar. Adjust the IP address and Prefix (Subnet Mask Bits) to match the desired IP address of the nested ESXi. Use the Same IP address as the hostname, unless you can add an FQDN entry to your DSN server. 
 ```console
 $VCSADeploymentSize = "tiny"
 $VCSADisplayName = "poc-vcsa"
-$VCSAIPAddress = "10.114.209.143" #Configure this 
-$VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS
-$VCSAPrefix = "28"
+$VCSAIPAddress = "10.114.209.143" 
+$VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS. 
+$VCSAPrefix = "27"
 $VCSASSODomainName = "vsphere.local"
 $VCSASSOPassword = "VMware1!"
 $VCSARootPassword = "VMware1!"
