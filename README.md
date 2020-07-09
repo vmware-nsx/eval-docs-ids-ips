@@ -46,11 +46,11 @@ Below is a diagram of what is deployed as part of the solution and you simply ne
         * Ability to provision VMs with up to 8 vCPU
         * Ability to provision up to 64 GB of memory
     * Network
-        * Single Standard or Distributed Portgroup (Management VLAN) used to deploy all VMs
+        * Single pre-configured Standard or Distributed Portgroup (Management VLAN) used to deploy all VMs In the example config, VLAN-194 is used as this isngle port-group
             * 7 x IP Addresses for VCSA, ESXi, NSX-T UA, Edge VM Uplink and External VM
             * 4 x IP Addresses for TEP (Tunnel Endpoint) interfaces on ESXi and Edge VM
             * 1 x IP Address for T0 Static Route (optional)
-            * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the exampe configuration provides the 10.114.209.128/27 subnet is used for all these IP addresses
+            * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the example configuration provided the 10.114.209.128/27 subnet is used for all these IP addresses/interfaces.
     * Storage
         * Ability to provision up to 1TB of storage
 
@@ -125,7 +125,7 @@ $NestedESXiHostnameToIPs = @{
 }
 ```
 
-This section describes the resources allocated to each of the Nested ESXi VM(s). Depending on your usage, you may need to increase the resources. For Memory and Disk configuration, the unit is in GB. The values set are the minimum required for this lab. I suggest leaving these values to their defaults.
+This section describes the resources allocated to each of the Nested ESXi VM(s). Depending on your usage, you may need to increase the resources. For Memory and Disk configuration, the unit is in GB. The values set are the minimum required for this lab. **Default values are sufficient.**
 ```console
 $NestedESXivCPU = "4"
 $NestedESXivMEM = "12" #GB
@@ -146,20 +146,21 @@ $VCSARootPassword = "VMware1!"
 $VCSASSHEnable = "true"
 ```
 
-This section describes the location as well as the generic networking settings applied to Nested ESXi VCSA & NSX VMs
+This section describes the location as well as the generic networking settings applied to Nested ESXi VCSA & NSX VMs. The following variable should be defined by users **VMDataceter**, **VMCluster**, **VMNetwork** and **VMdatastore**. Replace all the **IP addresses** and **netmaks** with the appropriate IP addresses/netmask. 
 ```console
-$VMDatacenter = "San Jose"
-$VMCluster = "Cluster-01"
-$VMNetwork = "SJC-CORP-MGMT"
-$VMDatastore = "vsanDatastore"
-$VMNetmask = "255.255.255.0"
-$VMGateway = "172.17.31.253"
-$VMDNS = "172.17.31.5"
-$VMNTP = "pool.ntp.org"
+$VMDatacenter = "PaloAlto-Main"
+$VMCluster = "Physical-3"
+$VMNetwork = "VLAN-194"
+$VMDatastore = "NFS"
+$VMNetmask = "255.255.255.224"
+$VMGateway = "10.114.209.129"
+$VMDNS = "10.114.222.70"
+$VMNTP = "10.20.145.1"
 $VMPassword = "VMware1!"
-$VMDomain = "cpbu.corp"
-$VMSyslog = "172.17.31.112"
-$VMFolder = "Project-Pacific"
+$VMDomain = "lab.svanveer.pa"
+$VMSyslog = "10.114.222.70" # This should be the same IP address as the External VM IP address
+$VMFolder = "NSX PoC 2"
+
 # Applicable to Nested ESXi only
 $VMSSH = "true"
 $VMVMFS = "false"
@@ -167,27 +168,27 @@ $VMVMFS = "false"
 
 This section describes the configuration of the new vCenter Server from the deployed VCSA. **Default values are sufficient.**
 ```console
-$NewVCDatacenterName = "Pacific-Datacenter"
+$NewVCDatacenterName = "PoC-Datacenter"
 $NewVCVSANClusterName = "Workload-Cluster"
-$NewVCVDSName = "Pacific-VDS"
+$NewVCVDSName = "PoC-VDS"
 $NewVCDVPGName = "DVPG-Management Network"
 ```
 
-This section describes the Project Pacific Configurations. **Default values are sufficient.**
+This section describes the PoC Configurations. **Default values are sufficient.**
 ```console
-# Pacific Configuration
-$StoragePolicyName = "pacific-gold-storage-policy"
-$StoragePolicyTagCategory = "pacific-demo-tag-category"
-$StoragePolicyTagName = "pacific-demo-storage"
+# PoC Configuration
+$StoragePolicyName = "PoC-gold-storage-policy"
+$StoragePolicyTagCategory = "PoC-demo-tag-category"
+$StoragePolicyTagName = "PoC-demo-storage"
 $DevOpsUsername = "devops"
 $DevOpsPassword = "VMware1!"
 ```
 
-This section describes the NSX-T configurations, the defaults values are sufficient with for the following variables which ust be defined by users and the rest can be left as defaults.
+This section describes the NSX-T configurations, the following variables must be defined by users and the rest can be left as defaults.
     **$NSXLicenseKey**, **$NSXVTEPNetwork**, **$T0GatewayInterfaceAddress**, **$T0GatewayInterfaceStaticRouteAddress** and the **NSX-T Manager** and **Edge** Sections
 ```console
 # NSX-T Configuration
-$NSXLicenseKey = "NSX-LICENSE-KEY"
+NSXLicenseKey = "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx" #Replace with valid NSX License key
 $NSXRootPassword = "VMware1!VMware1!"
 $NSXAdminUsername = "admin"
 $NSXAdminPassword = "VMware1!VMware1!"
@@ -195,7 +196,7 @@ $NSXAuditUsername = "audit"
 $NSXAuditPassword = "VMware1!VMware1!"
 $NSXSSHEnable = "true"
 $NSXEnableRootLogin = "true"
-$NSXVTEPNetwork = "Pacific-VTEP" # This portgroup needs be created before running script
+$NSXVTEPNetwork = "VLAN-194" # This portgroup needs be created before running script
 
 # Transport Node Profile
 $TransportNodeProfileName = "Pacific-Host-Transport-Node-Profile"
