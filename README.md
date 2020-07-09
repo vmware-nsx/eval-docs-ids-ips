@@ -47,10 +47,10 @@ Below is a diagram of what is deployed as part of the solution and you simply ne
         * Ability to provision up to 64 GB of memory
     * Network
         * Single pre-configured Standard or Distributed Portgroup (Management VLAN) used to deploy all VMs In the example config, VLAN-194 is used as this isngle port-group
-            * 7 x IP Addresses for VCSA, ESXi, NSX-T UA, Edge VM Uplink and External VM
+            * 8 x IP Addresses for VCSA, ESXi, NSX-T Manager, Edge VM Management, Edge VM Uplink and External VM
             * 4 x IP Addresses for TEP (Tunnel Endpoint) interfaces on ESXi and Edge VM
             * 1 x IP Address for T0 Static Route (optional)
-            * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the example configuration provided the 10.114.209.128/27 subnet is used for all these IP addresses/interfaces.
+            * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the example configuration provided the 10.114.209.128/27 subnet is used for all these IP addresses/interfaces: vCenter, NSX Manager Managenet Interface, T0 Router Uplink, Nested ESXi VMKernel and TEP interfaces (defined in IP pool), External VM.
     * Storage
         * Ability to provision up to 1TB of storage
 
@@ -96,7 +96,7 @@ Existing NSX customers should reach out to their account team for support during
 
 Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used my sample lab environment. The variables that almost certaily need to adjusted are called out specifically. Other variables can in almost all cases be left to their default values.
 
-This section describes the credentials to your physical vCenter Server in which the nestedc lab environment will be deployed to. Make sure to adjust the below variables :
+This section describes the credentials to your physical environment vCenter Server in which the nestedc lab environment will be deployed to. Make sure to adjust **all** of the below variables to match your physical environment vCenter:
 ```console
 $VIServer  = "vcenter-north.lab.svanveer.pa"
 $VIUsername = "administrator@vsphere.local"
@@ -104,11 +104,10 @@ $VIPassword = "VMware1!"
 ```
 
 
-This section describes the location of the files required for deployment. Update the variables with the actual location of the downloaded OVAs/extracted files on the local machine you run this PowerShell script from
+This section describes the location of the files required for deployment. Update the below variables with the actual **location of the downloaded OVAs/extracted files** on the local machine you run this PowerShell script from
 
 ```console
-# 2014, The year of [Blue](#)
-$NestedESXiApplianceOVA</div> = "C:\Users\stijn\downloads\ESXI\Nested_ESXi7.0_Appliance_Template_v1.ova"
+$NestedESXiApplianceOVA = "C:\Users\stijn\downloads\ESXI\Nested_ESXi7.0_Appliance_Template_v1.ova"
 $VCSAInstallerPath = "C:\Users\stijn\downloads\VCSA\VMware-VCSA-all-7.0.0-16189094"
 $NSXTManagerOVA = "C:\Users\stijn\downloads\NSXMgr\nsx-unified-appliance-3.0.0.0.0.15946739.ova"
 $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova"
@@ -116,7 +115,7 @@ $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova
 **Note:** The path to the VCSA Installer must be the extracted contents of the ISO
 
 
-This section defines the number of Nested ESXi VMs to deploy along with their associated IP Address(s). The names are merely the display name of the VMs when deployed. At a minimum, you should deploy at least three hosts, but you can always add additional hosts and the script will automatically take care of provisioning them correctly. Adjust the IP addresses for the 3 below hosts. For simplicity, these IP addresses should part of the same Management subnet for the nested vCenter and NSX Manager. 
+This section defines the number of Nested ESXi VMs to deploy along with their associated IP Address(s). The names are merely the display name of the VMs when deployed. At a minimum, you should deploy at least three hosts, but you can always add additional hosts and the script will automatically take care of provisioning them correctly. Adjust the **IP addresses** for the 3 below hosts. For simplicity, these IP addresses should part of the same Management subnet for the nested vCenter and NSX Manager. 
 ```console
 $NestedESXiHostnameToIPs = @{
     "Nested_ESXi_1" = "10.114.209.140" 
@@ -133,7 +132,7 @@ $NestedESXiCachingvDisk = "8" #GB
 $NestedESXiCapacityvDisk = "100" #GB
 ```
 
-This section describes the VCSA deployment configuration such as the VCSA deployment size, Networking & SSO configurations. If you have ever used the VCSA CLI Installer, these options should look familiar. Adjust the IP address and Prefix (Subnet Mask Bits) to match the desired IP address of the nested ESXi. Use the Same IP address as the hostname, unless you can add an FQDN entry to your DSN server. 
+This section describes the VCSA deployment configuration such as the VCSA deployment size, Networking & SSO configurations. If you have ever used the VCSA CLI Installer, these options should look familiar. Adjust the **IP address** and **Prefix (Subnet Mask Bits)** to match the desired IP address of the nested ESXi. Use the Same IP address as the hostname, unless you can add an FQDN entry to your DSN server. 
 ```console
 $VCSADeploymentSize = "tiny"
 $VCSADisplayName = "poc-vcsa"
@@ -166,7 +165,7 @@ $VMSSH = "true"
 $VMVMFS = "false"
 ```
 
-This section describes the configuration of the new vCenter Server from the deployed VCSA. **Default values are sufficient.**
+This section describes the configuration of the new lab vCenter Server from the deployed VCSA. **Default values are sufficient.**
 ```console
 $NewVCDatacenterName = "PoC-Datacenter"
 $NewVCVSANClusterName = "Workload-Cluster"
@@ -185,7 +184,7 @@ $DevOpsPassword = "VMware1!"
 ```
 
 This section describes the NSX-T configurations, the following variables must be defined by users and the rest can be left as defaults.
-    **$NSXLicenseKey**, **$NSXVTEPNetwork**, **$T0GatewayInterfaceAddress**, **$T0GatewayInterfaceStaticRouteAddress** and the **NSX-T Manager** and **Edge** Sections
+    **$NSXLicenseKey**, **$NSXVTEPNetwork**, **$T0GatewayInterfaceAddress**, **$T0GatewayInterfaceStaticRouteAddress** and the **NSX-T Manager**, **TEP IP Pool** and **Edge** Sections
 ```console
 # NSX-T Configuration
 NSXLicenseKey = "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx" #Replace with valid NSX License key
@@ -199,34 +198,35 @@ $NSXEnableRootLogin = "true"
 $NSXVTEPNetwork = "VLAN-194" # This portgroup needs be created before running script
 
 # Transport Node Profile
-$TransportNodeProfileName = "Pacific-Host-Transport-Node-Profile"
+$TransportNodeProfileName = "PoC-Transport-Node-Profile"
 
-# Transport Zones
+# TEP IP Pool  - Replace IP addresses to match the physical environment subnet you've allocated (i.e management network) 
 $TunnelEndpointName = "TEP-IP-Pool"
 $TunnelEndpointDescription = "Tunnel Endpoint for Transport Nodes"
-$TunnelEndpointIPRangeStart = "172.30.1.10"
-$TunnelEndpointIPRangeEnd = "172.30.1.20"
-$TunnelEndpointCIDR = "172.30.1.0/24"
-$TunnelEndpointGateway = "172.30.1.1"
+$TunnelEndpointIPRangeStart = "10.114.209.144" 
+$TunnelEndpointIPRangeEnd = "10.114.209.147"
+$TunnelEndpointCIDR = "10.114.209.128/27" 
+$TunnelEndpointGateway = "10.114.209.129 #Default Gateway of the Management Network
 
+# Transport Zones - Default Values are sufficient
 $OverlayTransportZoneName = "TZ-Overlay"
 $OverlayTransportZoneHostSwitchName = "nsxswitch"
 $VlanTransportZoneName = "TZ-VLAN"
 $VlanTransportZoneNameHostSwitchName = "edgeswitch"
 
-# Network Segment
-$NetworkSegmentName = "Pacific-Segment"
+# Network Segment - Default Values are sufficient
+$NetworkSegmentName = "PoC-Segment"
 $NetworkSegmentVlan = "0"
 
 # T0 Gateway
-$T0GatewayName = "Pacific-T0-Gateway"
-$T0GatewayInterfaceAddress = "172.17.31.119" # should be a routable address
-$T0GatewayInterfacePrefix = "24"
-$T0GatewayInterfaceStaticRouteName = "Pacific-Static-Route"
+$T0GatewayName = "PoC-T0-Gateway"
+$T0GatewayInterfaceAddress = "10.114.209.148" # should be a routable address
+$T0GatewayInterfacePrefix = "27"
+$T0GatewayInterfaceStaticRouteName = "PoC-Static-Route"
 $T0GatewayInterfaceStaticRouteNetwork = "0.0.0.0/0"
-$T0GatewayInterfaceStaticRouteAddress = "172.17.31.253"
+$T0GatewayInterfaceStaticRouteAddress = "10.114.209.129" # This can be set to an invalid IP address to ensure the vulnerable workloads remain isolated from the rest of the environment
 
-# Uplink Profiles
+# Uplink Profiles  - Default Values are sufficient
 $ESXiUplinkProfileName = "ESXi-Host-Uplink-Profile"
 $ESXiUplinkProfilePolicy = "FAILOVER_ORDER"
 $ESXiUplinkName = "uplink1"
@@ -240,23 +240,24 @@ $EdgeUplinkProfileActivepNIC = "fp-eth2"
 $EdgeUplinkProfileTransportVLAN = "0"
 $EdgeUplinkProfileMTU = "1600"
 
-# Edge Cluster
+# Edge Cluster  - Default Values are sufficient
 $EdgeClusterName = "Edge-Cluster-01"
 
+# NSX-T Manager Configurations 
 # NSX-T Manager Configurations
 $NSXTMgrDeploymentSize = "small"
 $NSXTMgrvCPU = "6" #override default size
 $NSXTMgrvMEM = "24" #override default size
-$NSXTMgrDisplayName = "pacific-nsx-3"
-$NSXTMgrHostname = "pacific-nsx-3.cpbu.corp"
-$NSXTMgrIPAddress = "172.17.31.118"
+$NSXTMgrDisplayName = "poc-nsx-manager"
+$NSXTMgrHostname = "10.114.209.149" # Replace with the desired IP address for the NSX Manager
+$NSXTMgrIPAddress = "10.114.209.149" # Replace with the desired IP address for the NSX Manager
 
 # NSX-T Edge Configuration
 $NSXTEdgeDeploymentSize = "medium"
 $NSXTEdgevCPU = "8" #override default size
 $NSXTEdgevMEM = "32" #override default size
 $NSXTEdgeHostnameToIPs = @{
-    "pacific-nsx-edge-3a" = "172.17.31.116"
+    "poc-nsx-edge" = "10.114.209.150" #Replace with the desired IP address for the NSX Edge Management Interface
 }
 ```
 
