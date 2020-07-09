@@ -18,8 +18,7 @@ While this PoC guide is quite prescriptive, participants can choose to modify an
 
 This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
 
-![](screenshots/screenshot-2.png)
-![](images/IDPS_POC_1.PNG)
+![](Images/IDPS_POC_1.PNG)
 
 ## Disclaimer
 This lab provides and leverages common pen-test tools including Metasploit as well as purposfully vulnerable workloads built using Vulhub (https://github.com/vulhub/vulhub) . Please only use these tools for the intended purpose of completing the PoC, isolate the lab enviornment properly from any other environment and discard when the PoC has been completed.
