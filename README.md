@@ -297,9 +297,14 @@ Here is an example output of a complete deployment:
 
 Once the Deployment Script has completed the installation and setup process. Your lab environment is fully ready to start testing the NSX Distributed IDS/IPS. Verify vCenter and NSX has been configured as intended.
 
-* Physical Infrastructure Host/vCenter: Login to the physial environment vcenter and Verify 6 VMs have been deployed, are up and running and are connected to the appropriate port-group: 3 nested ESXI, 1 NSX Manager, 1 NSX Edge and 1 vCenter
+* Physical Infrastructure Host/vCenter: Login to the physial environment vcenter and Verify 6 VMs have been deployed, are up and running and are connected to the appropriate port-group: 
+* 3 nested ESXI
+* 1 NSX Manager
+* 1 NSX Edge 
+* 1 vCenter
+
 ![](Images/IDPS_POC_2.PNG)
 
 * vCenter: Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is he
 
-
+![](Images/IDPS_POC_2.PNG)
