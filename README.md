@@ -269,11 +269,11 @@ There is additional verbose logging that outputs as a log file in your current w
 
 ## Sample Execution
 
-In this example below, I will be using a single /24 native VLAN (172.17.31.0/24) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for POC and testing purposes.
+In this example below, I will be using a single /27 subnet(172.17.31.0/24)  on a single VLAN (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for POC and testing purposes.
 
 | Hostname                   | IP Address                     | Function                     |
 |----------------------------|--------------------------------|------------------------------|
-| pacific-vcsa-3.cpbu.corp   | 172.17.31.112                  | vCenter Server               |
+| Nested_ESXi_1              | 172.17.31.112                  | vCenter Server               |
 | pacific-esxi-7.cpbu.corp   | 172.17.31.113                  | ESXi                         |
 | pacific-esxi-8.cpbu.corp   | 172.17.31.114                  | ESXi                         |
 | pacific-esxi-9.cpbu.corp   | 172.17.31.115                  | ESXi                         |
@@ -284,7 +284,7 @@ In this example below, I will be using a single /24 native VLAN (172.17.31.0/24)
 | n/a                        | 172.17.31.140/27               | Ingress CIDR Range           |
 | n/a                        | 172.17.31.160/27               | Egress CIDR Range            |
 
-**Note:** Make sure Ingress/Egress CIDR ranges do NOT overlap and the IP Addresses within that block is not being used. This is important as the Egress CIDR will consume at least 15 IP Addresses for the SNAT of each namespace within the Supervisor Cluster.
+
 
 ### Lab Deployment Script
 
