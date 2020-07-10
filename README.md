@@ -1,4 +1,4 @@
-# NSX-T Distributed IDS/IPS Proof of Concept Lab
+# NSX-T Distributed IDS/IPS Proof of Value Lab
 
 ## Table of Contents
 
