@@ -98,6 +98,9 @@ $VlanTransportZoneNameHostSwitchName = "edgeswitch"
 $NetworkSegmentName = "PoC-Segment"
 $NetworkSegmentVlan = "0"
 
+# DHCP Server
+$DHCPServerName = "DHCP_Server"
+
 # T0 Gateway
 $T0GatewayName = "PoC2-T0-Gateway"
 $T0GatewayInterfaceAddress = "10.114.209.148" # should be a routable address
@@ -136,8 +139,58 @@ $NSXTMgrIPAddress = "10.114.209.149"
 $NSXTEdgeDeploymentSize = "medium"
 $NSXTEdgevCPU = "8" #override default size
 $NSXTEdgevMEM = "32" #override default size
+$NSXTEdgeName = "poc2-nsx-edge-3a"
 $NSXTEdgeHostnameToIPs = @{
-    "poc2-nsx-edge-3a" = "10.114.209.150"
+    $NSXTEdgeName = "10.114.209.150"
+}
+
+# Objects for IDS Lab
+$AttackerVMOVA = ""
+$VictimVMOVA = ""
+$AttackerVMIP = ""
+
+$DMZSegment = [pscustomobject] @{
+    Name = 'DMZSegment'
+    Gateway = '192.168.10.1/24'
+    Subnet = '192.168.10.0/24'
+    DHCPPool = '192.168.10.100-192.168.10.150'
+}
+
+$InternalSegment = [pscustomobject] @{
+    Name = 'InternalSegment'
+    Gateway = '192.168.20.1/24'
+    Subnet = '192.168.20.0/24'
+    DHCPPool = '192.168.20.100-192.168.20.150'
+}
+
+$ProductionTag = [pscustomobject] @{
+    Name = 'Production'
+    Scope = 'Environment'
+}
+
+$DevelopmentTag = [pscustomobject] @{
+    Name = 'Development'
+    Scope = 'Environment'
+}
+
+$App1Tag = [pscustomobject] @{
+    Name = 'App-1'
+    Scope = 'Application'
+}
+
+$App2Tag = [pscustomobject] @{
+    Name = 'App-2'
+    Scope = 'Application'
+}
+
+$WebTierTag = [pscustomobject] @{
+    Name = 'Web-Tier'
+    Scope = 'Tier'
+}
+
+$AppTierTag = [pscustomobject] @{
+    Name = 'App-Tier'
+    Scope = 'Tier'
 }
 
 # Advanced Configurations
@@ -151,6 +204,9 @@ $verboseLogFile = "nsxt-external-lab-deployment.log"
 $random_string = -join ((65..90) + (97..122) | Get-Random -Count 8 | % {[char]$_})
 $VAppName = "NSX-T-External-Lab-$random_string"
 
+$siteID = 'default'
+$enforcementpointID = 'default'
+
 $preCheck = 1
 $confirmDeployment = 1
 $deployNestedESXiVMs = 1
@@ -161,6 +217,7 @@ $configureVSANDiskGroup = 1
 $configureVDS = 1
 $clearVSANHealthCheckAlarm = 1
 $setupPacificStoragePolicy = 1
+$setupESXiSyslogSecurityProfile = 1
 $deployNSXManager = 1
 $deployNSXEdge = 1
 $postDeployNSXConfig = 1
@@ -578,6 +635,21 @@ if($deployNestedESXiVMs -eq 1) {
     }
 }
 
+if ($setupESXiSyslogSecurityProfile -eq 1) {
+    $vc = Connect-VIServer $VCSAIPAddress -User "administrator@$VCSASSODomainName" -Password $VCSASSOPassword -WarningAction SilentlyContinue
+
+    foreach ($hostobj in Get-VMHost) {
+        My-Logger "Editing Security Profile on host $hostobj to allow Syslog"
+        $h = Get-View -Id $hostobj.Id
+        $hostconfig = $h.ConfigManager
+        $type = $hostconfig.FirewallSystem.Type
+        $value = $hostconfig.FirewallSystem.Value
+        $id = 'syslog'
+        $securityprofile = Get-View -Id $type-$value
+        $securityprofile.EnableRuleset($id)
+    }
+}
+
 if($deployNSXManager -eq 1) {
     # Deploy NSX Manager
     $nsxMgrOvfConfig = Get-OvfConfiguration $NSXTManagerOVA
@@ -947,9 +1019,11 @@ if($postDeployNSXConfig -eq 1) {
     $runAddEdgeTransportNode=$true
     $runAddEdgeCluster=$true
     $runNetworkSegment=$true
+    $createDHCPProfile = $true
     $runT0Gateway=$true
     $runT0StaticRoute=$true
     $registervCenterOIDC=$true
+    $createSegments = $true
 
     if($runHealth) {
         My-Logger "Verifying health of all NSX Manager/Controller Nodes ..."
@@ -1347,8 +1421,30 @@ if($postDeployNSXConfig -eq 1) {
         $segment = $segmentPolicyService.update($NetworkSegmentName,$segmentSpec)
     }
 
+    if ($createDHCPProfile) {
+        $edgeClusters = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.sites.enforcement_points.edge_clusters"
+        $edgeCluster = ($edgeClusters.list($siteID, $enforcementpointID).results | where { $_.display_name -eq $EdgeClusterName})
+
+        $edges = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.sites.enforcement_points.edge_clusters.edge_nodes"
+        $edgeName = $NSXTEdgeName + '.' + $VMDomain
+        $edge = ($edges.list($siteID, $enforcementpointID, $edgeCluster.id).results | where { $_.display_name -eq $edgeName})
+
+        My-Logger "Creating DHCP Profile ..."
+        $dhcpprofiledata = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.dhcp_server_configs"
+        $dhcpprofileSpec = $dhcpprofiledata.help.patch.dhcp_server_config.Create()
+        $dhcpprofileSpec.id = $DHCPServerName
+        $dhcpprofileSpec.display_name = $DHCPServerName
+        $dhcpprofileSpec.edge_cluster_path = $edgeCluster.path
+        $dhcpprofileSpec.preferred_edge_paths = @($edge.path)
+        $dhcpprofiledata.patch($DHCPServerName, $dhcpprofileSpec)
+    }
+
+
     if($runT0Gateway) {
         My-Logger "Creating T0 Gateway $T0GatewayName ..."
+
+        $dhcpdata = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.dhcp_server_configs"
+        $dhcpServer = ($dhcpdata.list().results | where { $_.display_name -eq $DHCPServerName })
 
         $t0GatewayPolicyService = Get-NsxtPolicyService -Name "com.vmware.nsx_policy.infra.tier0s"
         $t0GatewayLocalePolicyService = Get-NsxtPolicyService -Name "com.vmware.nsx_policy.infra.tier_0s.locale_services"
@@ -1368,10 +1464,12 @@ if($postDeployNSXConfig -eq 1) {
         if($debug) { "EdgeClusterNodePath: $edgeClusterNodePath" | Out-File -Append -LiteralPath $verboseLogFile }
 
         $t0GatewaySpec = $t0GatewayPolicyService.help.patch.tier0.Create()
+        $t0GatewaySpec.id = $T0GatewayName
         $t0GatewaySpec.display_name = $T0GatewayName
         $t0GatewaySpec.ha_mode = "ACTIVE_STANDBY"
         $t0GatewaySpec.failover_mode = "NON_PREEMPTIVE"
-        $t0Gateway = $t0GatewayPolicyService.update($T0GatewayName,$t0GatewaySpec)
+        $t0GatewaySpec.dhcp_config_paths = @($dhcpServer.path)
+        $t0Gateway = $t0GatewayPolicyService.patch($T0GatewayName,$t0GatewaySpec)
 
         $localeServiceSpec = $t0GatewayLocalePolicyService.help.patch.locale_services.create()
         $localeServiceSpec.display_name = "default"
@@ -1381,7 +1479,7 @@ if($postDeployNSXConfig -eq 1) {
         My-Logger "Creating External T0 Gateway Interface ..."
 
         $t0GatewayInterfaceSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.Create()
-        $t0GatewayInterfaceId = ([guid]::NewGuid()).Guid
+        $t0GatewayInterfaceId = "t0_interface_01"
         $subnetSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.subnets.Element.Create()
         $subnetSpec.ip_addresses = @($T0GatewayInterfaceAddress)
         $subnetSpec.prefix_len = $T0GatewayInterfacePrefix
@@ -1390,7 +1488,7 @@ if($postDeployNSXConfig -eq 1) {
         $t0GatewayInterfaceSpec.type = "EXTERNAL"
         $t0GatewayInterfaceSpec.edge_path = $edgeClusterNodePath
         $t0GatewayInterfaceSpec.resource_type = "Tier0Interface"
-        $t0GatewayInterface = $t0GatewayInterfacePolicyService.update($T0GatewayName,"default",$t0GatewayInterfaceId,$t0GatewayInterfaceSpec)
+        $t0GatewayInterface = $t0GatewayInterfacePolicyService.patch($T0GatewayName,"default",$t0GatewayInterfaceId,$t0GatewayInterfaceSpec)
     }
 
     if($runT0StaticRoute) {
@@ -1428,30 +1526,44 @@ if($postDeployNSXConfig -eq 1) {
         $oidcCreate = $oidcService.create($oidcSpec)
     }
 
+    if ($createSegments) {
+        $tier0s = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.tier0s"
+        $t0 = $tier0s.get($T0GatewayName)
+
+        $tzs = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.sites.enforcement_points.transport_zones"
+        $tz = ($tzs.list($siteID, $enforcementpointID).results | where { $_.display_name -eq $OverlayTransportZoneName})
+        foreach ($seg in $DMZSegment, $InternalSegment) {
+            $name = $seg.Name
+            $gateway = $seg.Gateway
+            $subnet = $seg.Subnet
+            $dhcppool = $seg.DHCPPool
+            My-Logger "Creating Segment $name ..."
+
+            $segmentdata = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.segments"
+            $segmentSpec = $segmentdata.help.patch.segment.Create()
+            $segmentSpec.id = $name
+            $segmentSpec.display_name = $name
+            $segmentSpec.transport_zone_path = $tz.path
+            $segmentSpec.connectivity_path = $t0.path
+            $segmentSpec.advanced_config.connectivity = "ON"
+            # Add Subnets
+            $subnetSpec = $segmentdata.help.patch.segment.subnets.Element.Create()
+            $subnetSpec.gateway_address = $gateway
+            $subnetSpec.dhcp_ranges = @($dhcppool)
+            $segmentSpec.subnets.Add($subnetSpec) | Out-Null
+            # Create Segment
+            $segmentdata.patch($name, $segmentSpec)
+        }
+    }
+
     My-Logger "Disconnecting from NSX-T Manager ..."
     Disconnect-NsxtServer -Confirm:$false
-}
-
-if($setupPacific -eq 1) {
-    My-Logger "Connecting to Management vCenter Server $VIServer for enabling Pacific ..."
-    Connect-VIServer $VIServer -User $VIUsername -Password $VIPassword -WarningAction SilentlyContinue | Out-Null
-
-    My-Logger "Creating Principal Identity in vCenter Server ..."
-    $princpitalIdentityCmd = "echo `'$VCSASSOPassword`' | appliancesh dcli +username `'administrator@$VCSASSODomainName`' +password `'$VCSASSOPassword`' +show-unreleased com vmware vcenter nsxd principalidentity create --username `'$NSXAdminUsername`' --password `'$NSXAdminPassword`'"
-    Invoke-VMScript -ScriptText $princpitalIdentityCmd  -vm (Get-VM $VCSADisplayName) -GuestUser "root" -GuestPassword "$VCSARootPassword" | Out-File -Append -LiteralPath $verboseLogFile
-
-    My-Logger "Creating local $DevOpsUsername User in vCenter Server ..."
-    $devopsUserCreationCmd = "/usr/lib/vmware-vmafd/bin/dir-cli user create --account $DevOpsUsername --first-name `"Dev`" --last-name `"Ops`" --user-password `'$DevOpsPassword`' --login `'administrator@$VCSASSODomainName`' --password `'$VCSASSOPassword`'"
-    Invoke-VMScript -ScriptText $devopsUserCreationCmd -vm (Get-VM -Name $VCSADisplayName) -GuestUser "root" -GuestPassword "$VCSARootPassword" | Out-File -Append -LiteralPath $verboseLogFile
-
-    My-Logger "Disconnecting from Management vCenter ..."
-    Disconnect-VIServer * -Confirm:$false | Out-Null
 }
 
 $EndTime = Get-Date
 $duration = [math]::Round((New-TimeSpan -Start $StartTime -End $EndTime).TotalMinutes,2)
 
-My-Logger "vSphere with Kubernetes External NSX-T Lab Deployment Complete!"
+My-Logger "NSX-T Distributed IDS/IPS Proof of Concept Lab Deployment Complete!"
 My-Logger "StartTime: $StartTime"
 My-Logger "  EndTime: $EndTime"
 My-Logger " Duration: $duration minutes"
