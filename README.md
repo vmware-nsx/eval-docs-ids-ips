@@ -337,11 +337,11 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Profiles
 2. Click **ADD IDS PROFILE**
 3.	Create an IDS Profile with the below parameters. Click Save when done.
-* Name **Production**
-* Signatures to Include: **Critical**, **High**, **Medium**
+    * Name **Production**
+    * Signatures to Include: **Critical**, **High**, **Medium**
 3.	Create another IDS Profile with the below parameters. Click Save when done.
-* Name **Development**
-* Signatures to Include: **Critical**, **High**
+    * Name **Development**
+    * Signatures to Include: **Critical**, **High**
 
 
 
