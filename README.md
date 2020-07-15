@@ -321,6 +321,21 @@ Once the Deployment Script has completed the installation and setup process. You
 
 Now that we have verified the lab has been deployed correctly, basic NSX networking configuration has been applied and the appropriate vunlerable application VMs have been deployed, we can configure the NSX Distributed IDS/IPS.
 
+**Create Groups**
+1.	In the NSX Manager UI, navigate to Inventory -->  Groups 
+2. Click **ADD GROUP**
+3.	Create a Group with the below parameters. Click Save when done.
+    * Name **Production Applications**
+    * Compute Members: Membership Criteria: **Virtual Machine Tag Eqauls Production Scope Environment**
+3.	Create another Group with the below parameters. Click Save when done.
+    * Name **Development Applications**
+    * Compute Members: Membership Criteria: **Virtual Machine Tag Eqauls Development Scope Environment**
+4. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
+    * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
+    * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
+    
+> Note: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
+
 **Enable Intrusion Detection**
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Settings
 2.	Under Enable Intrusion Detection for Cluster(s), set **Workload-Cluster** to Enabled
