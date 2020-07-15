@@ -331,9 +331,11 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 3.	Create another Group with the below parameters. Click Save when done.
     * Name **Development Applications**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Eqauls Development Scope Environment**
+    ![](Images/IDPS_POC_8.PNG)    
 4. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
     * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
     * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
+    ![](Images/IDPS_POC_9.PNG)    
     
 > Note: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
 
