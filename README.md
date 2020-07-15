@@ -12,9 +12,9 @@
     * [Lab Deployment Script](#lab-deployment-script)
 
 ## Description
-The goal of this Proof of Concept (PoC) is to allow customers to get hands-on experience with the NSX Distributed IDS/IPS. The expectation from people participating in the PoC is that they will complete the exercises outline in this guide in order to become familair with the key capabilities offered by the NSX Distributed IDS/IPS. While not the focus of this PoC guide, particpants will also gain basic experience with the Distributed Firewall and other NSX capabilities during this PoC. 
+The goal of this Proof of Value (PoV) is to allow customers to get hands-on experience with the NSX Distributed IDS/IPS. The expectation from people participating in the PoC is that they will complete the exercises outline in this guide in order to become familair with the key capabilities offered by the NSX Distributed IDS/IPS. While not the focus of this PoV guide, particpants will also gain basic experience with the Distributed Firewall and other NSX capabilities during this PoV process. 
 
-While this PoC guide is quite prescriptive, participants can choose to modify any part of the workflow as desired. The guide is primarily focused on getting customers familiar with IDS, hence the deployment of the lab environment and rest of the configuration is automated through the use of a provided PowerShell script. After meeting the-requisites and running the script, a fully configured nested NSX-T environment is available to particpants, including a number of attacker and victim workload which are used as part of the IDS/IPS exercises. 
+While this PoV guide is quite prescriptive, participants can choose to modify any part of the workflow as desired. The guide is primarily focused on getting customers familiar with IDS, hence the deployment of the lab environment and rest of the configuration is automated through the use of a provided PowerShell script. After meeting the-requisites and running the script, a fully configured nested NSX-T environment is available to particpants, including a number of attacker and victim workload which are used as part of the IDS/IPS exercises. 
 
 This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
 
@@ -75,7 +75,7 @@ This PoC guide is intended for existing and future NSX customers who want to eva
 * Enterprise Applicatoin Owner
 
 ## Resources commitment and suggsted timeline
-The expected time commitment to complete the PoC process is about 5 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
+The expected time commitment to complete the PoV process is about 5 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
 
 | Task  | Estimated Time to Complete | Suggested Week | 
 | ------------- | ------------- | ------------- |
@@ -88,25 +88,25 @@ The expected time commitment to complete the PoC process is about 5 hours. This 
 | Advanced Attack and configuration tuning | 30 minutes | Week 2 | 
 | Apply micro-segmentation to limit the attack surface | 30 minutes | Week 2 | 
 
-## Support during the PoC Process
+## Support during the PoV Process
 
-Existing NSX customers should reach out to their account team for support during the PoC process, or to the NSX PoC lead that has been assigend to the customer. In additon, any participant can reach out to x@vmware.com for support during the PoC.
+Existing NSX customers should reach out to their account team for support during the PoV process, or to the NSX PoV lead that has been assigend to the customer. In additon, any participant can reach out to x@vmware.com for support during the PoV.
 
 ## Customize Deployment Script Variables
 **Estimated Time to Complete: 60 minutes**
 
 Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used my sample lab environment. The variables that need to adjusted are called out specifically. Other variables can in almost all cases be left to their default values.
 
-In this example below, I will be using a single /27 subnet(10.114.209.128/27)  on a single port-group (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for POC and testing purposes.
+In this example below, I will be using a single /27 subnet(10.114.209.128/27)  on a single port-group (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for PoV and testing purposes.
 
 | Name                       | IP Address                     | Function                     |
 |----------------------------|--------------------------------|------------------------------|
-| poc-vcsa                   | 10.114.209.143                 | vCenter Server               |
+| pov-vcsa                   | 10.114.209.143                 | vCenter Server               |
 | Nested_ESXi_1              | 10.114.209.140                 | ESXi                         |
 | Nested_ESXi_2              | 10.114.209.142                 | ESXi                         |
 | Nested_ESXi_3              | 10.114.209.143                 | ESXi                         |
-| poc-nsx                    | 10.114.209.149                 | NSX-T Manager                |
-| poc-nsx-edge               | 10.114.209.150                 | NSX-T Edge                   |
+| pov-nsx                    | 10.114.209.149                 | NSX-T Manager                |
+| pov-nsx-edge               | 10.114.209.150                 | NSX-T Edge                   |
 | T0-uplink                  | 10.114.209.148                 | T0 GW Interface IP           |
 | TunnelEndpointGateway      | 10.114.209.129                 | Existing default GW          |
 | T0 Static Default GW       | 10.114.209.129                 | Existing default GW          |
@@ -154,7 +154,7 @@ $NestedESXiCapacityvDisk = "100" #GB
 This section describes the VCSA deployment configuration such as the VCSA deployment size, Networking & SSO configurations. If you have ever used the VCSA CLI Installer, these options should look familiar. Adjust the **IP address** and **Prefix (Subnet Mask Bits)** to match the desired IP address of the nested ESXi. Use the Same IP address as the hostname, unless you can add an FQDN entry to your DSN server. 
 ```console
 $VCSADeploymentSize = "tiny"
-$VCSADisplayName = "poc-vcsa"
+$VCSADisplayName = "pov-vcsa"
 $VCSAIPAddress = "10.114.209.143" 
 $VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS. 
 $VCSAPrefix = "27"
@@ -177,7 +177,7 @@ $VMNTP = "10.20.145.1"
 $VMPassword = "VMware1!"
 $VMDomain = "lab.svanveer.pa"
 $VMSyslog = "10.114.222.70" # This should be the same IP address as the External VM IP address
-$VMFolder = "NSX PoC 2"
+$VMFolder = "NSX PoV"
 
 # Applicable to Nested ESXi only
 $VMSSH = "true"
@@ -186,18 +186,18 @@ $VMVMFS = "false"
 
 This section describes the configuration of the new lab vCenter Server from the deployed VCSA. **Default values are sufficient.**
 ```console
-$NewVCDatacenterName = "PoC-Datacenter"
+$NewVCDatacenterName = "PoV-Datacenter"
 $NewVCVSANClusterName = "Workload-Cluster"
-$NewVCVDSName = "PoC-VDS"
+$NewVCVDSName = "PoV-VDS"
 $NewVCDVPGName = "DVPG-Management Network"
 ```
 
-This section describes the PoC Configurations. **Default values are sufficient.**
+This section describes the PoV Configurations. **Default values are sufficient.**
 ```console
-# PoC Configuration
-$StoragePolicyName = "PoC-gold-storage-policy"
-$StoragePolicyTagCategory = "PoC-demo-tag-category"
-$StoragePolicyTagName = "PoC-demo-storage"
+# PoV Configuration
+$StoragePolicyName = "PoV-gold-storage-policy"
+$StoragePolicyTagCategory = "PoV-demo-tag-category"
+$StoragePolicyTagName = "PoV-demo-storage"
 $DevOpsUsername = "devops"
 $DevOpsPassword = "VMware1!"
 ```
@@ -217,7 +217,7 @@ $NSXEnableRootLogin = "true"
 $NSXVTEPNetwork = "VLAN-194" # Replace with the appropriate pre-existing port-group 
 
 # Transport Node Profile
-$TransportNodeProfileName = "PoC-Transport-Node-Profile"
+$TransportNodeProfileName = "PoV-Transport-Node-Profile"
 
 # TEP IP Pool  - Replace IP addresses to match the physical environment subnet you've allocated (i.e management network) 
 $TunnelEndpointName = "TEP-IP-Pool"
@@ -234,14 +234,14 @@ $VlanTransportZoneName = "TZ-VLAN"
 $VlanTransportZoneNameHostSwitchName = "edgeswitch"
 
 # Network Segment - Default Values are sufficient
-$NetworkSegmentName = "PoC-Segment"
+$NetworkSegmentName = "PoV-Segment"
 $NetworkSegmentVlan = "0"
 
 # T0 Gateway
-$T0GatewayName = "PoC-T0-Gateway"
+$T0GatewayName = "PoV-T0-Gateway"
 $T0GatewayInterfaceAddress = "10.114.209.148" # should be a routable address
 $T0GatewayInterfacePrefix = "27"
-$T0GatewayInterfaceStaticRouteName = "PoC-Static-Route"
+$T0GatewayInterfaceStaticRouteName = "PoV-Static-Route"
 $T0GatewayInterfaceStaticRouteNetwork = "0.0.0.0/0"
 $T0GatewayInterfaceStaticRouteAddress = "10.114.209.129" # This can be set to an invalid IP address to ensure the vulnerable workloads remain isolated from the rest of the environment
 
@@ -267,7 +267,7 @@ $EdgeClusterName = "Edge-Cluster-01"
 $NSXTMgrDeploymentSize = "small"
 $NSXTMgrvCPU = "6" #override default size
 $NSXTMgrvMEM = "24" #override default size
-$NSXTMgrDisplayName = "poc-nsx-manager"
+$NSXTMgrDisplayName = "pov-nsx-manager"
 $NSXTMgrHostname = "10.114.209.149" # Replace with the desired IP address for the NSX Manager
 $NSXTMgrIPAddress = "10.114.209.149" # Replace with the desired IP address for the NSX Manager
 
@@ -276,7 +276,7 @@ $NSXTEdgeDeploymentSize = "medium"
 $NSXTEdgevCPU = "8" #override default size
 $NSXTEdgevMEM = "32" #override default size
 $NSXTEdgeHostnameToIPs = @{
-    "poc-nsx-edge" = "10.114.209.150" #Replace with the desired IP address for the NSX Edge Management Interface
+    "pov-nsx-edge" = "10.114.209.150" #Replace with the desired IP address for the NSX Edge Management Interface
 }
 ```
 
