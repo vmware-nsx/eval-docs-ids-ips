@@ -325,6 +325,8 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Settings
 2.	Under Enable Intrusion Detection for Cluster(s), set **Workload-Cluster** to Enabled
 
+![](Images/IDPS_POC_5.PNG)
+
 NSX can automatically update it’s IDS signatures by checking our cloud-based service. By default, NSX manager will check once per day and we publish new signature update versions every two week (with additional non-scheduled 0-day updates). NSX can also be configured to optionally automatically apply newly updated signatures to all hosts that have IDS enabled.
 
 **Enable Automated Signature Update propagation**
@@ -343,6 +345,7 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
     * Name **Development**
     * Signatures to Include: **Critical**, **High**
 
+![](Images/IDPS_POC_6.PNG)
 
 
 [TO BE COMPLETED]
