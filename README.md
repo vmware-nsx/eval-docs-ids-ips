@@ -322,18 +322,22 @@ Once the Deployment Script has completed the installation and setup process. You
 Now that we have verified the lab has been deployed correctly, basic NSX networking configuration has been applied and the appropriate vunlerable application VMs have been deployed, we can configure the NSX Distributed IDS/IPS.
 
 **Enable Intrusion Detection**
-*	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Settings
-*	Under Enable Intrusion Detection for Cluster(s), set **Workload-Cluster** to Enabled
+1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Settings
+2.	Under Enable Intrusion Detection for Cluster(s), set **Workload-Cluster** to Enabled
 
 NSX can automatically update it’s IDS signatures by checking our cloud-based service. By default, NSX manager will check once per day and we publish new signature update versions every two week (with additional non-scheduled 0-day updates). NSX can also be configured to optionally automatically apply newly updated signatures to all hosts that have IDS enabled.
 
 **Enable Automated Signature Update propagation**
-* Under Intrusion Detection Signatures, select **Auto Update new versions (recommended)** in order to propagate the latest signature updates from the cloud to the distributed IDS instances
-* Optionally, click **View and Change Versions** and expand one of the signature sets to see what signatures have been added/updated/disabled in this particular release 
-*	Note: if a proxy server is configured for NSX Manager to access the internet, click Proxy Settings and complete the configuration
+1.	Under Intrusion Detection Signatures, select **Auto Update new versions (recommended)** in order to propagate the latest signature updates from the cloud to the distributed IDS instances
+2.	Optionally, click **View and Change Versions** and expand one of the signature sets to see what signatures have been added/updated/disabled in this particular release 
+3.	Note: if a proxy server is configured for NSX Manager to access the internet, click Proxy Settings and complete the configuration
 
 
 **Create IDS Profiles**
+1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Profiles
+2. Click **ADD IDS PROFILE**
+3.	Create an IDS Profile with the following parameters:
+
 [TO BE COMPLETED]
 
 **Simple Attack Scenario**
