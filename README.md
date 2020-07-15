@@ -327,7 +327,7 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 3.	Create a Group with the below parameters. Click Save when done.
     * Name **Production Applications**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Eqauls Production Scope Environment**
-    ![](Images/IDPS_POC_7.PNG)    
+    ![](Images/IDPS_POC_7.PNG)     
 3.	Create another Group with the below parameters. Click Save when done.
     * Name **Development Applications**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Eqauls Development Scope Environment**
