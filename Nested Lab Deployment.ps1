@@ -225,6 +225,8 @@ $AppTierTag = [pscustomobject] @{
     Scope = 'Tier'
 }
 
+$ExternalVM = "External-VM"
+
 # Advanced Configurations
 # Set to 1 only if you have DNS (forward/reverse) for ESXi hostnames
 $addHostByDnsName = 0
@@ -935,12 +937,10 @@ if($moveVMsIntovApp -eq 1) {
 
 if ($deployExternalVM) {
     $externalVMOvfConfig = Get-OvfConfiguration -Server $viConnection $ExternalVMOVA
-    $vmhost = Get-VMHost -name "10.114.222.86"
 
     My-Logger "Deploying External VM $ExternalVM ..."
-#    $external_vm = Import-VApp -Server $viConnection -Source $ExternalVMOVA -OvfConfiguration $externalVMOvfConfig -Name $ExternalVM -Location $cluster -VMHost $vmhost -Datastore $datastore -DiskStorageFormat thin
+    $vm = Import-VApp -Server $viConnection -Source $ExternalVMOVA -OvfConfiguration $externalVMOvfConfig -Name $ExternalVM -Location $cluster -VMHost $vmhost -Datastore $datastore -DiskStorageFormat thin
     My-Logger "Reconfiguring VM $ExternalVM network to $VMNetwork ..."
-    $vm = Get-VM -Server $viConnection -Name $ExternalVM
     $vm | Get-NetworkAdapter -Server $viConnection | Set-NetworkAdapter -Server $viConnection -Portgroup $VMNetwork -Confirm:$false | Out-Null
     My-Logger "Powering On $ExternalVM ..."
     $vm | Start-Vm -Server $viConnection -RunAsync | Out-Null
