@@ -10,6 +10,9 @@ $NestedESXiApplianceOVA = "C:\Users\stijn\downloads\ESXI\Nested_ESXi7.0_Applianc
 $VCSAInstallerPath = "C:\Users\stijn\downloads\VCSA\VMware-VCSA-all-7.0.0-16189094"
 $NSXTManagerOVA = "C:\Users\stijn\downloads\NSXMgr\nsx-unified-appliance-3.0.0.0.0.15946739.ova"
 $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova"
+$ExternalVMOVA = "C:\Users\stijn\downloads\Attacker\External-VM.ova"
+$VictimVMOVA = "C:\Users\stijn\downloads/Victim\Victim-VM.ova"
+
 
 # Nested ESXi VMs to deploy
 $NestedESXiHostnameToIPs = @{
@@ -56,6 +59,7 @@ $VMVMFS = "false"
 # Name of new vSphere Datacenter/Cluster when VCSA is deployed
 $NewVCDatacenterName = "PoC-Datacenter"
 $NewVCVSANClusterName = "Workload-Cluster"
+$NewDatastore = "vsanDatastore"
 $NewVCVDSName = "PoC-VDS"
 $NewVCDVPGName = "DVPG-Management Network"
 
@@ -103,6 +107,7 @@ $DHCPServerName = "DHCP_Server"
 
 # T0 Gateway
 $T0GatewayName = "PoC2-T0-Gateway"
+$T0GatewayInterface = "t0_interface_01"
 $T0GatewayInterfaceAddress = "10.114.209.148" # should be a routable address
 $T0GatewayInterfacePrefix = "27"
 $T0GatewayInterfaceStaticRouteName = "PoC-Static-Route"
@@ -144,11 +149,12 @@ $NSXTEdgeHostnameToIPs = @{
     $NSXTEdgeName = "10.114.209.150"
 }
 
-# Objects for IDS Lab
-$AttackerVMOVA = ""
-$VictimVMOVA = ""
-$AttackerVMIP = ""
+# SNAT Rule
+$NATName = "SNAT_Internal"
+$NATSourceNetwork = "192.168.20.0/24"
+$NATTranslatedNetwork = "10.114.222.125"
 
+# Segments
 $DMZSegment = [pscustomobject] @{
     Name = 'DMZSegment'
     Gateway = '192.168.10.1/24'
@@ -163,13 +169,39 @@ $InternalSegment = [pscustomobject] @{
     DHCPPool = '192.168.20.100-192.168.20.150'
 }
 
-$ProductionTag = [pscustomobject] @{
-    Name = 'Production'
+# Attacker and Victim VMs
+$App1WebVM= [pscustomobject] @{
+    Name = "APP-1-WEB-TIER"
+    Network = $DMZSegment.Name
+    HostIndex = 0
+}
+
+$App2WebVM = [pscustomobject] @{
+    Name = "APP-2-WEB-TIER"
+    Network = $DMZSegment.Name
+    HostIndex = 1
+}
+
+$App1AppVM = [pscustomobject] @{
+    Name = "APP-1-APP-TIER"
+    Network = $InternalSegment.Name
+    HostIndex = 2
+}
+
+$App2AppVM = [pscustomobject] @{
+    Name = "APP-2-APP-TIER"
+    Network = $InternalSegment.Name
+    HostIndex = 0
+}
+
+# Tags
+$DevelopmentTag = [pscustomobject] @{
+    Name = 'Development'
     Scope = 'Environment'
 }
 
-$DevelopmentTag = [pscustomobject] @{
-    Name = 'Development'
+$ProductionTag = [pscustomobject] @{
+    Name = 'Production'
     Scope = 'Environment'
 }
 
@@ -218,9 +250,12 @@ $configureVDS = 1
 $clearVSANHealthCheckAlarm = 1
 $setupPacificStoragePolicy = 1
 $setupESXiSyslogSecurityProfile = 1
+$deployExternalVM = 1
+$deployVictimVM = 1
 $deployNSXManager = 1
 $deployNSXEdge = 1
 $postDeployNSXConfig = 1
+$tagVictimVM = 1
 $setupPacific = 0 #Leave this to 0 for IDS PoC Lab
 $moveVMsIntovApp = 0 #Leave this to 0 for IDS PoC Lab
 
@@ -358,6 +393,26 @@ Function URL-Check([string] $url) {
     return $isWorking
 }
 
+Function Set-VMTags {
+    Param (
+        [string]$VMName, [pscustomobject[]]$Tags
+    )
+
+    $inventoryvms = Get-NsxtService -name "com.vmware.nsx.fabric.virtual_machines"
+    $appvm = ($inventoryvms.list().results | where { $_.display_name -eq $VMName})
+    $customTags = @()
+    foreach ($tag in $Tags) {
+        $customtag = [pscustomobject] @{
+            "tag" = $tag.Name
+            "scope" = $tag.Scope
+        }
+        $customtags = $customtags + $customtag
+    }
+
+    $appvm.tags = $customtags
+    $inventoryvms.updatetags($appvm)
+}
+
 if($preCheck -eq 1) {
     if(!(Test-Path $NestedESXiApplianceOVA)) {
         Write-Host -ForegroundColor Red "`nUnable to find $NestedESXiApplianceOVA ...`n"
@@ -374,8 +429,13 @@ if($preCheck -eq 1) {
         exit
     }
 
-    if(!(Test-Path $NSXTEdgeOVA) -and $deployNSXEdge -eq 1) {
-        Write-Host -ForegroundColor Red "`nUnable to find $NSXTEdgeOVA ...`n"
+    if(!(Test-Path $ExternalVMOVA) -and $deployExternalVM -eq 1) {
+        Write-Host -ForegroundColor Red "`nUnable to find $ExternalVMOVA ...`n"
+        exit
+    }
+
+    if(!(Test-Path $VictimVMOVA) -and $deployVictimVM -eq 1) {
+        Write-Host -ForegroundColor Red "`nUnable to find $VictimVMOVA ...`n"
         exit
     }
 
@@ -567,7 +627,7 @@ if($confirmDeployment -eq 1) {
     Clear-Host
 }
 
-if( $deployNestedESXiVMs -eq 1 -or $deployVCSA -eq 1 -or $deployNSXManager -eq 1 -or $deployNSXEdge -eq 1) {
+if( $deployNestedESXiVMs -eq 1 -or $deployVCSA -eq 1 -or $deployNSXManager -eq 1 -or $deployNSXEdge -eq 1 -or $deployExternalVM -eq 1) {
     My-Logger "Connecting to Management vCenter Server $VIServer ..."
     $viConnection = Connect-VIServer $VIServer -User $VIUsername -Password $VIPassword -WarningAction SilentlyContinue
 
@@ -636,8 +696,6 @@ if($deployNestedESXiVMs -eq 1) {
 }
 
 if ($setupESXiSyslogSecurityProfile -eq 1) {
-    $vc = Connect-VIServer $VCSAIPAddress -User "administrator@$VCSASSODomainName" -Password $VCSASSOPassword -WarningAction SilentlyContinue
-
     foreach ($hostobj in Get-VMHost) {
         My-Logger "Editing Security Profile on host $hostobj to allow Syslog"
         $h = Get-View -Id $hostobj.Id
@@ -875,15 +933,30 @@ if($moveVMsIntovApp -eq 1) {
     Move-VApp -Server $viConnection $VAppName -Destination (Get-Folder -Server $viConnection $VMFolder) | Out-File -Append -LiteralPath $verboseLogFile
 }
 
-if( $deployNestedESXiVMs -eq 1 -or $deployVCSA -eq 1 -or $deployNSXManager -eq 1 -or $deployNSXEdge -eq 1) {
+if ($deployExternalVM) {
+    $externalVMOvfConfig = Get-OvfConfiguration -Server $viConnection $ExternalVMOVA
+    $vmhost = Get-VMHost -name "10.114.222.86"
+
+    My-Logger "Deploying External VM $ExternalVM ..."
+#    $external_vm = Import-VApp -Server $viConnection -Source $ExternalVMOVA -OvfConfiguration $externalVMOvfConfig -Name $ExternalVM -Location $cluster -VMHost $vmhost -Datastore $datastore -DiskStorageFormat thin
+    My-Logger "Reconfiguring VM $ExternalVM network to $VMNetwork ..."
+    $vm = Get-VM -Server $viConnection -Name $ExternalVM
+    $vm | Get-NetworkAdapter -Server $viConnection | Set-NetworkAdapter -Server $viConnection -Portgroup $VMNetwork -Confirm:$false | Out-Null
+    My-Logger "Powering On $ExternalVM ..."
+    $vm | Start-Vm -Server $viConnection -RunAsync | Out-Null
+}
+
+if( $deployNestedESXiVMs -eq 1 -or $deployVCSA -eq 1 -or $deployNSXManager -eq 1 -or $deployNSXEdge -eq 1 -or $deployExternalVM -eq 1) {
     My-Logger "Disconnecting from $VIServer ..."
     Disconnect-VIServer -Server $viConnection -Confirm:$false
 }
 
-if($setupNewVC -eq 1) {
+if ($setupNewVC -eq 1 -or $deployVictimVM -eq 1) {
     My-Logger "Connecting to the new VCSA ..."
     $vc = Connect-VIServer $VCSAIPAddress -User "administrator@$VCSASSODomainName" -Password $VCSASSOPassword -WarningAction SilentlyContinue
+}
 
+if($setupNewVC -eq 1) {
     $d = Get-Datacenter -Server $vc $NewVCDatacenterName -ErrorAction Ignore
     if( -Not $d) {
         My-Logger "Creating Datacenter $NewVCDatacenterName ..."
@@ -984,7 +1057,7 @@ if($setupNewVC -eq 1) {
 
     if($setupPacificStoragePolicy) {
         if($configureVSANDiskGroup -eq 1) {
-            $datastoreName = "vsanDatastore"
+            $datastoreName = $NewDatastore
         } else {
             $datastoreName = ((Get-Cluster -Server $vc | Get-VMHost | Select -First 1 | Get-Datastore) | where {$_.type -eq "VMFS"}).name
         }
@@ -994,12 +1067,9 @@ if($setupNewVC -eq 1) {
         Get-Datastore -Server $vc -Name $datastoreName | New-TagAssignment -Server $vc -Tag $StoragePolicyTagName | Out-File -Append -LiteralPath $verboseLogFile
         New-SpbmStoragePolicy -Server $vc -Name $StoragePolicyName -AnyOfRuleSets (New-SpbmRuleSet -Name "pacific-ruleset" -AllOfRules (New-SpbmRule -AnyOfTags (Get-Tag $StoragePolicyTagName))) | Out-File -Append -LiteralPath $verboseLogFile
     }
-
-    My-Logger "Disconnecting from new VCSA ..."
-    Disconnect-VIServer $vc -Confirm:$false
 }
 
-if($postDeployNSXConfig -eq 1) {
+if ($postDeployNSXConfig -eq 1 -or $tagVictimVM -eq 1) {
     My-Logger "Connecting to NSX-T Manager for post-deployment configuration ..."
     if(!(Connect-NsxtServer -Server $NSXTMgrHostname -Username $NSXAdminUsername -Password $NSXAdminPassword -WarningAction SilentlyContinue)) {
         Write-Host -ForegroundColor Red "Unable to connect to NSX-T Manager, please check the deployment"
@@ -1007,23 +1077,26 @@ if($postDeployNSXConfig -eq 1) {
     } else {
         My-Logger "Successfully logged into NSX-T Manager $NSXTMgrHostname  ..."
     }
+}
 
-    $runHealth=$true
-    $runCEIP=$true
-    $runAddVC=$true
-    $runIPPool=$true
-    $runTransportZone=$true
-    $runUplinkProfile=$true
-    $runTransportNodeProfile=$true
-    $runAddEsxiTransportNode=$true
-    $runAddEdgeTransportNode=$true
-    $runAddEdgeCluster=$true
-    $runNetworkSegment=$true
+if($postDeployNSXConfig -eq 1) {
+    $runHealth = $true
+    $runCEIP = $true
+    $runAddVC = $true
+    $runIPPool = $true
+    $runTransportZone = $true
+    $runUplinkProfile = $true
+    $runTransportNodeProfile = $true
+    $runAddEsxiTransportNode = $true
+    $runAddEdgeTransportNode = $true
+    $runAddEdgeCluster = $true
+    $runNetworkSegment = $true
     $createDHCPProfile = $true
-    $runT0Gateway=$true
-    $runT0StaticRoute=$true
-    $registervCenterOIDC=$true
+    $runT0Gateway = $true
+    $runT0StaticRoute = $true
+    $registervCenterOIDC = $true
     $createSegments = $true
+    $configureNAT = $true
 
     if($runHealth) {
         My-Logger "Verifying health of all NSX Manager/Controller Nodes ..."
@@ -1479,7 +1552,7 @@ if($postDeployNSXConfig -eq 1) {
         My-Logger "Creating External T0 Gateway Interface ..."
 
         $t0GatewayInterfaceSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.Create()
-        $t0GatewayInterfaceId = "t0_interface_01"
+        $t0GatewayInterfaceId = T0GatewayIinterface
         $subnetSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.subnets.Element.Create()
         $subnetSpec.ip_addresses = @($T0GatewayInterfaceAddress)
         $subnetSpec.prefix_len = $T0GatewayInterfacePrefix
@@ -1556,6 +1629,67 @@ if($postDeployNSXConfig -eq 1) {
         }
     }
 
+    if ($configureNAT) {
+        $nat_id = "USER"
+        $interfaces = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.tier_0s.locale_services.interfaces"
+        $interface = $interfaces.get($T0GatewayName, 'default', $T0GatewayInterface)
+        $natrules = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.tier_0s.nat.nat_rules"
+        $natruleSpec = $natrules.help.patch.policy_nat_rule.Create()
+        $natruleSpec.display_name = $NATName
+        $natruleSpec.id = $NATName
+        $natruleSpec.action = "SNAT"
+        $natruleSpec.source_network = $NATSourceNetwork
+        $natruleSpec.translated_network = $NATTranslatedNetwork
+        $natruleSpec.scope = @($interface.path)
+        My-Logger "Creating SNAT Rule $NATName ..."
+        $natrules.patch($T0GatewayName, $nat_id, $NATName, $natruleSpec)
+    }
+}
+
+if ($deployVictimVM -eq 1) {
+    $victimVMOvfConfig = Get-OvfConfiguration -Server $vc $VictimVMOVA
+    $datastore = Get-Datastore -Server $vc -Name $NewDatastore
+    $cluster = Get-Cluster -Server $vc -Name $NewVCVSANClusterName
+    $datacenter = $cluster | Get-Datacenter
+    $hosts = $cluster | Get-VMHost
+
+    foreach ($victim_vm in $App1WebVM, $App2WebVM, $App1AppVM, $App2AppVM) {
+        # Deploy VM
+        $victim_name = $victim_vm.Name
+        $network = $victim_vm.Network
+        $vm = Get-VM -Server $vc -Name $victim_name -ErrorAction SilentlyContinue
+        if ($vm) {
+            $vmhost = $vm | Get-VMHost
+            My-Logger "VM $victim_name already exists on $vmhost. Skipping deployment ..."
+        } else {
+            $vmhost = $hosts[$victim_vm.HostIndex]
+            My-Logger "Deploying Victim $victim_name ... on $vmhost"
+            $vm = Import-VApp -Server $vc -Source $VictimVMOVA -OvfConfiguration $victimVMOvfConfig -Name $victim_vm.Name -Location $cluster -Datastore $datastore -VMHost $vmhost -DiskStorageFormat thin
+        }
+        My-Logger "Reconfiguring Network on VM $victim_name to $network  ..."
+        $vm | Get-NetworkAdapter -Server $vc | Set-NetworkAdapter -Portgroup $network -Confirm:$false | Out-Null
+
+        My-Logger "Powering on $victim_name ..."
+        $vm | Start-Vm -RunAsync | Out-Null
+    }
+}
+
+if ($tagVictimVM -eq 1) {
+    My-Logger "Tagging VMs ..."
+
+    Set-VMTags -VMName $App1AppVM.Name -Tags $AppTierTag, $App1Tag, $ProductionTag
+    Set-VMTags -VMName $App2AppVM.Name -Tags $AppTierTag, $App2Tag
+    Set-VMTags -VMName $App1WebVM.Name -Tags $ProductionTag, $WebTierTag, $App1Tag
+    Set-VMTags -VMName $App2WebVM.Name -Tags $App2Tag, $WebTierTag
+
+}
+
+if ($setupNewVC -eq 1 -or $deployVictimVM -eq 1) {
+    My-Logger "Disconnecting from new VCSA ..."
+    Disconnect-VIServer $vc -Confirm:$false
+}
+
+if ($postDeployNSXConfig -eq 1 -or $tagVictimVM -eq 1) {
     My-Logger "Disconnecting from NSX-T Manager ..."
     Disconnect-NsxtServer -Confirm:$false
 }
