@@ -23,7 +23,7 @@ $NestedESXiHostnameToIPs = @{
 
 # Nested ESXi VM Resources
 $NestedESXivCPU = "4"
-$NestedESXivMEM = "12" #GB
+$NestedESXivMEM = "16" #GB
 $NestedESXiCachingvDisk = "8" #GB
 $NestedESXiCapacityvDisk = "100" #GB
 
@@ -134,16 +134,16 @@ $EdgeClusterName = "Edge-Cluster-01"
 
 # NSX-T Manager Configurations
 $NSXTMgrDeploymentSize = "small"
-$NSXTMgrvCPU = "6" #override default size
-$NSXTMgrvMEM = "24" #override default size
+$NSXTMgrvCPU = "4" #override default size
+$NSXTMgrvMEM = "16" #override default size
 $NSXTMgrDisplayName = "poc2-nsx"
 $NSXTMgrHostname = "10.114.209.149"
 $NSXTMgrIPAddress = "10.114.209.149"
 
 # NSX-T Edge Configuration
 $NSXTEdgeDeploymentSize = "medium"
-$NSXTEdgevCPU = "8" #override default size
-$NSXTEdgevMEM = "32" #override default size
+$NSXTEdgevCPU = "4" #override default size
+$NSXTEdgevMEM = "8" #override default size
 $NSXTEdgeName = "poc2-nsx-edge-3a"
 $NSXTEdgeHostnameToIPs = @{
     $NSXTEdgeName = "10.114.209.150"
