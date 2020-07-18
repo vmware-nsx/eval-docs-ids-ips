@@ -1552,7 +1552,7 @@ if($postDeployNSXConfig -eq 1) {
         My-Logger "Creating External T0 Gateway Interface ..."
 
         $t0GatewayInterfaceSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.Create()
-        $t0GatewayInterfaceId = T0GatewayIinterface
+        $t0GatewayInterfaceId = T0GatewayInterface
         $subnetSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.subnets.Element.Create()
         $subnetSpec.ip_addresses = @($T0GatewayInterfaceAddress)
         $subnetSpec.prefix_len = $T0GatewayInterfacePrefix
