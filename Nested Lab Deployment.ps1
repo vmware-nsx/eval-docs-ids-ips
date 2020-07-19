@@ -1080,25 +1080,25 @@ if ($postDeployNSXConfig -eq 1 -or $tagVictimVM -eq 1) {
 }
 
 if($postDeployNSXConfig -eq 1) {
-    $runHealth = $true
-    $runCEIP = $true
-    $runAddVC = $true
-    $runIPPool = $true
-    $runTransportZone = $true
-    $runUplinkProfile = $true
-    $runTransportNodeProfile = $true
-    $runAddEsxiTransportNode = $true
-    $runAddEdgeTransportNode = $true
-    $runAddEdgeCluster = $true
-    $runNetworkSegment = $true
-    $createDHCPProfile = $true
-    $runT0Gateway = $true
-    $runT0StaticRoute = $true
-    $registervCenterOIDC = $true
-    $createSegments = $true
-    $configureNAT = $true
+    $runHealth = 1
+    $runCEIP = 1
+    $runAddVC = 1
+    $runIPPool = 1
+    $runTransportZone = 1
+    $runUplinkProfile = 1
+    $runTransportNodeProfile = 1
+    $runAddEsxiTransportNode = 1
+    $runAddEdgeTransportNode = 1
+    $runAddEdgeCluster = 1
+    $runNetworkSegment = 1
+    $createDHCPProfile = 1
+    $runT0Gateway = 1
+    $runT0StaticRoute = 1
+    $registervCenterOIDC = 1
+    $createSegments = 1
+    $configureNAT = 1
 
-    if($runHealth) {
+    if($runHealth -eq 1) {
         My-Logger "Verifying health of all NSX Manager/Controller Nodes ..."
         $clusterNodeService = Get-NsxtService -Name "com.vmware.nsx.cluster.nodes"
         $clusterNodeStatusService = Get-NsxtService -Name "com.vmware.nsx.cluster.nodes.status"
@@ -1129,7 +1129,7 @@ if($postDeployNSXConfig -eq 1) {
         }
     }
 
-    if($runCEIP) {
+    if($runCEIP -eq 1) {
         My-Logger "Accepting CEIP Agreement ..."
         $ceipAgreementService = Get-NsxtService -Name "com.vmware.nsx.telemetry.agreement"
         $ceipAgreementSpec = $ceipAgreementService.get()
@@ -1137,7 +1137,7 @@ if($postDeployNSXConfig -eq 1) {
         $agreementResult = $ceipAgreementService.update($ceipAgreementSpec)
     }
 
-    if($runAddVC) {
+    if($runAddVC -eq 1) {
         My-Logger "Adding vCenter Server Compute Manager ..."
         $computeManagerSerivce = Get-NsxtService -Name "com.vmware.nsx.fabric.compute_managers"
         $computeManagerStatusService = Get-NsxtService -Name "com.vmware.nsx.fabric.compute_managers.status"
@@ -1163,7 +1163,7 @@ if($postDeployNSXConfig -eq 1) {
         }
     }
 
-    if($runIPPool) {
+    if($runIPPool -eq 1) {
         My-Logger "Creating Tunnel Endpoint IP Pool ..."
         $ipPoolService = Get-NsxtService -Name "com.vmware.nsx.pools.ip_pools"
         $ipPoolSpec = $ipPoolService.help.create.ip_pool.Create()
@@ -1181,7 +1181,7 @@ if($postDeployNSXConfig -eq 1) {
         $ipPool = $ipPoolService.create($ipPoolSpec)
     }
 
-    if($runTransportZone) {
+    if($runTransportZone -eq 1) {
         My-Logger "Creating Overlay & VLAN Transport Zones ..."
 
         $transportZoneService = Get-NsxtService -Name "com.vmware.nsx.transport_zones"
@@ -1198,7 +1198,7 @@ if($postDeployNSXConfig -eq 1) {
         $vlanTZ = $transportZoneService.create($vlanTZSpec)
     }
 
-    if($runUplinkProfile) {
+    if($runUplinkProfile -eq 1) {
         $hostSwitchProfileService = Get-NsxtService -Name "com.vmware.nsx.host_switch_profiles"
 
         My-Logger "Creating ESXi Uplink Profile ..."
@@ -1225,7 +1225,7 @@ if($postDeployNSXConfig -eq 1) {
         $EdgeUplinkProfile = $hostSwitchProfileService.create($EdgeUplinkProfileSpec)
     }
 
-    if($runTransportNodeProfile) {
+    if($runTransportNodeProfile -eq 1) {
         $vc = Connect-VIServer $VCSAIPAddress -User "administrator@$VCSASSODomainName" -Password $VCSASSOPassword -WarningAction SilentlyContinue
 
         # Retrieve VDS UUID from vCenter Server
@@ -1310,7 +1310,7 @@ if($postDeployNSXConfig -eq 1) {
         }
     }
 
-    if($runAddEsxiTransportNode) {
+    if($runAddEsxiTransportNode -eq 1) {
         $transportNodeCollectionService = Get-NsxtService -Name "com.vmware.nsx.transport_node_collections"
         $transportNodeCollectionStateService = Get-NsxtService -Name "com.vmware.nsx.transport_node_collections.state"
         $computeCollectionService = Get-NsxtService -Name "com.vmware.nsx.fabric.compute_collections"
@@ -1334,7 +1334,7 @@ if($postDeployNSXConfig -eq 1) {
         }
     }
 
-    if($runAddEdgeTransportNode) {
+    if($runAddEdgeTransportNode -eq 1) {
         $transportNodeService = Get-NsxtService -Name "com.vmware.nsx.transport_nodes"
         $hostswitchProfileSerivce = Get-NsxtService -Name "com.vmware.nsx.host_switch_profiles"
         $transportNodeStateService = Get-NsxtService -Name "com.vmware.nsx.transport_nodes.state"
@@ -1439,7 +1439,7 @@ if($postDeployNSXConfig -eq 1) {
         }
     }
 
-    if($runAddEdgeCluster) {
+    if($runAddEdgeCluster -eq 1) {
         $edgeNodes = (Get-NsxtService -Name "com.vmware.nsx.fabric.nodes").list().results | where { $_.resource_type -eq "EdgeNode" }
         $edgeClusterService = Get-NsxtService -Name "com.vmware.nsx.edge_clusters"
         $edgeClusterStateService = Get-NsxtService -Name "com.vmware.nsx.edge_clusters.state"
@@ -1478,7 +1478,7 @@ if($postDeployNSXConfig -eq 1) {
         My-Logger "Edge Cluster has been realized"
     }
 
-    if($runNetworkSegment) {
+    if($runNetworkSegment -eq 1) {
         My-Logger "Creating Network Segment $NetworkSegmentName ..."
 
         $transportZonePolicyService = Get-NsxtPolicyService -Name "com.vmware.nsx_policy.infra.sites.enforcement_points.transport_zones"
@@ -1494,7 +1494,7 @@ if($postDeployNSXConfig -eq 1) {
         $segment = $segmentPolicyService.update($NetworkSegmentName,$segmentSpec)
     }
 
-    if ($createDHCPProfile) {
+    if ($createDHCPProfile -eq 1) {
         $edgeClusters = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.sites.enforcement_points.edge_clusters"
         $edgeCluster = ($edgeClusters.list($siteID, $enforcementpointID).results | where { $_.display_name -eq $EdgeClusterName})
 
@@ -1513,7 +1513,7 @@ if($postDeployNSXConfig -eq 1) {
     }
 
 
-    if($runT0Gateway) {
+    if($runT0Gateway -eq 1) {
         My-Logger "Creating T0 Gateway $T0GatewayName ..."
 
         $dhcpdata = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.dhcp_server_configs"
@@ -1552,7 +1552,7 @@ if($postDeployNSXConfig -eq 1) {
         My-Logger "Creating External T0 Gateway Interface ..."
 
         $t0GatewayInterfaceSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.Create()
-        $t0GatewayInterfaceId = T0GatewayInterface
+        $t0GatewayInterfaceId = $T0GatewayInterface
         $subnetSpec = $t0GatewayInterfacePolicyService.help.update.tier0_interface.subnets.Element.Create()
         $subnetSpec.ip_addresses = @($T0GatewayInterfaceAddress)
         $subnetSpec.prefix_len = $T0GatewayInterfacePrefix
@@ -1564,7 +1564,7 @@ if($postDeployNSXConfig -eq 1) {
         $t0GatewayInterface = $t0GatewayInterfacePolicyService.patch($T0GatewayName,"default",$t0GatewayInterfaceId,$t0GatewayInterfaceSpec)
     }
 
-    if($runT0StaticRoute) {
+    if($runT0StaticRoute -eq 1) {
         My-Logger "Adding Static Route on T0 Gateway Interface from $T0GatewayInterfaceStaticRouteNetwork to $T0GatewayInterfaceStaticRouteAddress ..."
 
         $staticRoutePolicyService = Get-NsxtPolicyService -Name "com.vmware.nsx_policy.infra.tier_0s.static_routes"
@@ -1585,7 +1585,7 @@ if($postDeployNSXConfig -eq 1) {
         $staticRoute = $staticRoutePolicyService.patch($T0GatewayName,$T0GatewayInterfaceStaticRouteName,$staticRouteSpec)
     }
 
-    if($registervCenterOIDC) {
+    if($registervCenterOIDC -eq 1) {
         My-Logger "Registering vCenter Server OIDC Endpoint with NSX-T Manager ..."
 
         $oidcService = Get-NsxtService -Name "com.vmware.nsx.trust_management.oidc_uris"
@@ -1599,7 +1599,7 @@ if($postDeployNSXConfig -eq 1) {
         $oidcCreate = $oidcService.create($oidcSpec)
     }
 
-    if ($createSegments) {
+    if ($createSegments -eq 1) {
         $tier0s = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.tier0s"
         $t0 = $tier0s.get($T0GatewayName)
 
@@ -1629,10 +1629,10 @@ if($postDeployNSXConfig -eq 1) {
         }
     }
 
-    if ($configureNAT) {
+    if ($configureNAT -eq 1) {
         $nat_id = "USER"
         $interfaces = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.tier_0s.locale_services.interfaces"
-        $interface = $interfaces.get($T0GatewayName, 'default', $T0GatewayInterface)
+        $interface = $interfaces.get($T0GatewayName, 'default',  't0_interface_01')
         $natrules = Get-NsxtPolicyService -name "com.vmware.nsx_policy.infra.tier_0s.nat.nat_rules"
         $natruleSpec = $natrules.help.patch.policy_nat_rule.Create()
         $natruleSpec.display_name = $NATName
