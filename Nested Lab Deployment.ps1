@@ -149,10 +149,6 @@ $NSXTEdgeHostnameToIPs = @{
     $NSXTEdgeName = "10.114.209.150"
 }
 
-# SNAT Rule
-$NATName = "SNAT_Internal"
-$NATSourceNetwork = "192.168.20.0/24"
-$NATTranslatedNetwork = "10.114.222.125"
 
 # Segments
 $DMZSegment = [pscustomobject] @{
@@ -168,6 +164,11 @@ $InternalSegment = [pscustomobject] @{
     Subnet = '192.168.20.0/24'
     DHCPPool = '192.168.20.100-192.168.20.150'
 }
+
+# SNAT Rule
+$NATName = "SNAT_Internal"
+$NATSourceNetwork = "192.168.20.0/24"
+$NATTranslatedNetwork = $T0GatewayInterfaceAddress
 
 # Attacker and Victim VMs
 $App1WebVM= [pscustomobject] @{
