@@ -449,4 +449,20 @@ resource (attack1.rc)> exploit
 
 ```
 
+7. **Optionally**, you can now intract with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
+    * Type **sysinfo** to learn more about the running OS
+    * Type **ls** to see files on the filesystem
+    * Type **download** and specify any of the files you discoverd above to download those to your local machine
+    * Type **shell** to drop into a system command shell
+    * Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises 
 
+8. When you are done exploiting, type **exit -z** to shut down **Meterpreter**
+
+**Confirm IDS/IPS Events show up in the NSX Manager UI**
+1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Rules
+2. Click **ADD POLICY**
+3.	Create an IDS Policy named **NSX PoV** .
+4. Check the checkbox for the policy you just created and click **ADD RULE**.
+5. Add an IDS Rule with the following parameters
+    * Name **Production Applications IDS Policy**
+    * IDS Profile **Production**
