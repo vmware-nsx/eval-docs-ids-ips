@@ -114,7 +114,7 @@ In this example below, I will be using a single /27 subnet(10.114.209.128/27)  o
 | External VM                | 10.114.209.151                 | Attacker (Metasploit) VM     |
 
 
-This section describes the credentials to your physical environment vCenter Server in which the nestedc lab environment will be deployed to. Make sure to adjust **all** of the below variables to match your physical environment vCenter:
+This section describes the credentials to your physical environment vCenter Server in which the nested lab environment will be deployed to. Make sure to adjust **all** of the below variables to match your physical environment vCenter:
 ```console
 $VIServer  = "vcenter-north.lab.svanveer.pa"
 $VIUsername = "administrator@vsphere.local"
@@ -394,7 +394,11 @@ You have now successfully configured the NSX Distributed IDS/IPS ! In the next e
 ![](Images/IDPS_POC_11.PNG)
 
 **Initiate DrupalGeddon2 attack against App1-WEB-TIER VM**
-1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials
+1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
     * Username **vmware*
     * Password **VMware1!**
-2. Click **ADD GROUP**
+2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI.  
+3. In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. If you want to run the attack manually, skip to step #5. If you want to go with the script option, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. Confirm that the **RHOST** line IP address matches with the IP address of **App1-WEB-TIER VM** you saw in the NSX VM Inventory. Change this IP address if needed, save your changes and exit **nano**
+4. Type **./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
+5  **Alternatively**, 
+
