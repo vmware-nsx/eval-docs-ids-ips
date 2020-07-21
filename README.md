@@ -452,18 +452,18 @@ resource (attack1.rc)> exploit
 7. **Optionally**, you can now intract with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
     * Type **sysinfo** to learn more about the running OS
 
+```console
 meterpreter > sysinfo
 Computer    : 273e1700c5be
 OS          : Linux 273e1700c5be 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64
 Meterpreter : php/linux
 meterpreter > ?
-
-```console
+```
     * Type **ls** to see files on the filesystem
     * Type **download** and specify any of the files you discoverd above to download those to your local machine
     * Type **shell** to drop into a system command shell
     * Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises 
-```
+
 8. When you are done exploiting, type **exit -z** to shut down **Meterpreter**
 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
