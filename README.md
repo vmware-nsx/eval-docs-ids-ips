@@ -471,9 +471,10 @@ meterpreter > ?
 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
-2. Click **ADD POLICY**
-3.	Create an IDS Policy named **NSX PoV** .
-4. Check the checkbox for the policy you just created and click **ADD RULE**.
-5. Add an IDS Rule with the following parameters
-    * Name **Production Applications IDS Policy**
-    * IDS Profile **Production**
+2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
+![](Images/IDPS_POC_12.PNG)
+3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
+4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
+![](Images/IDPS_POC_13.PNG)
+G
+
