@@ -363,7 +363,7 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
 
 ![](Images/IDPS_POC_6.PNG)
 
-**Create IDS Rules*
+**Create IDS Rules**
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Rules
 2. Click **ADD POLICY**
 3.	Create an IDS Policy named **NSX PoV** .
@@ -382,7 +382,19 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
 
 ![](Images/IDPS_POC_10.PNG)
 
+You have now successfully configured the NSX Distributed IDS/IPS ! In the next exercise, we will run through a basic attack scenario to confirm intrusion attemtps are detected and get familair with the NSX IDS/IPS Events view.
 
-[TO BE COMPLETED]
+## Simple Attack Scenario
+**Estimated Time to Complete: 30 minutes**
 
-**Simple Attack Scenario**
+**Confirm IP addressess of deployed VMs**
+1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
+2. Note the IP addresses for the 4 VMs that were deployed
+
+![](Images/IDPS_POC_11.PNG)
+
+**Initiate DrupalGeddon2 attack against App1-WEB-TIER VM**
+1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials
+    * Username **vmware*
+    * Password **VMware1!**
+2. Click **ADD GROUP**
