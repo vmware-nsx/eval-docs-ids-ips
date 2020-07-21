@@ -65,7 +65,7 @@ This lab provides and leverages common pen-test tools including Metasploit as we
 Note: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
 
 ## Intended Audience
-This PoC guide is intended for existing and future NSX customers who want to evaluate the NSX Distributed IDS/IPS functionality. Ideally, this PoC involves people covring these roles:
+This PoV guide is intended for existing and future NSX customers who want to evaluate the NSX Distributed IDS/IPS functionality. Ideally, this PoC involves people covring these roles:
 
 * CISO Representative
 * Data Center Infrastructure Team
@@ -79,8 +79,8 @@ The expected time commitment to complete the PoV process is about 5 hours. This 
 
 | Task  | Estimated Time to Complete | Suggested Week | 
 | ------------- | ------------- | ------------- |
-| Customize Deployment Script Variables  | 60 minutes  | Week 1 | 
-| Run Deployment Script  | 60 minutes | Week 1 | 
+| Customize Deployment Script Variables  | 30 minutes  | Week 1 | 
+| Run Deployment Script  | 90 minutes | Week 1 | 
 | Verify Lab Deployment  | 30 minutes | Week 1 | 
 | Initial IDS/IPS Configuration  | 30 minutes | Week 1 | 
 | Simple Attack Scenario | 30 minutes | Week 2 | 
@@ -111,8 +111,7 @@ In this example below, I will be using a single /27 subnet(10.114.209.128/27)  o
 | TunnelEndpointGateway      | 10.114.209.129                 | Existing default GW          |
 | T0 Static Default GW       | 10.114.209.129                 | Existing default GW          |
 | TEP Pool                   | 10.114.209.144-10.114.209.147  | Tunnel Endpoint IPs          |
-| External VM                | 10.114.209.151                 | Attacker VM and Syslog Srv   |
-| Syslog Serer               | 10.114.209.151                 | Attacker VM and Syslog Srv   |
+| External VM                | 10.114.209.151                 | Attacker (Metasploit) VM     |
 
 
 This section describes the credentials to your physical environment vCenter Server in which the nestedc lab environment will be deployed to. Make sure to adjust **all** of the below variables to match your physical environment vCenter:
@@ -121,7 +120,6 @@ $VIServer  = "vcenter-north.lab.svanveer.pa"
 $VIUsername = "administrator@vsphere.local"
 $VIPassword = "VMware1!"
 ```
-
 
 This section describes the location of the files required for deployment. Update the below variables with the actual **location of the downloaded OVAs/extracted files** on the local machine you run this PowerShell script from
 
@@ -326,11 +324,11 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 2. Click **ADD GROUP**
 3.	Create a Group with the below parameters. Click Save when done.
     * Name **Production Applications**
-    * Compute Members: Membership Criteria: **Virtual Machine Tag Eqauls Production Scope Environment**
+    * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Production Scope Environment**
     ![](Images/IDPS_POC_7.PNG)     
 3.	Create another Group with the below parameters. Click Save when done.
     * Name **Development Applications**
-    * Compute Members: Membership Criteria: **Virtual Machine Tag Eqauls Development Scope Environment**
+    * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Development Scope Environment**
     ![](Images/IDPS_POC_8.PNG)    
 4. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
     * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
