@@ -472,9 +472,9 @@ meterpreter > ?
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
-![](Images/IDPS_POC_12.PNG)
+![](Images/IDPS_POC_13.PNG)
 3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
 4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
-![](Images/IDPS_POC_13.PNG)
-G
+![](Images/IDPS_POC_14.PNG)
+
 
