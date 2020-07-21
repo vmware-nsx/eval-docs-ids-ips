@@ -380,6 +380,7 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
     * Leave other settings to defaults
 7. Click **Publish**
 
+![](Images/IDPS_POC_10.PNG)
 
 
 [TO BE COMPLETED]
