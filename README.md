@@ -465,7 +465,7 @@ meterpreter > ?
   * Type **download** and specify any of the files you discoverd above to download those to your local machine
   * Type **shell** to drop into a system command shell
 
-Note: Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises 
+**Note:** Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises 
 
 8. When you are done exploiting, type **exit -z** to shut down **Meterpreter**
 
