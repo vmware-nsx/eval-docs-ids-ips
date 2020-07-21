@@ -62,7 +62,7 @@ This lab provides and leverages common pen-test tools including Metasploit as we
     * [NSX-T Edge 3.0.1 for ESXi OVA]((https://my.vmware.com/group/vmware/downloads/details?downloadGroup=NSX-T-301&productId=982&rPId=48086)
     * [Nested ESXi 7.0 OVA - Build 15344619](https://download3.vmware.com/software/vmw-tools/nested-esxi/Nested_ESXi7.0_Appliance_Template_v1.ova)
     
-> Note: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
+> **Not:e**: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
 
 ## Intended Audience
 This PoV guide is intended for existing and future NSX customers who want to evaluate the NSX Distributed IDS/IPS functionality. Ideally, this PoC involves people covring these roles:
@@ -129,7 +129,7 @@ $VCSAInstallerPath = "C:\Users\stijn\downloads\VCSA\VMware-VCSA-all-7.0.0-161890
 $NSXTManagerOVA = "C:\Users\stijn\downloads\NSXMgr\nsx-unified-appliance-3.0.0.0.0.15946739.ova"
 $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova"
 ```
-**Note:** The path to the VCSA Installer must be the extracted contents of the ISO
+> **Note:** The path to the VCSA Installer must be the extracted contents of the ISO
 
 
 This section defines the number of Nested ESXi VMs to deploy along with their associated IP Address(s). The names are merely the display name of the VMs when deployed. At a minimum, you should deploy at least three hosts, but you can always add additional hosts and the script will automatically take care of provisioning them correctly. Adjust the **IP addresses** for the 3 below hosts. For simplicity, these IP addresses should part of the same Management subnet for the nested vCenter and NSX Manager. 
@@ -289,7 +289,7 @@ Here is an example output of a complete deployment:
 
 [INSERT SCREENSHOT OF SCRIPT COMPLETION]
 
-**Note:** Deployment time will vary based on underlying physical infrastructure resources. On average, it can take between 45 minutes to 90 minutes. 
+> **Note**: Deployment time will vary based on underlying physical infrastructure resources. On average, it can take between 45 minutes to 90 minutes. 
 
 ## Verify Lab Deployment
 **Estimated Time to Complete: 30 minutes**
@@ -465,7 +465,7 @@ meterpreter > ?
   * Type **download** and specify any of the files you discoverd above to download those to your local machine
   * Type **shell** to drop into a system command shell
 
-**Note:** Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises 
+> **Note**: Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises 
 
 8. When you are done exploiting, type **exit -z** to shut down **Meterpreter**
 
