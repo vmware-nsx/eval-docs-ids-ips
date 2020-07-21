@@ -1679,9 +1679,9 @@ if ($tagVictimVM -eq 1) {
     My-Logger "Tagging VMs ..."
 
     Set-VMTags -VMName $App1AppVM.Name -Tags $AppTierTag, $App1Tag, $ProductionTag
-    Set-VMTags -VMName $App2AppVM.Name -Tags $AppTierTag, $App2Tag
+    Set-VMTags -VMName $App2AppVM.Name -Tags $AppTierTag, $App2Tag, $DevelopmentTag
     Set-VMTags -VMName $App1WebVM.Name -Tags $ProductionTag, $WebTierTag, $App1Tag
-    Set-VMTags -VMName $App2WebVM.Name -Tags $App2Tag, $WebTierTag
+    Set-VMTags -VMName $App2WebVM.Name -Tags $App2Tag, $WebTierTag, $DevelopmentTag
 
 }
 
