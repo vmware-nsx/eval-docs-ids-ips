@@ -414,14 +414,30 @@ In this exercise, we will use **Metasploit** to launch a simple exploit against 
 msf5 auxiliary(scanner/portscan/tcp) > use auxiliary/scanner/portscan/tcp
 msf5 auxiliary(scanner/portscan/tcp) > set THREADS 50
 THREADS => 50
-msf5 auxiliary(scanner/portscan/tcp) > set RHOSTS 192.168.10.0/24, 192.168.20.0/24
+msf5 auxiliary(scanner/portscan/tcp) > set RHOSTS 192.168.10.0/24
 RHOSTS => 192.168.10.0/24, 192.168.20.0/24
 msf5 auxiliary(scanner/portscan/tcp) > set PORTS 8080,5984
 PORTS => 8080,5984
 msf5 auxiliary(scanner/portscan/tcp) > run
-
 ```
-1. Type  **
+2.	You should see the below results when the scan completes
+```console
+[*] 192.168.10.0/24:      - Scanned  28 of 256 hosts (10% complete)
+[*] 192.168.10.0/24:      - Scanned  52 of 256 hosts (20% complete)
+[+] 192.168.10.100:       - 192.168.10.100:5984 - TCP OPEN
+[+] 192.168.10.100:       - 192.168.10.100:8080 - TCP OPEN
+[+] 192.168.10.101:       - 192.168.10.101:5984 - TCP OPEN
+[+] 192.168.10.101:       - 192.168.10.101:8080 - TCP OPEN
+[*] 192.168.10.0/24:      - Scanned  77 of 256 hosts (30% complete)
+[*] 192.168.10.0/24:      - Scanned 103 of 256 hosts (40% complete)
+[*] 192.168.10.0/24:      - Scanned 129 of 256 hosts (50% complete)
+[*] 192.168.10.0/24:      - Scanned 154 of 256 hosts (60% complete)
+[*] 192.168.10.0/24:      - Scanned 180 of 256 hosts (70% complete)
+[*] 192.168.10.0/24:      - Scanned 205 of 256 hosts (80% complete)
+[*] 192.168.10.0/24:      - Scanned 233 of 256 hosts (91% complete)
+[*] 192.168.10.0/24:      - Scanned 256 of 256 hosts (100% complete)
+[*] Auxiliary module execution completed
+```
 
 > **Note**: To reduce the number of OVAs needed, each workload VM deployed runs both a vulnerable **Drupal** and a vulnerable **CouchDB** service
 
