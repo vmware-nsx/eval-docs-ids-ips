@@ -335,7 +335,7 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
     * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
     ![](Images/IDPS_POC_9.PNG)    
     
-> Note: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
+> **Note**: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
 
 **Enable Intrusion Detection**
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Settings
@@ -348,7 +348,8 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
 **Enable Automated Signature Update propagation**
 1.	Under Intrusion Detection Signatures, select **Auto Update new versions (recommended)** in order to propagate the latest signature updates from the cloud to the distributed IDS instances
 2.	Optionally, click **View and Change Versions** and expand one of the signature sets to see what signatures have been added/updated/disabled in this particular release 
-3.	Note: if a proxy server is configured for NSX Manager to access the internet, click Proxy Settings and complete the configuration
+
+> **Note**: if a proxy server is configured for NSX Manager to access the internet, click Proxy Settings and complete the configuration
 
 
 **Create IDS Profiles**
@@ -397,11 +398,36 @@ In this exercise, we will use **Metasploit** to launch a simple exploit against 
 ![](Images/IDPS_POC_11.PNG)
 ![](Images/IDPS_POC_12.PNG)
 
-**Initiate DrupalGeddon2 attack against App1-WEB-TIER VM**
+**Open a SSH/Console session to the External VM**
 1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
     * Username **vmware**
     * Password **VMware1!**
-2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI.  
+2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI. 
+
+**Initiate port-scan against the DMZ Segment**
+1. Type  **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate a portscan and discover any running services on the **DMZ** subnet. Hit **enter** between every step. 
+    * Type **use auxiliary/scanner/portscan/tcp** to select the portscan module
+    * Type **set THREADS 50** 
+    * Type **set RHOSTS 192.168.10.0/24** to define the subnets to scan. These should match the **DMZ** Subnet
+    * Type **set PORTS 8080,5984** to define the ports to scan (Drupal and CouchDB servers)
+    * Type **run
+
+```console
+msf5 auxiliary(scanner/portscan/tcp) > use auxiliary/scanner/portscan/tcp
+msf5 auxiliary(scanner/portscan/tcp) > set THREADS 50
+THREADS => 50
+msf5 auxiliary(scanner/portscan/tcp) > set RHOSTS 192.168.10.0/24, 192.168.20.0/24
+RHOSTS => 192.168.10.0/24, 192.168.20.0/24
+msf5 auxiliary(scanner/portscan/tcp) > set PORTS 8080,5984
+PORTS => 8080,5984
+msf5 auxiliary(scanner/portscan/tcp) > run
+
+```
+1. Type  **
+
+> **Note**: To reduce the number of OVAs needed, each workload VM deployed runs both a vulnerable **Drupal** and a vulnerable **CouchDB** service
+
+**Initiate DrupalGeddon2 attack against App1-WEB-TIER VM**
 3. In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. 
     * If you want to run the attack manually, skip to step #5. 
     * If you want to go with the script option, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. 
