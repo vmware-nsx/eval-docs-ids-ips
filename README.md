@@ -310,7 +310,13 @@ Once the Deployment Script has completed the installation and setup process. You
 * APP-1-APP-TIER connected to **InternalSegment** Portgroup
 * APP-2-APP-TIER connected to **InternalSegment** Portgroup
 
-![](Images/IDPS_POC_4.PNG)
+**Lab NSX Manager**
+1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
+2. Click **View Details**
+2. Note the IP addresses for the 4 VMs that were deployed
+
+![](Images/IDPS_POC_11.PNG)
+![](Images/IDPS_POC_12.PNG)
 
 [TO BE COMPLETED]
 
@@ -389,14 +395,6 @@ You have now successfully configured the NSX Distributed IDS/IPS ! In the next e
 **Estimated Time to Complete: 30 minutes**
 
 In this exercise, we will use **Metasploit** to launch a simple exploit against the **Drupal** service runnning on the **App1-WEB-TIER VM** and confirm the NSX Distributed IDS/IPS was able to detect this exploit attempt.
-
-**Confirm IP addressess of deployed VMs**
-1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
-2. Click **View Details**
-2. Note the IP addresses for the 4 VMs that were deployed
-
-![](Images/IDPS_POC_11.PNG)
-![](Images/IDPS_POC_12.PNG)
 
 **Open a SSH/Console session to the External VM**
 1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
