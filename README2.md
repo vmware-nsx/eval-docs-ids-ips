@@ -25,7 +25,7 @@ This script makes it very easy for anyone to deploy a nested vSphere vSphere lab
 
 Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab.
 
-![](Images/docs/assets/images/IDPS_POC_1.PNG)
+![](/docs/assets/images/IDPS_POC_1.PNG)
 
 ---
 This document table of content is:
