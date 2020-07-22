@@ -491,3 +491,16 @@ meterpreter > ?
 8. In the **timeline** above, you can click the dots that represent each event to get summarized information.
 
 You have now successfully completed a simple attack scenario ! In the next exercise, we will run through a more advanced scenario, in which will move the attack beyond the initial exploit against the Drupal web-frontend to a database server running on the internal network and then moving laterally once again to another database server beloging to a different application. This is similar to real-world attacks in which bad actors move within the network in order to get to the high value asset/data they are after. The NSX Distributed IDS/IPS and Distributed Firewall are uniquely positioned at te vNIC of every workload to detect and prevent this lateral movement.
+
+## Lateral Attack Scenario
+**Estimated Time to Complete: 30 minutes**
+
+In this exercise, we will use **Metasploit**  once again to launch another exploit against the **Drupal** service runnning on the **App1-WEB-TIER VM**. Then  we will use this compromised server as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through an established **reverse shell** from the **App1-WEB-TIER VM**. 
+
+and confirm the NSX Distributed IDS/IPS was able to detect this exploit attempt.
+
+**Confirm IP addressess of deployed VMs**
+1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
+2. Click **View Details**
+2. Note the IP addresses for the 4 VMs that were deployed
+
