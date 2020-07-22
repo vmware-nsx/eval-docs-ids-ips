@@ -735,7 +735,7 @@ msf5 post(multi/manage/shell_to_meterpreter) > exploit
     * Type **sessions -l** to see all established sessions
 ```console
 msf5 post(multi/manage/shell_to_meterpreter) > sessions -l
-
+```
 
 If you prefer not to manually go through this attack scenario, using the below steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
 **RHOST** on line 3 should be the IP address of the **App1-WEB-TIER VM**
