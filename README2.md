@@ -21,9 +21,19 @@ The goal of this Proof of Value (PoV) is to allow customers to get hands-on expe
 
 While this PoV guide is quite prescriptive, participants can choose to modify any part of the workflow as desired. The guide is primarily focused on getting customers familiar with IDS/IPS, hence the deployment of the lab environment and rest of the configuration is automated through the use of a provided PowerShell script. After meeting the-requisites and running the script, a fully configured nested NSX-T environment is available to particpants, including a number of attacker and victim workload which are used as part of the IDS/IPS exercises. 
 
+## Nested Lab Deployment Script
 This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
 
 Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab.
+* Gray: Pre-requisites (Physical ESXi Server, vCenter managing the server and a Port group to provide connectivity of nested lab environment
+* Blue: Management and Edge Components (vCenter, NSX Manager and NSX Edge) Deployed by PowerCLI Script
+* Red: External VM running Metasploit and other functions deployed by PowerCLI Script on Physical Environment vCenter 
+* Yellow: Nested ESXi hypevisors deployed by PowerCLI Script and managed by nested vCenter
+* Purple: vSAN datastore across 3 nested ESXi hypervisors configured by PowerCLI Script
+* Green: NSX Overlay DMZ Segment and vulnerable Web-VMs connected to it. Segment created and VMs deployed by PowerCLI Script.
+* Orange: NSX Overlay Internal Segment and vulnerable App-VMs connected to it. Segment created and VMs deployed by PowerCLI Script.
+
+Once the script has deployed the Lab environment, the rest of the lab is focussed on various attack scenarios that test the NSX Distributed IDS/IPS.
 
 ![](/docs/assets/images/IDPS_POC_1.PNG)
 
