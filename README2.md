@@ -16,6 +16,7 @@ This lab provides and leverages common pen-test tools including Metasploit as we
 
 The automation script is based on work done by [William Lam](https://github.com/lamw) with additional vSphere and NSX automation by [Madhu Krishnarao](https://github.com/madhukark)
 
+---
 ## Changelog
 
 * **07/8/2020**
