@@ -30,4 +30,4 @@ Once the Deployment Script has completed the installation and setup process. You
 [TO BE COMPLETED]
 ---
 
-[***Next Step: 4. Verify Lab Deployment***](/docs/4-VerifyDeployment.md)
+[***Next Step: 5. Initial IDS/IPS Configuration***](/docs/5-InitialConfiguration.md)
