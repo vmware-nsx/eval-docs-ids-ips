@@ -1,6 +1,6 @@
 
 
-## 5. Basic Attack Scenario
+## 6. Basic Attack Scenario
 **Estimated Time to Complete: 30 minutes**
 
 In this exercise, we will use **Metasploit** to launch a simple exploit against the **Drupal** service runnning on the **App1-WEB-TIER VM** and confirm the NSX Distributed IDS/IPS was able to detect this exploit attempt.
@@ -117,10 +117,10 @@ meterpreter > ?
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
-![](Images/IDPS_POC_13.PNG)
+![](assets/images/IDPS_POC_13.PNG)
 3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
 4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
-![](Images/IDPS_POC_14.PNG)
+![](assets/images/IDPS_POC_14.PNG)
 > **Note**: You can zoom in/out to specific times using the timeline slider, filter the Events view based on Severity by selecting the desired severities or filter based on other criteria such as Attacker Target, Attack Type, CVSS, Product Affected or VM Name by using the **Appl Filter** box.
 5. Expand both of the events by clicking the **>** icon on the left side next to severity
 6.  For the  **DruppalGeddon2** event:
