@@ -2,8 +2,8 @@
 ## 1. Requirements
 Along with this PoV guide, we are providign a ![Script](Nested Lab Deployment.ps1) which automated the lab environment deployment. This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
 
-
 ![](Nested Lab Deployment.ps1)
+
 Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab
 
 ![](Images/IDPS_POC_1.PNG)
