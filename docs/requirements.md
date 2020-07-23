@@ -35,7 +35,7 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
  * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the example configuration provided the 10.114.209.128/27 subnet is used for all these IP addresses/interfaces: vCenter, NSX Manager Managenet Interface, T0 Router Uplink, Nested ESXi VMKernel and TEP interfaces (defined in IP pool), External VM.
 
 #### Storage
-        * Ability to provision up to 1TB of storage
+ * Ability to provision up to 1TB of storage
 
 #### Other
 * Desktop (Windows, Mac or Linux) with latest PowerShell Core and PowerCLI 12.0 Core installed. See [ instructions here](https://blogs.vmware.com/PowerCLI/2018/03/installing-powercli-10-0-0-macos.html) for more details
@@ -51,7 +51,6 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
 * Preferrably, the deployed NSX Manager should have Internet access in order to download the lastest set of IDS/IPS signatures.
     
 > **Note**: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
-
 
 ---
 
