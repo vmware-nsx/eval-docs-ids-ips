@@ -260,4 +260,4 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
 
 ---
 
-[***Next Step: 7. Lateral Movement Scenario***](/docs/7-LateralMovementScenario.md)
+[***Next Step: 8. Advanced Attack and Configuration***](/docs/8-AdvancedAttackandConfiguration)
