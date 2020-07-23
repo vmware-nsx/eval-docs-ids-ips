@@ -15,11 +15,11 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 3.	Create another Group with the below parameters. Click Save when done.
     * Name **Development Applications**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Development Scope Environment**
-    ![](Images/IDPS_POC_8.PNG)    
+    ![](assets/images/IDPS_POC_8.PNG)    
 4. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
     * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
     * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
-    ![](Images/IDPS_POC_9.PNG)    
+    ![](assets/images/IDPS_POC_9.PNG)    
     
 > **Note**: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
 
@@ -27,7 +27,7 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Settings
 2.	Under Enable Intrusion Detection for Cluster(s), set **Workload-Cluster** to Enabled
 
-![](Images/IDPS_POC_5.PNG)
+![](assets/images/IDPS_POC_5.PNG)
 
 NSX can automatically update it’s IDS signatures by checking our cloud-based service. By default, NSX manager will check once per day and we publish new signature update versions every two week (with additional non-scheduled 0-day updates). NSX can also be configured to optionally automatically apply newly updated signatures to all hosts that have IDS enabled.
 
@@ -48,7 +48,7 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
     * Name **Development**
     * Signatures to Include: **Critical**, **High**
 
-![](Images/IDPS_POC_6.PNG)
+![](assets/images/IDPS_POC_6.PNG)
 
 **Create IDS Rules**
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Rules
@@ -67,10 +67,10 @@ NSX can automatically update it’s IDS signatures by checking our cloud-based s
     * Leave other settings to defaults
 7. Click **Publish**
 
-![](Images/IDPS_POC_10.PNG)
+![](assets/images/IDPS_POC_10.PNG)
 
 You have now successfully configured the NSX Distributed IDS/IPS ! In the next exercise, we will run through a basic attack scenario to confirm intrusion attemtps are detected and get familair with the NSX IDS/IPS Events view.
 
 ---
 
-[***Next Step: 5. Initial IDS/IPS Configuration***](/docs/5-InitialConfiguration.md)
+[***Next Step: 6. Basic Attack Scenario***](/docs/6-BasicAttackScenario.md)
