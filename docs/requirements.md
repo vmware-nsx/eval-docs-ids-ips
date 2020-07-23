@@ -52,6 +52,8 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
     
 > **Note**: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
 
+
+
 ---
 
 [***Next Step: 2. Installation of NSX***](/docs/2-Installation.md)
