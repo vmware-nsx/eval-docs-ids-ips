@@ -12,10 +12,10 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
         * Ability to provision up to 64 GB of memory
     * Network
         * Single pre-configured Standard or Distributed Portgroup (Management VLAN) used to deploy all VMs In the example config, VLAN-194 is used as this isngle port-group
-            * 8 x IP Addresses for VCSA, ESXi, NSX-T Manager, Edge VM Management, Edge VM Uplink and External VM
-            * 4 x IP Addresses for TEP (Tunnel Endpoint) interfaces on ESXi and Edge VM
-            * 1 x IP Address for T0 Static Route (optional)
-            * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the example configuration provided the 10.114.209.128/27 subnet is used for all these IP addresses/interfaces: vCenter, NSX Manager Managenet Interface, T0 Router Uplink, Nested ESXi VMKernel and TEP interfaces (defined in IP pool), External VM.
+        * 8 x IP Addresses for VCSA, ESXi, NSX-T Manager, Edge VM Management, Edge VM Uplink and External VM
+        * 4 x IP Addresses for TEP (Tunnel Endpoint) interfaces on ESXi and Edge VM
+        * 1 x IP Address for T0 Static Route (optional)
+        * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the example configuration provided the 10.114.209.128/27 subnet is used for all these IP addresses/interfaces: vCenter, NSX Manager Managenet Interface, T0 Router Uplink, Nested ESXi VMKernel and TEP interfaces (defined in IP pool), External VM.
     * Storage
         * Ability to provision up to 1TB of storage
 
