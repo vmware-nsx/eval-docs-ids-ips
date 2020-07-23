@@ -14,6 +14,8 @@ Login to the physial environment vcenter and Verify 6 VMs have been deployed, ar
 * 1 NSX Edge 
 * 1 vCenter
 
+Confirm you are able to ping each nested ESXi, the Lab NSX Manager and the Lab vCenter.
+
 ![](assets/images/IDPS_POC_2.PNG)
 
 **Lab vCenter**: Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is functional and 4 vulnerable VMs have been deployed on the cluster:
