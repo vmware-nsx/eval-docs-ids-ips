@@ -4,7 +4,11 @@
 
 Once the Deployment Script has completed the installation and setup process. Your lab environment is fully ready to start testing the NSX Distributed IDS/IPS. Verify vCenter and NSX has been configured as intended.
 
-**Physical Infrastructure Host/vCenter**: Login to the physial environment vcenter and Verify 6 VMs have been deployed, are up and running and are connected to the appropriate port-group: 
+**Physical Infrastructure Host/vCenter**.
+
+![](assets/images/IDPS_POC_1.PNG)
+
+Login to the physial environment vcenter and Verify 6 VMs have been deployed, are up and running and are connected to the appropriate port-group: 
 * 3 nested ESXI
 * 1 NSX Manager
 * 1 NSX Edge 
