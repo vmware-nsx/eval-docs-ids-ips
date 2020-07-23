@@ -25,7 +25,7 @@ The automation script is based on work done by [William Lam](https://github.com/
 
 ---
 ## Intended Audience
-This PoV guide is intended for existing and future NSX customers who want to evaluate the NSX Distributed IDS/IPS functionality. Ideally, this PoC involves people covring these roles:
+This PoV guide is intended for existing and future NSX customers who want to evaluate the NSX Distributed IDS/IPS functionality. Ideally, the PoV process involves people covering these roles:
 
 * CISO Representative
 * Data Center Infrastructure Team
@@ -58,18 +58,11 @@ Existing NSX customers should reach out to their NSX account team for support du
 ## Table of Contents
 * [Requirements](/docs/1-Requirements.md)
 * [Customize Deployment Script](/docs/2-CustomizeScript.md)
-* [Configuration](#configuration)
-* [Logging](#logging)
-* [Sample Execution](#sample-execution)
-    * [Lab Deployment Script](#lab-deployment-script)
-
-1. [Requirements](/docs/1-Requirements.md)
-1. [Installation of NSX](/docs/2-Installation.md)
-1. [NSX Evaluation](/docs/3-NSX-Evaluation.md)
-   1. [Security only (no Logical Network)](/docs/3.1-Security-Only.md)
-   1. [Logical Network + Security](/docs/3.2-LogicalNetwork-Security.md)
-   1. [Operation Tools](/docs/3.3-Operation-Tools.md)
-
-
+* [Verify Lab Deployment](/docs/3-VerifyLabDeployment.md)
+* [Initial IDS/IPS Configuration](/docs/4-InitialConfiguration.md)
+* [Basic Attack Scenario](/docs/5-BasicAttackScenario.md)
+* [Lateral Movement Scenario](/docs/6-LateralMovementScenario.md)
+* [Advanced Exercises](/docs/7-AdvancedExercises.md)
+* [Segmenting the Evironment](/docs/8-Segmentation.md)
 
 [***Next Step: 1. Requirements***](docs/1-Requirements.md)
