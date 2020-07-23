@@ -56,4 +56,4 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
 
 ---
 
-[***Next Step: 2. Installation of NSX***](/docs/2-Installation.md)
+[***Next Step: 2. Customize Deployment Script***](/docs/2-CustomizeScript.m)
