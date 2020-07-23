@@ -1,4 +1,4 @@
-## 2. Customize Deployment Script Variables
+## 3. Run Deployment Script
 **Estimated Time to Complete: 90 minutes**
 Once you have saved your changes, you can now run the PowerCLI script as you normally would.
 
