@@ -1,12 +1,13 @@
 
 ## 1. Requirements
-Along with this PoV guide, we are providing a [Script](https://github.com/vmware-nsx/eval-docs-ids-ips/blob/master/Nested%20Lab%20Deployment.ps1) which automated the lab environment deployment. This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
+Along with this PoV guide, we are providing a [script](https://github.com/vmware-nsx/eval-docs-ids-ips/blob/master/Nested%20Lab%20Deployment.ps1) which automated the lab environment deployment. This script makes it very easy for anyone to deploy a nested vSphere vSphere lab environment for learning and educational purposes. All required VMware components (ESXi, vCenter Server, NSX Unified Appliance and Edge) are automatically deployed, attacker and multiple victim workloads are deplyed, and NSX-T networking configuration is applied in order to anyone to start testing the NSX Distributed IDS/IPS as soon as the deploment is completed. 
 
 
 
 Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab
 
-![](Images/IDPS_POC_1.PNG)
+![](docs/assets/images/IDPS_POC_1.PNG)
+
 * Gray: Pre-requisites (Physical ESXi Server, vCenter managing the server and a Port group to provide connectivity of nested lab environment
 * Blue: Management and Edge Components (vCenter, NSX Manager and NSX Edge) Deployed by PowerCLI Script
 * Red: External VM running Metasploit and other functions deployed by PowerCLI Script on Physical Environment vCenter 
