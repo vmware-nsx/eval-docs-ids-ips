@@ -1,6 +1,6 @@
 
 
-## 4. Initial IDS/IPS Configuration
+## 5. Initial IDS/IPS Configuration
 **Estimated Time to Complete: 30 minutes**
 
 Now that we have verified the lab has been deployed correctly, basic NSX networking configuration has been applied and the appropriate vunlerable application VMs have been deployed, we can configure the NSX Distributed IDS/IPS.
@@ -11,7 +11,7 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 3.	Create a Group with the below parameters. Click Save when done.
     * Name **Production Applications**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Production Scope Environment**
-    ![](Images/IDPS_POC_7.PNG)     
+    ![](assets/images/IDPS_POC_7.PNG)     
 3.	Create another Group with the below parameters. Click Save when done.
     * Name **Development Applications**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Development Scope Environment**
