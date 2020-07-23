@@ -6,7 +6,6 @@ Along with this PoV guide, we are providing a [script](https://github.com/vmware
 
 Below is a diagram of what is deployed as part of the solution and you simply need to have an existing vSphere environment running that is managed by vCenter Server and with enough resources (CPU, Memory and Storage) to deploy this "Nested" lab
 
-![bla](docs/assets/images/IDPS_POC_1.PNG)
 ![bla](assets/images/IDPS_POC_1.PNG)
 
 * Gray: Pre-requisites (Physical ESXi Server, vCenter managing the server and a Port group to provide connectivity of nested lab environment
