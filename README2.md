@@ -57,7 +57,7 @@ Existing NSX customers should reach out to their NSX account team for support du
 ---
 ## Table of Contents
 * [Requirements](/docs/1-Requirements.md)
-* [FAQ](#faq)
+* [Customize Deployment Script](/docs/2-CustomizeScript.md)
 * [Configuration](#configuration)
 * [Logging](#logging)
 * [Sample Execution](#sample-execution)
