@@ -2,7 +2,7 @@
 ## 2. Customize Deployment Script Variables
 **Estimated Time to Complete: 60 minutes**
 
-Before you can run the script, you will need to edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used my sample lab environment. The variables that need to adjusted are called out specifically. Other variables can in almost all cases be left to their default values.
+Before you can run the [script](https://github.com/vmware-nsx/eval-docs-ids-ips/blob/master/Nested%20Lab%20Deployment.ps1), you will need to [download](https://github.com/vmware-nsx/eval-docs-ids-ips/blob/master/Nested%20Lab%20Deployment.ps1) and edit the script and update a number of variables to match your deployment environment. Details on each section is described below including actual values used my sample lab environment. The variables that need to adjusted are called out specifically. Other variables can in almost all cases be left to their default values.
 
 In this example below, I will be using a single /27 subnet(10.114.209.128/27)  on a single port-group (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for PoV and testing purposes.
 
