@@ -1,4 +1,6 @@
 
+
+## 5. Initial IDS/IPS Configuration
 **Estimated Time to Complete: 30 minutes**
 
 In this exercise, we will use **Metasploit** to launch a simple exploit against the **Drupal** service runnning on the **App1-WEB-TIER VM** and confirm the NSX Distributed IDS/IPS was able to detect this exploit attempt.
