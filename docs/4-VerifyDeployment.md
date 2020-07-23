@@ -10,7 +10,7 @@ Once the Deployment Script has completed the installation and setup process. You
 * 1 NSX Edge 
 * 1 vCenter
 
-![](Images/IDPS_POC_2.PNG)
+![](assets/images/IDPS_POC_2.PNG)
 
 **Lab vCenter**: Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is functional and 4 vulnerable VMs have been deployed on the cluster:
 * APP-1-WEB-TIER connected to **DMZSegment** Portgroup
@@ -23,8 +23,9 @@ Once the Deployment Script has completed the installation and setup process. You
 2. Click **View Details**
 2. Note the IP addresses for the 4 VMs that were deployed
 
-![](Images/IDPS_POC_11.PNG)
-![](Images/IDPS_POC_12.PNG)
+
+![](assets/images/IDPS_POC_11.PNG)
+![](assets/images/IDPS_POC_12.PNG)
 
 [TO BE COMPLETED]
 ---
