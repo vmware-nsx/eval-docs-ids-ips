@@ -1,61 +1,33 @@
 
 ## 1. Requirements
 
-Here are the requirements for NSX-T Evaluation.
+Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
 
-### Compute & Storage
+* vCenter Server running at least vSphere 6.7 or later
+    * If your physical storage is vSAN, please ensure you've applied the following setting as mentioned [here](https://www.virtuallyghetto.com/2013/11/how-to-run-nested-esxi-on-top-of-vsan.html)
+* Resource Requirements
+    * Compute
+        * Single Physical host running at least vSphere 6.7 or later
+        * Ability to provision VMs with up to 8 vCPU
+        * Ability to provision up to 64 GB of memory
+    * Network
+        * Single pre-configured Standard or Distributed Portgroup (Management VLAN) used to deploy all VMs In the example config, VLAN-194 is used as this isngle port-group
+            * 8 x IP Addresses for VCSA, ESXi, NSX-T Manager, Edge VM Management, Edge VM Uplink and External VM
+            * 4 x IP Addresses for TEP (Tunnel Endpoint) interfaces on ESXi and Edge VM
+            * 1 x IP Address for T0 Static Route (optional)
+            * All IP Addresses should be able to communicate with each other. These can all be in the same subnet (/27). In the example configuration provided the 10.114.209.128/27 subnet is used for all these IP addresses/interfaces: vCenter, NSX Manager Managenet Interface, T0 Router Uplink, Nested ESXi VMKernel and TEP interfaces (defined in IP pool), External VM.
+    * Storage
+        * Ability to provision up to 1TB of storage
 
-<details>
-<summary>"Click to expand"</summary>
-
-<p align="center">
-  <img width=75% height=75% src="/docs/assets/Graphics/1.1.Pre-Req Compute.jpg">
-</p>
-
-| Compute          | Number | Version |                                                     Download                                                      |
-|:-----------------|:------:|:-------:|:-----------------------------------------------------------------------------------------------------------------:|
-| vCenter          |   1    |   7.0   | [download link](https://my.vmware.com/en/web/vmware/info/slug/datacenter_cloud_infrastructure/vmware_vsphere/7_0) |
-| vCenter-Cluster  |   1+   |   n/a   |                                                        n/a                                                        |
-| ESXi per Cluster |   2+   |   7.0   | [download link](https://my.vmware.com/en/web/vmware/info/slug/datacenter_cloud_infrastructure/vmware_vsphere/7_0) |
-| CPU per ESXi     |   8+   |   n/a   |                                                        n/a                                                        |
-| RAM per ESXi     | 48GB+  |   n/a   |                                                        n/a                                                        |
-| NIC per ESXi     |   2+   |   n/a   |                                                        n/a                                                        |
-
-| Storage | Shared storage - Recommended for live vMotion tests |
-|:--------|:---------------------------------------------------:|
-| Size    |                       500 GB                        |
-
-</details>
-
----
-
-### Networking
-
-<details>
-<summary>"Click to expand"</summary>
-
-<p align="center">
-  <img width=75% height=75% src="/docs/assets/Graphics/1.2.Pre-Req Networking.jpg">
-</p>
-
-| VLAN       | Number  | Description                                                                                  |
-|:-----------|:-------:|:---------------------------------------------------------------------------------------------|
-| Management | VLAN 11 | VLAN where Management is running (vCenter / ESXi-Mgt / future NSX-Mgr / future EdgeNode-Mgt) |
-| Overlay    | VLAN 12 | VLAN where future NSX Logical Switches Overlay will run in                                   |
-
-| Physical Router | VLAN      | IP                | MTU     | Note                                                                                          |
-|:----------------|:----------|:------------------|:--------|:----------------------------------------------------------------------------------------------|
-| Management      | VLAN 11   | 192.168.50.1/24   | 1500    |                                                                                               |
-| Overlay         | VLAN 12   | 192.168.51.1/24 * | 1700+ * |                                                                                               |
-| Web             | VLAN 16   | 10.16.1.1/24      | 1500    | Needed for [NSX Evaluation - Security only (no Logical Network)](/docs/3.1-Security-Only.md)  |
-| External        | VLAN 3103 | 20.20.20.1/24     | 1500    | Needed for [NSX Evaluation -Logical Network + Security](/docs/3.2-LogicalNetwork-Security.md) |
-
-
-
-\* Since in this lab all Transport Nodes (ESXi / Edge Nodes) run the Overlay traffic in the same VLAN 12, there is actually requirement to have an IP and MTU 1700+ on the physical router.
-
-
-</details>
+* Preferrably, the deployed NSX Manager should have Internet access in order to download the lastest set of IDS/IPS signatures.
+* Desktop (Windows, Mac or Linux) with latest PowerShell Core and PowerCLI 12.0 Core installed. See [ instructions here](https://blogs.vmware.com/PowerCLI/2018/03/installing-powercli-10-0-0-macos.html) for more details
+* vSphere 7 & NSX-T OVAs:
+    * [vCenter Server Appliance 7.0.0B] (https://my.vmware.com/group/vmware/downloads/details?downloadGroup=VC700B&productId=974&rPId=47905)
+    * [NSX-T Manager 3.0.1 OVA](https://my.vmware.com/group/vmware/downloads/details?downloadGroup=NSX-T-301&productId=982&rPId=48086)
+    * [NSX-T Edge 3.0.1 for ESXi OVA]((https://my.vmware.com/group/vmware/downloads/details?downloadGroup=NSX-T-301&productId=982&rPId=48086)
+    * [Nested ESXi 7.0 OVA - Build 15344619](https://download3.vmware.com/software/vmw-tools/nested-esxi/Nested_ESXi7.0_Appliance_Template_v1.ova)
+    
+> **Note**: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
 
 
 ---
