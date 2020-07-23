@@ -23,9 +23,9 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
     * If your physical storage is vSAN, please ensure you've applied the following setting as mentioned [here](https://www.virtuallyghetto.com/2013/11/how-to-run-nested-esxi-on-top-of-vsan.html)
 
 #### Compute
-        * Single Physical host running at least vSphere 6.7 or later
-        * Ability to provision VMs with up to 8 vCPU
-        * Ability to provision up to 64 GB of memory
+ * Single Physical host running at least vSphere 6.7 or later
+ * Ability to provision VMs with up to 8 vCPU
+ * Ability to provision up to 64 GB of memory
 
 #### Network
         * Single pre-configured Standard or Distributed Portgroup (Management VLAN) used to deploy all VMs In the example config, VLAN-194 is used as this isngle port-group
