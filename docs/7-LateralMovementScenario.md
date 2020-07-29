@@ -146,7 +146,7 @@ Process List
 ```
 > **Note**: The VMs deployed in this lab run Drupal and CouchCB services as containers (built using Vulhub). The establshed session puts you into the container **cve201712635_couchdb_1** container shell.
 
-6.	Now we can pivot the attack and laterally move to other application VM deployed in the same network segment as **App1-APP-TIER VM**. We will will use the same **apache_couchdb_cmd_exec** exploit to  the **App2-APP-TIER VM** on the internal network, which also is running a vulnerable **CouchDB** Service. 
+6.	Now we can pivot the attack once more and laterally move to other application VM deployed in the same network segment as **App1-APP-TIER VM**. We will will use the same **apache_couchdb_cmd_exec** exploit to  the **App2-APP-TIER VM** on the internal network, which also is running a vulnerable **CouchDB** Service. 
 
 **Initiate CouchDB Command Execution attack against App2-APP-TIER VM through App-1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
