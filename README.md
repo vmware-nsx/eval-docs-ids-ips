@@ -63,11 +63,12 @@ Existing NSX customers should reach out to their NSX account team for support du
 ## Table of Contents
 * [Requirements](/docs/1-Requirements.md)
 * [Customize Deployment Script](/docs/2-CustomizeScript.md)
-* [Verify Lab Deployment](/docs/3-VerifyLabDeployment.md)
-* [Initial IDS/IPS Configuration](/docs/4-InitialConfiguration.md)
-* [Basic Attack Scenario](/docs/5-BasicAttackScenario.md)
-* [Lateral Movement Scenario](/docs/6-LateralMovementScenario.md)
-* [Advanced Exercises](/docs/7-AdvancedExercises.md)
-* [Segmenting the Evironment](/docs/8-Segmentation.md)
+* [Run Deployment Script](/docs/3-RunScript.md)
+* [Verify Lab Deployment](/docs/4-VerifyDeployment.md)
+* [Initial IDS/IPS Configuration](/docs/5-InitialConfiguration.md)
+* [Basic Attack Scenario](/docs/6-BasicAttackScenario.md)
+* [Lateral Movement Scenario](/docs/7-LateralMovementScenario.md)
+* [Advanced Exercises](/docs/8-AdvancedAttackandConfiguration)
+* [Segmenting the Evironment](/docs/9-Segmentation)
 
 [***Next Step: 1. Requirements***](docs/1-Requirements.md)
