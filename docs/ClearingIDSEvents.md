@@ -14,7 +14,7 @@ java -cp /usr/share/corfu/lib/corfudb-tools-0.3.0.20200504185111.2955-shaded.jar
 curl -X PUT -H "Content-Type: application/json" "localhost:9200/security_data_service_metadata/_doc/security_data_service?pretty" -d' {"clusterId" : "-1"}'
 service idps-reporting-service start
 ```
-3. IDS events will now be cleared from the NSX manager and the reporting service will restart. This may take a few moments, but when you login to the NSX Manager UI, you should see the IDS events have been removed. You can now close the ssh session. 
+3. IDS events will now be cleared from the NSX manager and the reporting service will restart. This may take a few moments, but when you login to the NSX Manager UI, you should see the IDS events have been removed. You may have to refresh the UI/webpage a few times. You can now close the ssh session. 
 ---
 
 ***Next Step: Continue with the next exercise in the PoV Guide***
