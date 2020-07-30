@@ -40,8 +40,8 @@ This PoV guide is intended for existing and future NSX customers who want to eva
 * Enterprise Applicatoin Owner
 
 ---
-## Resources commitment and suggsted timeline
-The expected time commitment to complete the PoV process is about 5 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
+## Resources commitment and suggested timeline
+The expected time commitment to complete the PoV process is about 6 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
 
 | Task  | Estimated Time to Complete | Suggested Week | 
 | ------------- | ------------- | ------------- |
@@ -49,9 +49,9 @@ The expected time commitment to complete the PoV process is about 5 hours. This 
 | Run Deployment Script  | 90 minutes | Week 1 | 
 | Verify Lab Deployment  | 30 minutes | Week 1 | 
 | Initial IDS/IPS Configuration  | 30 minutes | Week 1 | 
-| Simple Attack Scenario | 30 minutes | Week 2 | 
-| Lateral Attack Scenario | 30 minutes | Week 2 | 
-| Advanced Attack and configuration tuning | 30 minutes | Week 2 | 
+| Simple Attack Scenario | 30 minutes | Week 1 | 
+| Lateral Attack Scenario | 60 minutes | Week 2 | 
+| Advanced Attack and configuration tuning | 60 minutes | Week 2 | 
 | Apply micro-segmentation to limit the attack surface | 30 minutes | Week 2 | 
 
 ---

