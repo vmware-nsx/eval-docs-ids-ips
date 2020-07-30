@@ -286,8 +286,6 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
   
 > **Note**: You will see 2 log entries for each connection, because the Distributed IDS/IPS has been enabled on both source and destination. 
 
-    * This event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2017-12635* CVE link to open up the **Mitre** CVE page and learn more 
-    * click **3 (VMs affected)** and confirm this matches with **APP-1-WEB-TIER**, **APP-1-APP-TIER** and **APP-2-APP-TIER**.
 9. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS Apache CouchDB Remote Code Execution 1** event. Conirm the instrusion history matches the one of the event you previously looked at. 
 10. Now you can apply a wide array of filter criteria in order to only look at specific events. Use the checkboxes and filter to zoom in to specifc events:
      * Only look at **Critical Severity** level events. There should only be one.
