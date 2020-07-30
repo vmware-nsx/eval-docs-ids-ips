@@ -6,7 +6,7 @@ $VIServer = "vcenter-north.lab.svanveer.pa"
 $VIUsername = "administrator@vsphere.local"
 $VIPassword = "VMware1!"
 
-# Full Path to both the Nested ESXi 7.0 VA, Extracted VCSA 7.0 ISO & NSX-T OVAs
+# Full Path to both the Nested ESXi 7.0 VA, Extracted VCSA 7.0 ISO, NSX-T OVAs, External and Victim VM OVAs
 $NestedESXiApplianceOVA = "C:\Users\stijn\downloads\ESXI\Nested_ESXi7.0_Appliance_Template_v1.ova"
 $VCSAInstallerPath = "C:\Users\stijn\downloads\VCSA\VMware-VCSA-all-7.0.0-16189094"
 $NSXTManagerOVA = "C:\Users\stijn\downloads\NSXMgr\nsx-unified-appliance-3.0.0.0.0.15946739.ova"
@@ -15,14 +15,14 @@ $ExternalVMOVA = "C:\Users\stijn\downloads\Attacker\External-VM.ova"
 $VictimVMOVA = "C:\Users\stijn\downloads/Victim\Victim-VM.ova"
 
 
-# Nested ESXi VMs to deploy
+# Nested ESXi VMs to deploy  - Replace IP addresses (nested ESXi VMMKnic) to match the assigned subnet in your physical eenvironment
 $NestedESXiHostnameToIPs = @{
     "Nested_ESXi_1" = "10.114.209.140" 
     "Nested_ESXi_2" = "10.114.209.141" 
     "Nested_ESXi_3" = "10.114.209.142" 
 }
 
-# Nested ESXi VM Resources
+# Nested ESXi VM Resources - Default values are sufficient
 $NestedESXivCPU = "4"
 $NestedESXivMEM = "16" #GB
 $NestedESXiCachingvDisk = "8" #GB
@@ -31,9 +31,9 @@ $NestedESXiCapacityvDisk = "100" #GB
 # VCSA Deployment Configuration
 $VCSADeploymentSize = "tiny"
 $VCSADisplayName = "pov-vcsa"
-$VCSAIPAddress = "10.114.209.143"
-$VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS
-$VCSAPrefix = "28"
+$VCSAIPAddress = "10.114.209.143" #Set to the desired IP address
+$VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS. 
+$VCSAPrefix = "27" #Set to the appropriate prefix
 $VCSASSODomainName = "vsphere.local"
 $VCSASSOPassword = "VMware1!"
 $VCSARootPassword = "VMware1!"
@@ -57,21 +57,21 @@ $VMFolder = "NSX PoV" #The deployment script will create this folder
 $VMSSH = "true"
 $VMVMFS = "false"
 
-# Name of new vSphere Datacenter/Cluster when VCSA is deployed
+# Name of new vSphere Datacenter/Cluster when VCSA is deployed - Default values are sufficient
 $NewVCDatacenterName = "PoC-Datacenter"
 $NewVCVSANClusterName = "Workload-Cluster"
 $NewDatastore = "vsanDatastore"
 $NewVCVDSName = "PoC-VDS"
 $NewVCDVPGName = "DVPG-Management Network"
 
-# PoC Configuration
-$StoragePolicyName = "PoC-gold-storage-policy"
-$StoragePolicyTagCategory = "PoC-demo-tag-category"
-$StoragePolicyTagName = "PoC-demo-storage"
+# PoV Configuration - Default values are sufficient
+$StoragePolicyName = "PoV-gold-storage-policy"
+$StoragePolicyTagCategory = "PoV-demo-tag-category"
+$StoragePolicyTagName = "PoV-demo-storage"
 $DevOpsUsername = "devops"
-$DevOpsPassword = "VMware1!"
+$DevOpsPassword = "VMware1!""
 
-# NSX-T Configuration
+# NSX-T Configuration - Adjust variables (license key, VTEPNetwork) to match your environment
 $NSXLicenseKey = "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx" #Replace with valid NSX License key
 $NSXRootPassword = "VMware1!VMware1!"
 $NSXAdminUsername = "admin"
@@ -82,40 +82,39 @@ $NSXSSHEnable = "true"
 $NSXEnableRootLogin = "true"
 $NSXVTEPNetwork = "VLAN-194"
 
-# Transport Node Profile
-$TransportNodeProfileName = "PoC-Transport-Node-Profile"
+# Transport Node Profile - Default values are sufficient
+$TransportNodeProfileName = "PoV-Transport-Node-Profile"
 
-# TEP IP Pool
+# TEP IP Pool  - Replace IP addresses to match the physical environment subnet you've allocated (i.e management network) 
 $TunnelEndpointName = "TEP-IP-Pool"
 $TunnelEndpointDescription = "Tunnel Endpoint for Transport Nodes"
-$TunnelEndpointIPRangeStart = "10.114.209.144"
+$TunnelEndpointIPRangeStart = "10.114.209.144" 
 $TunnelEndpointIPRangeEnd = "10.114.209.147"
-$TunnelEndpointCIDR = "10.114.209.128/27"
-$TunnelEndpointGateway = "10.114.209.129"
+$TunnelEndpointCIDR = "10.114.209.128/27" 
+$TunnelEndpointGateway = "10.114.209.129" #Default Gateway of the Management Network
 
-# Transport Zones
+# Transport Zones - Default Values are sufficient
 $OverlayTransportZoneName = "TZ-Overlay"
 $OverlayTransportZoneHostSwitchName = "nsxswitch"
 $VlanTransportZoneName = "TZ-VLAN"
 $VlanTransportZoneNameHostSwitchName = "edgeswitch"
 
-# Network Segment
-$NetworkSegmentName = "PoC-Segment"
+# Network Segment - Default Values are sufficient
+$NetworkSegmentName = "PoV-Segment"
 $NetworkSegmentVlan = "0"
 
-# DHCP Server
+# DHCP Server - Default Values are sufficient
 $DHCPServerName = "DHCP_Server"
 
-# T0 Gateway
-$T0GatewayName = "PoC2-T0-Gateway"
-$T0GatewayInterface = "t0_interface_01"
+# T0 Gateway - Adjust T0GatewayInterfaceAddress and Prefix as well as StaticRoute Address 
+$T0GatewayName = "PoV-T0-Gateway"
 $T0GatewayInterfaceAddress = "10.114.209.148" # should be a routable address
-$T0GatewayInterfacePrefix = "27"
-$T0GatewayInterfaceStaticRouteName = "PoC-Static-Route"
+$T0GatewayInterfacePrefix = "27" #adjust to the correct prefix for your enviornment
+$T0GatewayInterfaceStaticRouteName = "PoV-Static-Route"
 $T0GatewayInterfaceStaticRouteNetwork = "0.0.0.0/0"
-$T0GatewayInterfaceStaticRouteAddress = "10.114.209.129"
+$T0GatewayInterfaceStaticRouteAddress = "10.114.209.129" # IP address of the next hop router in your environment. This can be set to an invalid IP address to ensure the vulnerable workloads remain isolated from the rest of the environment
 
-# Uplink Profiles
+# Uplink Profiles  - Default Values are sufficient
 $ESXiUplinkProfileName = "ESXi-Host-Uplink-Profile"
 $ESXiUplinkProfilePolicy = "FAILOVER_ORDER"
 $ESXiUplinkName = "uplink1"
@@ -127,24 +126,25 @@ $EdgeOverlayUplinkName = "uplink1"
 $EdgeOverlayUplinkProfileActivepNIC = "fp-eth1"
 $EdgeUplinkName = "tep-uplink"
 $EdgeUplinkProfileActivepNIC = "fp-eth2"
-$EdgeUplinkProfileTransportVLAN = "0"
+$EdgeUplinkProfileTransportVLAN = "0" # Do not changes this VLAN
 $EdgeUplinkProfileMTU = "1600"
 
-# Edge Cluster
+# Edge Cluster  - Default Values are sufficient
 $EdgeClusterName = "Edge-Cluster-01"
 
-# NSX-T Manager Configurations
+
+# NSX-T Manager Configurations - Replace IP address
 $NSXTMgrDeploymentSize = "small"
-$NSXTMgrvCPU = "4" #override default size
-$NSXTMgrvMEM = "16" #override default size
-$NSXTMgrDisplayName = "poc2-nsx"
+$NSXTMgrvCPU = "4" 
+$NSXTMgrvMEM = "16"
+$NSXTMgrDisplayName = "pov-nsx-manager"
 $NSXTMgrHostname = "10.114.209.149"
 $NSXTMgrIPAddress = "10.114.209.149"
 
-# NSX-T Edge Configuration
+# NSX-T Edge Configuration - Replace IP address
 $NSXTEdgeDeploymentSize = "medium"
-$NSXTEdgevCPU = "4" #override default size
-$NSXTEdgevMEM = "8" #override default size
+$NSXTEdgevCPU = "4" 
+$NSXTEdgevMEM = "8"
 $NSXTEdgeName = "poc2-nsx-edge-3a"
 $NSXTEdgeHostnameToIPs = @{
     $NSXTEdgeName = "10.114.209.150"
