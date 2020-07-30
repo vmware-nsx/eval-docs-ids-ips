@@ -6,19 +6,19 @@ Before you can run the [script](https://github.com/vmware-nsx/eval-docs-ids-ips/
 
 In this example below, I will be using a single /27 subnet(10.114.209.128/27)  on a single port-group (VLAN-194) which all the VMs provisioned by the automation script will be connected to. It is expected that you will have a similar configuration which is the most basic configuration for PoV and testing purposes.
 
-| Name                       | IP Address                     | Function                     |
-|----------------------------|--------------------------------|------------------------------|
-| pov-vcsa                   | 10.114.209.143                 | vCenter Server               |
-| Nested_ESXi_1              | 10.114.209.140                 | ESXi                         |
-| Nested_ESXi_2              | 10.114.209.142                 | ESXi                         |
-| Nested_ESXi_3              | 10.114.209.143                 | ESXi                         |
-| pov-nsx                    | 10.114.209.149                 | NSX-T Manager                |
-| pov-nsx-edge               | 10.114.209.150                 | NSX-T Edge                   |
-| T0-uplink                  | 10.114.209.148                 | T0 GW Interface IP           |
-| TunnelEndpointGateway      | 10.114.209.129                 | Existing default GW          |
-| T0 Static Default GW       | 10.114.209.129                 | Existing default GW          |
-| TEP Pool                   | 10.114.209.144-10.114.209.147  | Tunnel Endpoint IPs          |
-| External VM                | 10.114.209.151                 | Attacker (Metasploit) VM     |
+| Name                       | IP Address                     | Function                     | Default Credentials          |
+|----------------------------|--------------------------------|------------------------------|------------------------------|
+| pov-vcsa                   | 10.114.209.143                 | vCenter Server               |administrator@vsphere.local/VMware1! |
+| Nested_ESXi_1              | 10.114.209.140                 | ESXi                         |root/VMware1!
+| Nested_ESXi_2              | 10.114.209.142                 | ESXi                         |root/VMware1!
+| Nested_ESXi_3              | 10.114.209.143                 | ESXi                         |root/VMware1!
+| pov-nsx                    | 10.114.209.149                 | NSX-T Manager                |admin/VMware1!VMware1!
+| pov-nsx-edge               | 10.114.209.150                 | NSX-T Edge                   |admin/VMware1!
+| T0-uplink                  | 10.114.209.148                 | T0 GW Interface IP           |n.a.
+| TunnelEndpointGateway      | 10.114.209.129                 | Existing default GW          |n.a.
+| T0 Static Default GW       | 10.114.209.129                 | Existing default GW          |n.a.
+| TEP Pool                   | 10.114.209.144-10.114.209.147  | Tunnel Endpoint IPs          |n.a.
+| External VM                | 10.114.209.151                 | Attacker (Metasploit) VM     |vmware/VMware1!
 
 
 This section describes the credentials to your physical environment vCenter Server in which the nested lab environment will be deployed to. Make sure to adjust **all** of the below variables to match your physical environment vCenter:
