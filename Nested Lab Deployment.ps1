@@ -1,4 +1,5 @@
 # Based on work by William Lam / www.virtuallyghetto.com 
+# Additinal NSX automation by Madhu Krishnarao and Stijn Vanveerdeghem
 
 # vCenter Server used to deploy vSphere with NSX lab
 $VIServer = "vcenter-north.lab.svanveer.pa"
@@ -29,7 +30,7 @@ $NestedESXiCapacityvDisk = "100" #GB
 
 # VCSA Deployment Configuration
 $VCSADeploymentSize = "tiny"
-$VCSADisplayName = "poc-vcsa"
+$VCSADisplayName = "pov-vcsa"
 $VCSAIPAddress = "10.114.209.143"
 $VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS
 $VCSAPrefix = "28"
@@ -39,18 +40,18 @@ $VCSARootPassword = "VMware1!"
 $VCSASSHEnable = "true"
 
 # General Deployment Configuration for Nested ESXi, VCSA & NSX VMs
-$VMDatacenter = "PaloAlto-Main"
-$VMCluster = "Physical-3"
-$VMNetwork = "VLAN-194"
-$VMDatastore = "NFS"
-$VMNetmask = "255.255.255.224"
-$VMGateway = "10.114.209.129"
-$VMDNS = "10.114.222.70"
-$VMNTP = "10.20.145.1"
+$VMDatacenter = "PaloAlto-Main" # Existing Datacenter on the Physical vCenter
+$VMCluster = "Physical-3" #Existing Cluster in the above Datacenter on the Physical vCenter
+$VMNetwork = "VLAN-194" #Existing port-group on the physical host/ to use and connect all deployed workloads (except for victim VMs) to
+$VMDatastore = "NFS" #Existing Datastore on the physical host/vCenter
+$VMNetmask = "255.255.255.224" #Netmask of the designated existing subnet which will be used to connect all deployed workloads (except for victim VMs) to
+$VMGateway = "10.114.209.129" #Existing Gateway allowing lab management components to reach the outside environment
+$VMDNS = "10.114.222.70" #Existing DNS server that will be configured on lab management componenets
+$VMNTP = "10.20.145.1" #Existing NTP server that will be configured on lab management components
 $VMPassword = "VMware1!"
 $VMDomain = "lab.svanveer.pa"
-$VMSyslog = "10.114.222.70"
-$VMFolder = "NSX PoC 2"
+$VMSyslog = "" # Do not set this unless you want to send logs to an existing and reachable Syslog collector/SIEM.
+$VMFolder = "NSX PoV" #The deployment script will create this folder
 
 # Applicable to Nested ESXi only
 $VMSSH = "true"
