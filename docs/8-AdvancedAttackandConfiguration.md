@@ -38,4 +38,4 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
 
 ---
 
-[***Next Step: 9. Segmentation***](/docs/9-Segmentation)
+[***Next Step: 9. Segmentation***](/docs/9-Segmentation.md)
