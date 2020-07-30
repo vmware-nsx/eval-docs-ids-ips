@@ -46,7 +46,7 @@ $VictimVMOVA = "C:\Users\stijn\downloads/Victim\Victim-VM.ova"
 
 This section defines the number of Nested ESXi VMs to deploy along with their associated IP Address(s). The names are merely the display name of the VMs when deployed. At a minimum, you should deploy at least three hosts, but you can always add additional hosts and the script will automatically take care of provisioning them correctly. Adjust the **IP addresses** for the 3 below hosts. For simplicity, these IP addresses should part of the same Management subnet for the nested vCenter and NSX Manager. 
 ```console
-# Nested ESXi VMs to deploy
+# Nested ESXi VMs to deploy - Replace IP addresses (nested ESXi VMMKnic) to match the assigned subnet in your physical eenvironment
 $NestedESXiHostnameToIPs = @{
     "Nested_ESXi_1" = "10.114.209.140" 
     "Nested_ESXi_2" = "10.114.209.141" 
@@ -58,9 +58,9 @@ This section describes the VCSA deployment configuration such as the VCSA deploy
 ```console
 $VCSADeploymentSize = "tiny"
 $VCSADisplayName = "pov-vcsa"
-$VCSAIPAddress = "10.114.209.143" 
+$VCSAIPAddress = "10.114.209.143" #Set to the desired IP address
 $VCSAHostname = "10.114.209.143" #Use IP if you don't have valid DNS. 
-$VCSAPrefix = "27"
+$VCSAPrefix = "27" #Set to the appropriate prefix
 $VCSASSODomainName = "vsphere.local"
 $VCSASSOPassword = "VMware1!"
 $VCSARootPassword = "VMware1!"
@@ -86,7 +86,7 @@ $VMFolder = "NSX PoV" #The deployment script will create this folder
 This section describes the NSX-T configurations, the following variables must be defined by users and the rest can be left as defaults.
     **$NSXLicenseKey**, **$NSXVTEPNetwork**, **$T0GatewayInterfaceAddress**, **$T0GatewayInterfacePrefix**, **$T0GatewayInterfaceStaticRouteAddress** and the **NSX-T Manager**, **TEP IP Pool** and **Edge** Sections
 ```console
-# NSX-T Configuration
+# NSX-T Configuration - Adjust variables (license key, VTEPNetwork) to match your environment
 NSXLicenseKey = "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx" #Replace with valid NSX License key
 $NSXRootPassword = "VMware1!VMware1!"
 $NSXAdminUsername = "admin"
@@ -113,7 +113,7 @@ $T0GatewayInterfaceStaticRouteName = "PoV-Static-Route"
 $T0GatewayInterfaceStaticRouteNetwork = "0.0.0.0/0"
 $T0GatewayInterfaceStaticRouteAddress = "10.114.209.129" # IP address of the next hop router in your environment. This can be set to an invalid IP address to ensure the vulnerable workloads remain isolated from the rest of the environment
 
-# NSX-T Manager Configurations
+# NSX-T Manager Configurations - Replace IP addresses
 $NSXTMgrDeploymentSize = "small"
 $NSXTMgrvCPU = "4" 
 $NSXTMgrvMEM = "16" 
