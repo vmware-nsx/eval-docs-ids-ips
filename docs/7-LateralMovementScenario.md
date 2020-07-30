@@ -279,9 +279,21 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
   *  click **View Intrusion History** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
   *  this event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2018-7600** CVE link to open up the **Mitre** CVE page and learn more about the vulnerability.
 6. **Optionally**, you can check the  obove details as well for the secondary event (except for the vulnerability details, which are not applicable to this more general signature)
-7. Now we can look at the **CouchDB** exploit, which we used to move laterally from **APP-1-WEB-TIER** to **APP-1-APP-TIER** and from **APP-1-APP-TIER**  to **APP-2-APP-TIER**
+7. Now we can look at the **CouchDB** exploit, which we used to move laterally from **APP-1-WEB-TIER** to **APP-1-APP-TIER** and from **APP-1-APP-TIER**  to **APP-2-APP-TIER**. 
+8. Click the **>** symbol to the left of the **SLR Alert - Apache CouchDB Remote Privilege Escalation (CVE-2017-12635)** event
+  *  Confirm that the IP addresses of the attacker and victim match with the **APP-1-APP-TIER VM** and **APP-2-APP-TIER VM** respectlively. This represents the last time this particular signature fired. 
+  *  click **View Intrusion History** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.100) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.101)**. 
+  
+> **Note**: You will see 2 log entries for each connection, because the Distributed IDS/IPS has been enabled on both source and destination. 
 
-
+  * This event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2017-12635* CVE link to open up the **Mitre** CVE page and learn more 
+  * click **3 (VMs affected)** and confirm this matches with **APP-1-WEB-TIER**, **APP-1-APP-TIER** and **APP-2-APP-TIER**.
+9. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS Apache CouchDB Remote Code Execution 1** event. Conirm the instrusion history matches the one of the event you previously looked at. 
+10. Now you can apply a wide array of filter criteria in order to only look at specific events. Use the checkboxes and filter to zoom in to specifc events:
+    * Only look at **Critical Severity** level events. There should only be one.
+    * Only look at events related to the the **APP-1-APP-TIER** VM. There should be 4 as this VM was the initial target as well as the pivot of an attack.
+    * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Ap
 3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
 4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
 ![](assets/images/IDPS_POC_19.PNG)
