@@ -271,6 +271,8 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Apache CouchDB Remote Code Execution**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
     * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
+    
+    ![](assets/images/IDPS_POC_20.PNG)
 
 > **Note**: Events are ordered based on the time a particular signature last fired. The last event is at the top of the table.
 
