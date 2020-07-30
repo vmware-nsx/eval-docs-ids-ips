@@ -290,10 +290,10 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
 10. Now you can apply a wide array of filter criteria in order to only look at specific events. Use the checkboxes and filter to zoom in to specifc events:
      * Only look at **Critical Severity** level events. There should only be one.
      * Only look at events related to the the **APP-1-APP-TIER** VM. There should be 4 as this VM was the initial target as well as the pivot of an attack.
-     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
-     * Signature for **Ap
-3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
-4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
+     * Only look at events with a **CVSS Score** of **9 and above**. There should be 3.
+     * Only look at events where the **affected product** is **Drupal Service**. There should be 1.
+     * Only look at events related to the **APP-1-APP-TIER** where the **CVSS** is **9 and above*. There should be 2.
+
 ![](assets/images/IDPS_POC_19.PNG)
 
 ---
