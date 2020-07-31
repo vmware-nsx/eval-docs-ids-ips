@@ -76,6 +76,16 @@ We will not cover how to install **vRealize Log Insight** or any other logging p
 10. Tick the checkbox next to **syslog** to allow outbuound syslog from the host.
 11. Repeat the same for the remaining 2 hosts.
 ![](assets/images/IDPS_POC_24.PNG)
+12. Open a terminal session to one of the lab hypervisors , login with **root**/**VMware1!** and execute the below commands to enable IDS log export via syslog
+    * Type **nsxcli** to enter the NSX CLI on the host
+    * Type **set ids engine syslogstatus enable** to enable syslog event export
+    * Confirm syslog event export was succesfully enabled by running the command **get ids engine syslogstatus**
+    ```console 
+[root@localhost:~] nsxcli
+localhost> set ids engine syslogstatus enable
+    result: success
+    ```
+
 ---
 
 [***Next Step: 9. Segmentation***](/docs/9-Segmentation.md)
