@@ -14,7 +14,7 @@ In this **optional** exercise, we will explore some more advanced options in the
 1.	From the console session with  **External VM**, type **sudo msfconsole** to launch **Metasploit**. Enter **VMware1!** if prompted for a password. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/multi/http/struts2_namespace_ognl** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
-    * Type **exploit** to initiate the exploit, esbalish a reverse shell, and background the session.
+    * Type **exploit** to initiate the exploit.
 
 > **Note**: This exploit will fail as  **App1-WEB-TIER VM** is not running an Apache Struts service vulnerable to this exploit.
     
@@ -47,6 +47,12 @@ msf5 exploit(multi/http/struts2_content_type_ognl) >
 10. Click **Add** to add the selected signatures to th exclusion list for the **Production** profile.
 11. Click **Save** to save the **Production** profile.
 
+Now that we have tuned our Profile, we will try the failed exploit attempt again, and confirm this time the signatures don't fire.
+
+12.	From the already open console session with  **External VM**, use the already configured **struts2_namespace_ognl** Metastploit module to launch the exploit attempt again. 
+    * Type **exploit** to initiate the exploit. If you had previously closed Metsploit, then repeat step #1 of this exercise instead to launch the exploit attempt
+13. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Events
+14. Confirm the total number of events or the number of times each **Apache_Struts2** signature fired has not increased.
 
 
 ---
