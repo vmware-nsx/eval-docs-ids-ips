@@ -44,13 +44,12 @@ msf5 exploit(multi/http/struts2_content_type_ognl) >
 8. Click **Select** next to **High Severity Signatures**
 9. In the **Filter** field, type **Apache_Struts2** to find all signatures related to Struts2. Tick the **Checkbox** on top of the exclusion screen to select all filtered signatures.
 
-    * Name **Production**
-    * Signatures to Include: **Critical**, **High**, **Medium**
-3.	Create another IDS Profile with the below parameters. Click Save when done.
-    * Name **Development**
-    * Signatures to Include: **Critical**, **High**
-    
-establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
+![](assets/images/IDPS_POC_21.PNG)
+
+10. Click **Add** to add the selected signatures to th exclusion list for the **Production** profile.
+11. Click **Save** to save the **Production** profile.
+
+
 
 ---
 
