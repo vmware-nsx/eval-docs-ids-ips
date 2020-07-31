@@ -2,7 +2,12 @@
 ## 8. Advanced Attack and Configuration
 **Estimated Time to Complete: 60 minutes**
 
-In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration  
+In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration 
+    * Tuning IDS/IPS Profile to turn off irrelevant signatures
+    * Attempt to evade IDS/IPS detection by using obfuscations
+    * Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM
+    
+    
 establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
 **Open a SSH/Console session to the External VM**
