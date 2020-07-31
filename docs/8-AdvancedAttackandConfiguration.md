@@ -93,7 +93,7 @@ localhost> get ids engine syslogstatus
 ```
 13. Login to your syslog collector/SIEM and confirm you are receiving logs form each host.
 14. Configure a parser or a filter to only look at IDS events. You can for example filter on the string **IDPS_EVT**. 
-
+![](assets/images/IDPS_POC_25.PNG)
 ---
 
 [***Next Step: 9. Segmentation***](/docs/9-Segmentation.md)
