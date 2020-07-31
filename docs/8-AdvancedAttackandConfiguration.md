@@ -32,9 +32,14 @@ msf5 exploit(multi/http/struts2_content_type_ognl) > exploit
 [*] Exploit completed, but no session was created.
 msf5 exploit(multi/http/struts2_content_type_ognl) >
 ```
-2. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS
+2. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Events
 3. Confirm 4 signatures have fired:
-    * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
+    * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638)
+    * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M2
+    * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M3
+4. Note that the **affected product** for all these events is **Apache_Struts2**.
+5. Now we will turn off these signatures for the **Production** profiles as we are not running **Apache_Struts2** in our production environment.
+6. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Profiles
     
 establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
