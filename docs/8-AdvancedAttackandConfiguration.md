@@ -4,7 +4,6 @@
 
 In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration
  * Tuning IDS/IPS Profile to turn off irrelevant signatures
- * Attempt to evade IDS/IPS detection by using obfuscations
  * Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM
 
 **Tuning IDS/IPS Profile to turn off irrelevant signatures**
@@ -33,10 +32,11 @@ msf5 exploit(multi/http/struts2_content_type_ognl) > exploit
 msf5 exploit(multi/http/struts2_content_type_ognl) >
 ```
 2. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Events
-3. Confirm 4 signatures have fired:
+3. Confirm 3 signatures have fired:
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638)
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M2
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M3
+    ![](assets/images/IDPS_POC_22.PNG)
 4. Note that the **affected product** for all these events is **Apache_Struts2** and the severity for all events is **high**.
 5. Now we will turn off these signatures for the **Production** profiles as we are not running **Apache_Struts2** in our production environment.
 6. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Profiles
@@ -53,7 +53,17 @@ Now that we have tuned our Profile, we will try the failed exploit attempt again
     * Type **exploit** to initiate the exploit. If you had previously closed Metsploit, then repeat step #1 of this exercise instead to launch the exploit attempt
 13. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Events
 14. Confirm the total number of events or the number of times each **Apache_Struts2** signature fired has not increased.
+![](assets/images/IDPS_POC_22.PNG)
+15. You have now completed this exercise.
 
+**Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM
+
+> **Note**: In addition to sending IDS/IPS Events from each distributed IDS/IPS engine, you can send them directly to a Syslog collector or SIEM from each host. Events are sent in the EVE.JSON format for which many SIEMS have pre-existing parsers/dashboards. 
+
+In this exercise, you will learn how to conigure IDS event export from each host to your syslog collector or SIEM of choice. I will use **vRealize Log Insight**. You can use the same or your own SIEM of choice.
+We will not cover how to install **vRealize Log Insight** or any other logging platform, but the following steps will cover how to send IDS/IPS evens to an aleady configured collector.
+
+1. Login to lab vCenter and x
 
 ---
 

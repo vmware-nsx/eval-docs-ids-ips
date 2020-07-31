@@ -34,9 +34,6 @@ From the physical environent vCenter, open a console to **External VM** and take
     * Type **set PORTS 8080,5984** to define the ports to scan (Drupal and CouchDB servers)
     * Type **run**
 
-Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is functional and 4 vulnerable VMs have been deployed on the cluster:
-* APP-1-WEB-TIER 
-
 **Lab vCenter**
 Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is functional and 4 vulnerable VMs have been deployed on the cluster:
 * APP-1-WEB-TIER connected to **DMZSegment** Portgroup
