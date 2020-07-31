@@ -2,7 +2,7 @@
 ## 8. Advanced Attack and Configuration
 **Estimated Time to Complete: 60 minutes**
 
-In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration 
+In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration
     * Tuning IDS/IPS Profile to turn off irrelevant signatures
     * Attempt to evade IDS/IPS detection by using obfuscations
     * Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM
