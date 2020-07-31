@@ -80,11 +80,18 @@ We will not cover how to install **vRealize Log Insight** or any other logging p
     * Type **nsxcli** to enter the NSX CLI on the host
     * Type **set ids engine syslogstatus enable** to enable syslog event export
     * Confirm syslog event export was succesfully enabled by running the command **get ids engine syslogstatus**
-    ```console 
+
+```console
 [root@localhost:~] nsxcli
 localhost> set ids engine syslogstatus enable
     result: success
-    ```
+    
+localhost> get ids engine syslogstatus
+       NSX IDS Engine Syslog Status Setting
+--------------------------------------------------
+                       true
+```
+
 
 ---
 
