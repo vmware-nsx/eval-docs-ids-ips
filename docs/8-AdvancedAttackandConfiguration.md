@@ -100,6 +100,12 @@ localhost> get ids engine syslogstatus
     * **SUBNET** on line 6 (route add) should be the Internal Network subnet 
     * **LHOST** on line 9 should be the IP address of the External VM (this local machine) 
     * **RHOST** on line 10 should be the IP address of the App1-APP-TIER VM RHOST on line 13 should be the IP address of the App2-APP-TIER VM
+17. After saving your changes, run the attack2 script by executing **sudo ./attack2.sh**.
+18. Confirm a total of 3 meterpreter/command shell sessions have been established
+19. Confirm your syslog server/SIEM has received the IDS events, directly from the host
+![](assets/images/IDPS_POC_26.PNG)
+
+This comnpletes this exercise.
 
 ---
 
