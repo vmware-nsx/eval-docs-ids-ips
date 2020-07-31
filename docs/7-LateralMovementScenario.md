@@ -251,12 +251,11 @@ meterpreter > download /opt/couchdb/data/
 ```
 This completes the lateral movement attack scenario. Now we will go back to NSX manager and investigat this attack. Skip the below step #5 if you have gone through the manaul attack steps above.
 
-6. If you prefer not to manually go through this attack scenario, using the above steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, use **sudo nano attack1.rc** and replace the RHOST and LHOST IP addresses accordingly to match with the IP addresses in your environment. 
-**RHOST** on line 3 should be the IP address of the **App1-WEB-TIER VM**
-**SUBNET** on line 6 (route add) should be the **Internal Network** subnet
-**LHOST** on line 9 should be the IP address of the **External VM** (this local machine)
-**RHOST** on line 10 should be the IP address of the **App1-APP-TIER VM**
-**RHOST** on line 13 should be the IP address of the **App2-APP-TIER VM**
+6. If you prefer not to manually go through this attack scenario, using the above steps, you can instead run the pre-defined attack script by running **sudo ./attack2.sh**. Before you execute the script, type **sudo nano attack2.rc** and replace the **RHOST** and **LHOST** IP addresses accordingly to match with the IP addresses in your environment. 
+    * **RHOST** on line 3 should be the IP address of the App1-WEB-TIER VM 
+    * **SUBNET** on line 6 (route add) should be the Internal Network subnet 
+    * **LHOST** on line 9 should be the IP address of the External VM (this local machine) 
+    * **RHOST** on line 10 should be the IP address of the App1-APP-TIER VM RHOST on line 13 should be the IP address of the App2-APP-TIER VM
 
 > **Note**: This scripted attack does not upgrade shell sessions to meterpreter sessions nor does it interact with the sessions. To interact with the established sessions, but it will cause the same signatures to fire on the NSX IDS/IPS.
 
