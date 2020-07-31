@@ -43,9 +43,7 @@ msf5 exploit(multi/http/struts2_content_type_ognl) >
 7.	Click the **3 dots** next to the **Production** profile and click **Edit** to edit the profile.
 8. Click **Select** next to **High Severity Signatures**
 9. In the **Filter** field, type **Apache_Struts2** to find all signatures related to Struts2. Tick the **Checkbox** on top of the exclusion screen to select all filtered signatures.
-
 ![](assets/images/IDPS_POC_21.PNG)
-
 10. Click **Add** to add the selected signatures to th exclusion list for the **Production** profile.
 11. Click **Save** to save the **Production** profile.
 
