@@ -37,6 +37,7 @@ msf5 exploit(multi/http/struts2_content_type_ognl) >
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638)
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M2
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M3
+    ![](assets/images/IDPS_POC_21.PNG)
 4. Note that the **affected product** for all these events is **Apache_Struts2** and the severity for all events is **high**.
 5. Now we will turn off these signatures for the **Production** profiles as we are not running **Apache_Struts2** in our production environment.
 6. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Profiles
@@ -53,7 +54,8 @@ Now that we have tuned our Profile, we will try the failed exploit attempt again
     * Type **exploit** to initiate the exploit. If you had previously closed Metsploit, then repeat step #1 of this exercise instead to launch the exploit attempt
 13. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Events
 14. Confirm the total number of events or the number of times each **Apache_Struts2** signature fired has not increased.
-
+![](assets/images/IDPS_POC_21.PNG)
+15. You have now completed this exercise.
 
 ---
 
