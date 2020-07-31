@@ -63,8 +63,19 @@ Now that we have tuned our Profile, we will try the failed exploit attempt again
 In this exercise, you will learn how to conigure IDS event export from each host to your syslog collector or SIEM of choice. I will use **vRealize Log Insight**. You can use the same or your own SIEM of choice.
 We will not cover how to install **vRealize Log Insight** or any other logging platform, but the following steps will cover how to send IDS/IPS evens to an aleady configured collector.
 
-1. Login to lab vCenter and x
-
+1. Login to lab vCenter and click on **Hosts and Clusters**, then select one of the 3 hosts that were deployed.
+2. Click the **Configure** Tab and Scroll down to **System**. Click **Advanced System Settings**
+3. Click the **Edit** button
+4. In the **Filter** field, type **loghost**
+5. Enter the **IP address of your syslog server** in the **Syslog.global.logHost** value field and click **OK** to confirm.
+![](assets/images/IDPS_POC_23.PNG)
+6. Repeat the same for the remaining 2 hosts.
+7. Click on **Firewall** in the same **System** menu
+8. Click the **Edit** button
+9. In the **Filter** field, type **syslog**
+10. Tick the checkbox next to **syslog** to allow outbuound syslog from the host.
+11. Repeat the same for the remaining 2 hosts.
+![](assets/images/IDPS_POC_24.PNG)
 ---
 
 [***Next Step: 9. Segmentation***](/docs/9-Segmentation.md)
