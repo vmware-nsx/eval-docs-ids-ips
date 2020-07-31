@@ -63,7 +63,36 @@ Now that we have tuned our Profile, we will try the failed exploit attempt again
 In this exercise, you will learn how to conigure IDS event export from each host to your syslog collector or SIEM of choice. I will use **vRealize Log Insight**. You can use the same or your own SIEM of choice.
 We will not cover how to install **vRealize Log Insight** or any other logging platform, but the following steps will cover how to send IDS/IPS evens to an aleady configured collector.
 
-1. Login to lab vCenter and x
+1. Login to lab vCenter and click on **Hosts and Clusters**, then select one of the 3 hosts that were deployed.
+2. Click the **Configure** Tab and Scroll down to **System**. Click **Advanced System Settings**
+3. Click the **Edit** button
+4. In the **Filter** field, type **loghost**
+5. Enter the **IP address of your syslog server** in the **Syslog.global.logHost** value field and click **OK** to confirm.
+![](assets/images/IDPS_POC_23.PNG)
+6. Repeat the same for the remaining 2 hosts.
+7. Click on **Firewall** in the same **System** menu
+8. Click the **Edit** button
+9. In the **Filter** field, type **syslog**
+10. Tick the checkbox next to **syslog** to allow outbuound syslog from the host.
+11. Repeat the same for the remaining 2 hosts.
+![](assets/images/IDPS_POC_24.PNG)
+12. Open a terminal session to one of the lab hypervisors , login with **root**/**VMware1!** and execute the below commands to enable IDS log export via syslog
+    * Type **nsxcli** to enter the NSX CLI on the host
+    * Type **set ids engine syslogstatus enable** to enable syslog event export
+    * Confirm syslog event export was succesfully enabled by running the command **get ids engine syslogstatus**
+
+```console
+[root@localhost:~] nsxcli
+localhost> set ids engine syslogstatus enable
+    result: success
+    
+localhost> get ids engine syslogstatus
+       NSX IDS Engine Syslog Status Setting
+--------------------------------------------------
+                       true
+```
+13. Login to your syslog collector/SIEM and confirm you are receiving logs form each host.
+14. Configure a parser or a filter to only look at IDS events. You can for example filter on the string **IDPS_EVT**. 
 
 ---
 
