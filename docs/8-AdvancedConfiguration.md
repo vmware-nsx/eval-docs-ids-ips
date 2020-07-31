@@ -3,9 +3,8 @@
 **Estimated Time to Complete: 30 minutes**
 
 In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration
- * Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM
 
-**Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM
+**Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM**
 
 > **Note**: In addition to sending IDS/IPS Events from each distributed IDS/IPS engine, you can send them directly to a Syslog collector or SIEM from each host. Events are sent in the EVE.JSON format for which many SIEMS have pre-existing parsers/dashboards. 
 
