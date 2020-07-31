@@ -68,7 +68,7 @@ Existing NSX customers should reach out to their NSX account team for support du
 * [Initial IDS/IPS Configuration](/docs/5-InitialConfiguration.md)
 * [Basic Attack Scenario](/docs/6-BasicAttackScenario.md)
 * [Lateral Movement Scenario](/docs/7-LateralMovementScenario.md)
-* [Advanced Exercises](/docs/8-AdvancedAttackandConfiguration.md)
+* [Advanced Exercises](/docs/8-AdvancedConfiguration.md)
 * [Segmenting the Evironment](/docs/9-Segmentation.md)
 
 [***Next Step: 1. Requirements***](docs/1-Requirements.md)
