@@ -37,9 +37,18 @@ msf5 exploit(multi/http/struts2_content_type_ognl) >
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638)
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M2
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M3
-4. Note that the **affected product** for all these events is **Apache_Struts2**.
+4. Note that the **affected product** for all these events is **Apache_Struts2** and the severity for all events is **high**.
 5. Now we will turn off these signatures for the **Production** profiles as we are not running **Apache_Struts2** in our production environment.
 6. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Profiles
+7.	Click the **3 dots** next to the **Production** profile and click **Edit** to edit the profile.
+8. Click **Select** next to **High Severity Signatures**
+9. In the **Filter** field, type **Apache_Struts2** to find all signatures related to Struts2. Tick the **Checkbox** on top of the exclusion screen to select all filtered signatures.
+
+    * Name **Production**
+    * Signatures to Include: **Critical**, **High**, **Medium**
+3.	Create another IDS Profile with the below parameters. Click Save when done.
+    * Name **Development**
+    * Signatures to Include: **Critical**, **High**
     
 establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
