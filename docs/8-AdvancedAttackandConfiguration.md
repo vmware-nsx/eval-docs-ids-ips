@@ -33,7 +33,7 @@ msf5 exploit(multi/http/struts2_content_type_ognl) > exploit
 msf5 exploit(multi/http/struts2_content_type_ognl) >
 ```
 2. In NSX Manager, navigate to Security --> East West Security --> Distributed IDS --> Events
-3. Confirm 4 signatures have fired:
+3. Confirm 3 signatures have fired:
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638)
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M2
     * ET WEB_SPECIFIC_APPS Possible Apache Struts OGNL Expression Injection (CVE-2017-5638) M3
