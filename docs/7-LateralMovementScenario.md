@@ -1,6 +1,6 @@
 
 ## 7. Lateral Movement Scenario
-**Estimated Time to Complete: 30 minutes**
+**Estimated Time to Complete: 60 minutes**
 
 In this exercise, we will again establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
@@ -286,6 +286,8 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
     * Confirm that the IP addresses of the attacker and victim match with the **APP-1-APP-TIER VM** and **APP-2-APP-TIER VM** respectlively. This represents the last time this particular signature fired. 
     * click **View Intrusion History** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.100) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.101)**. 
   
+![](assets/images/IDPS_POC_19.PNG)
+
 > **Note**: You will see 2 log entries for each connection, because the Distributed IDS/IPS has been enabled on both source and destination. 
 
 9. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS Apache CouchDB Remote Code Execution 1** event. Conirm the instrusion history matches the one of the event you previously looked at. 
@@ -296,8 +298,12 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
      * Only look at events where the **affected product** is **Drupal Service**. There should be 1.
      * Only look at events related to the **APP-1-APP-TIER** where the **CVSS** is **9 and above*. There should be 2.
 
-![](assets/images/IDPS_POC_19.PNG)
+You have now successfully completed a lateral attack scenario ! 
+In the next (optional) exercise, we will configure some more advanced settings such as **signature exclusions/false positive tuning** and the ability to send IDS/IPS logs directly a SIEM from every host.
+
+
+Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
 ---
 
-[***Next Step: 8. Advanced Attack and Configuration***](/docs/8-AdvancedAttackandConfiguration)
+[***Next Step: 8. Advanced Attack and Configuration***](/docs/8-AdvancedAttackandConfiguration.md)
