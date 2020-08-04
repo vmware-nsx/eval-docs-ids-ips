@@ -4,6 +4,8 @@
 
 In this exercise, we will again establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. 
 
+![](assets/images/IDPS_POC_29.gif)
+
 **Open a SSH/Console session to the External VM**
 1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
     * Username **vmware**
