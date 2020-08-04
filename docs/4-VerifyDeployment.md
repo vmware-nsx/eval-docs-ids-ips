@@ -49,10 +49,17 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 
 Login to lab NSX Manager and run the below steps to verify the deployment:
 
-1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
-2. Click **View Details**
-2. Note the IP addresses for the 4 VMs that were deployed
+1.	In the NSX Manager UI, navigate to Networking --> Segments --> Segments
+2. Verify 3 segmetns have been deployed 
+* **DMZSegment** - Overlay-based semgnet connecting the Web-tier workloads
+* **InternalSegment** - OVerlay-based semgent connecting the App-tier workloads
+* **PoC-Segment** - VLAN-backed segment providing uplink and management connectivity
 
+![](assets/images/IDPS_POC_32.PNG)
+
+3.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
+4. Click **View Details**
+5. Note the IP addresses for the 4 VMs that were deployed
 
 ![](assets/images/IDPS_POC_11.PNG)
 ![](assets/images/IDPS_POC_12.PNG)
