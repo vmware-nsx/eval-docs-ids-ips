@@ -39,7 +39,7 @@ The goal of this exercise is to completley isolate workloads deployed in **Produ
 9. Click **Publish** to publish these rules to the **Distributed Firewall**.
 
 
-***Create a Distributed Firewall Environment Category Policy***
+***Run through the the lateral attack scenario (again)***
 1. In the NSX Manager UI, navigate to Security -->  Distributed Firewa
 
     ![](assets/images/IDPS_POC_38.PNG)
