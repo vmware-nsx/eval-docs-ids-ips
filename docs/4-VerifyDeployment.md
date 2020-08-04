@@ -69,6 +69,7 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 
 > **Note**: DHCP Server has been pre-configured on NSX and should be assigning an IP address to each of the deployed nested workloads on the DMZ and Internal segments. 
 
+
 **Confirm NAT configuration**
 
 ![](assets/images/IDPS_POC_34.PNG)
