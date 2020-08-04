@@ -7,6 +7,8 @@ Once the Deployment Script has completed the installation and setup process. You
 **Physical Infrastructure Host/vCenter**
 
 ![](assets/images/IDPS_POC_1.PNG)
+Logical Nested Lab:
+![](assets/images/IDPS_POC_27.PNG)
 
 Login to the physial environment vcenter and Verify 6 VMs have been deployed, are up and running and are connected to the appropriate port-group: 
 * 3 nested ESXI
