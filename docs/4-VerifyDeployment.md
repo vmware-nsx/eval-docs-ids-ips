@@ -32,18 +32,19 @@ From the physical environent vCenter, open a console to **External VM** and take
 * Login with **vmware**/**VMware1!**
 * Type **sudo nano /etc/network/interfaces** to open the network configuration file
 ![](assets/images/IDPS_POC_16.PNG)
-* For interface **ens160** chgange the **address* and **netmask** to match the appropriate settings for your enviornment
+* For interface **ens160** chgange the **address** and **netmask** to match the appropriate settings for your enviornment
 * In the line that stats with **up route add**, change the **gw address** (10.114.209.148 in my example) to the **T0 Uplink interface IP address**
  
-
-**Lab vCenter**
+**Verify Nested Lab vCenter**
 Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is functional and 4 vulnerable VMs have been deployed on the cluster:
 * APP-1-WEB-TIER connected to **DMZSegment** Portgroup
 * APP-2-WEB-TIER connected to **DMZSegment** Portgroup
 * APP-1-APP-TIER connected to **InternalSegment** Portgroup
 * APP-2-APP-TIER connected to **InternalSegment** Portgroup
 
-**Lab NSX Manager**
+**Verify Nested Lab NSX Manager**
+Login to lab NSX Manager and run the below steps to verify the deployment:
+
 1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
 2. Click **View Details**
 2. Note the IP addresses for the 4 VMs that were deployed
