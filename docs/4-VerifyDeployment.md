@@ -30,7 +30,7 @@ You will need to manually change the IP address of the external VM to an IP addr
 From the physical environent vCenter, open a console to **External VM** and take the following steps:
 * Login with **vmware**/**VMware1!**
 * Type **sudo nano /etc/network/interfaces** to open the network configuration file
-![](assets/images/IDPS_POC_17.PNG)
+![](assets/images/IDPS_POC_16.PNG)
 * On the line that says 
     
     **use auxiliary/scanner/portscan/tcp** to select the portscan module
