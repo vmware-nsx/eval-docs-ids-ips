@@ -43,6 +43,8 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 * APP-1-APP-TIER connected to **InternalSegment** Portgroup
 * APP-2-APP-TIER connected to **InternalSegment** Portgroup
 
+![](assets/images/IDPS_POC_4.PNG)
+
 **Verify Nested Lab NSX Manager**
 
 Login to lab NSX Manager and run the below steps to verify the deployment:
