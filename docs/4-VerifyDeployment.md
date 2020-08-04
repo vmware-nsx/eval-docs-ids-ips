@@ -54,6 +54,7 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 **Nested Lab Environment**
 
 ![](assets/images/IDPS_POC_27.PNG)
+<img src="https://github.com/vmware-nsx/eval-docs-ids-ips/raw/master/docs/assets/images/IDPS_POC_27.PNG" width=50% height=50%>
 
 [TO BE COMPLETED]
 ---
