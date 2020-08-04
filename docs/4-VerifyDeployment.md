@@ -84,11 +84,12 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 
 **Confirm TAG Creation and Application**
 
-![](assets/images/IDPS_POC_34.PNG)
+![](assets/images/IDPS_POC_37.PNG)
 
 1.	In the NSX Manager UI, nativate to Inventory --> Tags
 2. Confirm 6 tags have been added as per below sceenshot
-3. Confirm tags were applied to workloads as per below table.
+![](assets/images/IDPS_POC_36.PNG)
+3. Confirm tags were applied to workloads as per the above diagram
 
 ---
 
