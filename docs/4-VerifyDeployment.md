@@ -26,18 +26,15 @@ Confirm you are able to ping each nested ESXi, the Lab NSX Manager and the Lab v
 
 **Configure a static route on the External VM**
 
-You will need to manually change the IP address of the external VM to an IP address in the same managment subnet you used for vCenter/NSX Manager and the rest of the environment. You will also need to adjust the static route so the external VM is able to reach the DMZ subnet inside the nested lab environemnt.
+You will need to manually change the IP address of the external VM to an IP address in the same managment subnet you used for vCenter/NSX Manager and the rest of the environment. You will also need to adjust the static route so the external VM is able to reach the DMZ subnet inside the nested lab environemnt. There is no need for a default gateway to be configured as the only route the external VM needs is to the DMZ segment.
+
 From the physical environent vCenter, open a console to **External VM** and take the following steps:
 * Login with **vmware**/**VMware1!**
 * Type **sudo nano /etc/network/interfaces** to open the network configuration file
 ![](assets/images/IDPS_POC_16.PNG)
-* On the line that says 
-    
-    **use auxiliary/scanner/portscan/tcp** to select the portscan module
-    * Type **set THREADS 50** 
-    * Type **set RHOSTS 192.168.10.0/24** to define the subnets to scan. These should match the **DMZ** Subnet
-    * Type **set PORTS 8080,5984** to define the ports to scan (Drupal and CouchDB servers)
-    * Type **run**
+* For interface **ens160** chgange the **address* and **netmask** to match the appropriate settings for your enviornment
+* In the line that stats with **up route add**, change the **gw address** (10.114.209.148 in my example) to the **T0 Uplink interface IP address**
+ 
 
 **Lab vCenter**
 Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is functional and 4 vulnerable VMs have been deployed on the cluster:
