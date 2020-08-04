@@ -7,9 +7,11 @@ Once the Deployment Script has completed the installation and setup process. You
 **Physical Infrastructure Host/vCenter**
 
 ![](assets/images/IDPS_POC_1.PNG)
-Logical Nested Lab:
+
+**Logical Nested Lab**
 ![](assets/images/IDPS_POC_27.PNG)
 
+**Validate VM Deployment in the physical Environment**
 Login to the physial environment vcenter and Verify 6 VMs have been deployed, are up and running and are connected to the appropriate port-group: 
 * 3 nested ESXI
 * 1 NSX Manager
@@ -21,8 +23,7 @@ Login to the physial environment vcenter and Verify 6 VMs have been deployed, ar
 
 Confirm you are able to ping each nested ESXi, the Lab NSX Manager and the Lab vCenter.
 
-
-**External VM**
+**Configure a static route on the External VM**
 
 You will need to manually change the IP address of the external VM to an IP address in the same managment subnet you used for vCenter/NSX Manager and the rest of the environment. You will also need to adjust the static route so the external VM is able to reach the DMZ subnet inside the nested lab environemnt.
 From the physical environent vCenter, open a console to **External VM** and take the following steps:
