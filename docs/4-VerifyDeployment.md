@@ -26,6 +26,8 @@ Confirm you are able to ping each nested ESXi, the Lab NSX Manager and the Lab v
 
 **Configure a static route on the External VM**
 
+![](assets/images/IDPS_POC_33.PNG)
+
 You will need to manually change the IP address of the external VM to an IP address in the same managment subnet you used for vCenter/NSX Manager and the rest of the environment. You will also need to adjust the static route so the external VM is able to reach the DMZ subnet inside the nested lab environemnt. There is no need for a default gateway to be configured as the only route the external VM needs is to the DMZ segment.
 
 From the physical environent vCenter, open a console to **External VM** and take the following steps:
@@ -47,10 +49,9 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 
 **Verify Network Segmenets were created**
 
-Login to lab NSX Manager and run the below steps to verify the deployment:
-
-1.	In the NSX Manager UI, navigate to Networking --> Segments --> Segments
-2. Verify 3 segmetns have been deployed 
+1. Login to the Lab NSX Manager Web-UI.
+2.	In the NSX Manager UI, navigate to Networking --> Segments --> Segments
+3. Verify 3 segmetns have been deployed 
 * **DMZSegment** - Overlay-based semgnet connecting the Web-tier workloads
 * **InternalSegment** - OVerlay-based semgent connecting the App-tier workloads
 * **PoC-Segment** - VLAN-backed segment providing uplink and management connectivity
@@ -58,15 +59,37 @@ Login to lab NSX Manager and run the below steps to verify the deployment:
 ![](assets/images/IDPS_POC_32.PNG)
 
 **Determine the IP address of every nested workload**
-3.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
-4. Click **View Details**
-5. Note the IP addresses for the 4 VMs that were deployed. You will need to what IP address has been assigned to every workloads in the next exercises. 
+
+1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
+2. Click **View Details**
+3. Note the IP addresses for the 4 VMs that were deployed. You will need to what IP address has been assigned to every workloads in the next exercises. 
 
 ![](assets/images/IDPS_POC_11.PNG)
 ![](assets/images/IDPS_POC_12.PNG)
 
+> **Note**: DHCP Server has been pre-configured on NSX and should be assigning an IP address to each of the deployed nested workloads on the DMZ and Internal segments. 
 
-[TO BE COMPLETED]
+
+**Confirm NAT configuration**
+
+![](assets/images/IDPS_POC_34.PNG)
+
+1.	In the NSX Manager UI, nativate to Networking --> NAT
+2. Confirm a single **SNAT** rule exists, with the **Internal Subnet** as a source, and the **T0 Uplink** IP address as the translated address (10.114.209.148 in my example).
+
+![](assets/images/IDPS_POC_35.PNG)
+
+> **Note**: This NAT rule enables internal VMs to initiate communcation with the outside world.
+
+
+**Confirm TAG Creation and Application**
+
+![](assets/images/IDPS_POC_34.PNG)
+
+1.	In the NSX Manager UI, nativate to Inventory --> Tags
+2. Confirm 6 tags have been added as per below sceenshot
+3. Confirm tags were applied to workloads as per below table.
+
 ---
 
 [***Next Step: 5. Initial IDS/IPS Configuration***](/docs/5-InitialConfiguration.md)
