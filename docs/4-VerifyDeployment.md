@@ -47,10 +47,9 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 
 **Verify Network Segmenets were created**
 
-Login to lab NSX Manager and run the below steps to verify the deployment:
-
-1.	In the NSX Manager UI, navigate to Networking --> Segments --> Segments
-2. Verify 3 segmetns have been deployed 
+1. Login to the Lab NSX Manager Web-UI.
+2.	In the NSX Manager UI, navigate to Networking --> Segments --> Segments
+3. Verify 3 segmetns have been deployed 
 * **DMZSegment** - Overlay-based semgnet connecting the Web-tier workloads
 * **InternalSegment** - OVerlay-based semgent connecting the App-tier workloads
 * **PoC-Segment** - VLAN-backed segment providing uplink and management connectivity
@@ -58,13 +57,24 @@ Login to lab NSX Manager and run the below steps to verify the deployment:
 ![](assets/images/IDPS_POC_32.PNG)
 
 **Determine the IP address of every nested workload**
-3.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
-4. Click **View Details**
-5. Note the IP addresses for the 4 VMs that were deployed. You will need to what IP address has been assigned to every workloads in the next exercises. 
+
+1.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
+2. Click **View Details**
+3. Note the IP addresses for the 4 VMs that were deployed. You will need to what IP address has been assigned to every workloads in the next exercises. 
 
 ![](assets/images/IDPS_POC_11.PNG)
 ![](assets/images/IDPS_POC_12.PNG)
 
+> **Note**: DHCP Server has been pre-configured on NSX and should be assigning an IP address to each of the deployed nested workloads on the DMZ and Internal segments. 
+
+**Confirm NAT configuration**
+
+1.	In the NSX Manager UI, nativate to Networking --> NAT
+2. Confirm a single **SNAT** rule exists, with the **Internal Subnet** as a source, and the **T0 Uplink** IP address as the translated address (10.114.209.148 in my example).
+
+![](assets/images/IDPS_POC_35.PNG)
+
+> **Note**: This NAT rule enables internal VMs to initiate communcation with the outside world.
 
 [TO BE COMPLETED]
 ---
