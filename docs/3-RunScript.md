@@ -3,7 +3,11 @@
 Once you have saved your changes, you can now run the PowerCLI script as you normally would.
 
 Here is a screenshot of running the script if all basic pre-reqs have been  met and the confirmation message before starting the deployment:
-![](assets/images/IDPS_POC_17.PNG)
+![](assets/images/IDPS_POC_30.PNG)
+
+Once the deployment completes, you will receive a confirmation and can now move on with the next step:
+![](assets/images/IDPS_POC_31.PNG)
+
 
 > **Note**: Deployment time will vary based on underlying physical infrastructure resources. On average, it can take between 45 minutes to 90 minutes. 
 
