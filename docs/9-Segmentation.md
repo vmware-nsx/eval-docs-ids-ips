@@ -34,7 +34,7 @@ The goal of this exercise is to completley isolate workloads deployed in **Produ
     * Applied To: **Production Applications** , **Development Applications** 
     * Action: **Drop**
 
-![](assets/images/IDPS_POC_9.PNG)  
+![](assets/images/IDPS_POC_38.PNG)
 
 9. Click **Publish** to publish these rules to the **Distributed Firewall**.
 
@@ -42,7 +42,7 @@ The goal of this exercise is to completley isolate workloads deployed in **Produ
 ***Create a Distributed Firewall Environment Category Policy***
 1. In the NSX Manager UI, navigate to Security -->  Distributed Firewa
 
-    ![](assets/images/IDPS_POC_38.PNG)    
+    ![](assets/images/IDPS_POC_38.PNG)
     
 > **Note**: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
 
