@@ -26,6 +26,8 @@ Confirm you are able to ping each nested ESXi, the Lab NSX Manager and the Lab v
 
 **Configure a static route on the External VM**
 
+![](assets/images/IDPS_POC_33.PNG)
+
 You will need to manually change the IP address of the external VM to an IP address in the same managment subnet you used for vCenter/NSX Manager and the rest of the environment. You will also need to adjust the static route so the external VM is able to reach the DMZ subnet inside the nested lab environemnt. There is no need for a default gateway to be configured as the only route the external VM needs is to the DMZ segment.
 
 From the physical environent vCenter, open a console to **External VM** and take the following steps:
@@ -68,6 +70,8 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 > **Note**: DHCP Server has been pre-configured on NSX and should be assigning an IP address to each of the deployed nested workloads on the DMZ and Internal segments. 
 
 **Confirm NAT configuration**
+
+![](assets/images/IDPS_POC_34.PNG)
 
 1.	In the NSX Manager UI, nativate to Networking --> NAT
 2. Confirm a single **SNAT** rule exists, with the **Internal Subnet** as a source, and the **T0 Uplink** IP address as the translated address (10.114.209.148 in my example).
