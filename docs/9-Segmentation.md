@@ -8,7 +8,7 @@ Then, we will implement a **Micro-segmentation** policy, which will employ an **
 
 **Macro-Segmentation: Isolating the Production and Development enviornments**
 
-The goal of this exercise is to completley isolate workloads deployed in **Production** from workloads deployed in **Development**. All nested workloads were previously tagged to identify which of these environments they were deployed in, and earlier in this lab, you created groups for **Production** and **Development** respecively. In the next few steps, you will create the appropriate firewall rules to achieve this, and then run through the **lateral movement** attack scenario again to see how lateral movement has now been limited to a particular environment.
+The goal of this exercise is to completley isolate workloads deployed in **Production** from workloads deployed in **Development**. All nested workloads were previously tagged to identify which of these environments they were deployed in, and earlier in this lab, you created groups for **Production Applications** and **Development Applications** respecively. In the next few steps, you will create the appropriate firewall rules to achieve this, and then run through the **lateral movement** attack scenario again to see how lateral movement has now been limited to a particular environment.
 
 **Create a Distributed Firewall Environment Category Policy**
 1. In the NSX Manager UI, navigate to Security -->  Distributed Firewall
@@ -16,22 +16,26 @@ The goal of this exercise is to completley isolate workloads deployed in **Produ
 3. Click **ADD POLICY**
 4. Click **New Policy** and change the name of the policy to **Environment Isolation**
 5. Check the checkbox next to the **Environment Isolation** Policy
-6. Click **ADD RULE** twice, and configure the new new rules as per below setps
+6. Click **ADD RULE** twice, and configure the cnew new rules as per below setps
 7. Rule 1
-    * Name **Production Applications**
-    * Compute Members: Membership C
-    
-3.	Create a Group with the below parameters. Click Save when done.
-    * Name **Production Applications**
-    * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Production Scope Environment**
-    ![](assets/images/IDPS_POC_7.PNG)     
-3.	Create another Group with the below parameters. Click Save when done.
-    * Name **Development Applications**
-    * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Development Scope Environment**
-    ![](assets/images/IDPS_POC_8.PNG)    
-4. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
-    * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
-    * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
+    * Name: **Isolate Production-Development**
+    * Source: **Production Applications** 
+    * Destination: **Development Applications** 
+    * Services: **ANY** 
+    * Profiles: **NONE** 
+    * Applied To: **Production Applications** , **Development Applications** 
+    * Action: **Drop**
+8. Rule 2
+    * Name: **Isolate Development-Production**
+    * Source: **Development Applications** 
+    * Destination: **Production Applications**  
+    * Services: **ANY** 
+    * Profiles: **NONE** 
+    * Applied To: **Production Applications** , **Development Applications** 
+    * Action: **Drop**
+9. Click **Publish** to publish these rules to the **Distributed Firewall**.
+
+
     ![](assets/images/IDPS_POC_9.PNG)    
     
 > **Note**: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
