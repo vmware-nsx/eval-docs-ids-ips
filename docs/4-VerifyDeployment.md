@@ -19,6 +19,7 @@ Login to the physial environment vcenter and Verify 6 VMs have been deployed, ar
 
 Confirm you are able to ping each nested ESXi, the Lab NSX Manager and the Lab vCenter.
 
+
 **External VM**
 
 You will need to manually change the IP address of the external VM to an IP address in the same managment subnet you used for vCenter/NSX Manager and the rest of the environment. You will also need to adjust the static route so the external VM is able to reach the DMZ subnet inside the nested lab environemnt.
@@ -49,6 +50,10 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 
 ![](assets/images/IDPS_POC_11.PNG)
 ![](assets/images/IDPS_POC_12.PNG)
+
+**Nested Lab Environment**
+
+![](assets/images/IDPS_POC_27.PNG)
 
 [TO BE COMPLETED]
 ---
