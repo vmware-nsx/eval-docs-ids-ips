@@ -91,6 +91,8 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 ![](assets/images/IDPS_POC_36.PNG)
 3. Confirm tags were applied to workloads as per the above diagram
 
+This completes Lab Deployment Verification. You can now move to the next exercise. 
+
 ---
 
 [***Next Step: 5. Initial IDS/IPS Configuration***](/docs/5-InitialConfiguration.md)
