@@ -10,7 +10,7 @@ Then, we will implement a **Micro-segmentation** policy, which will employ an **
 
 The goal of this exercise is to completley isolate workloads deployed in **Production** from workloads deployed in **Development**. All nested workloads were previously tagged to identify which of these environments they were deployed in, and earlier in this lab, you created groups for **Production Applications** and **Development Applications** respecively. In the next few steps, you will create the appropriate firewall rules to achieve this, and then run through the **lateral movement** attack scenario again to see how lateral movement has now been limited to a particular environment.
 
-**Create a Distributed Firewall Environment Category Policy**
+***Create a Distributed Firewall Environment Category Policy***
 1. In the NSX Manager UI, navigate to Security -->  Distributed Firewall
 2. Click on the **Environments(0)** Category tab.
 3. Click **ADD POLICY**
@@ -35,6 +35,9 @@ The goal of this exercise is to completley isolate workloads deployed in **Produ
     * Action: **Drop**
 9. Click **Publish** to publish these rules to the **Distributed Firewall**.
 
+
+***Create a Distributed Firewall Environment Category Policy***
+1. In the NSX Manager UI, navigate to Security -->  Distributed Firewa
 
     ![](assets/images/IDPS_POC_9.PNG)    
     
