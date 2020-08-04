@@ -7,6 +7,7 @@ First, we will apply a **Macro-segmentation** policy which will isolate our **Pr
 Then, we will implement a **Micro-segmentation** policy, which will employ an **allow-list** to only allow the flows required for our applications to function and block everything else.
 
 **Macro-Segmentation: Isolating the Production and Development enviornments**
+
 The goal of this exercise is to completley isolate workloads deployed in **Production** from workloads deployed in **Development**. All nested workloads were previously tagged to identify which of these environments they were deployed in, and earlier in this lab, you created groups for **Production** and **Development** respecively. In the next few steps, you will create the appropriate firewall rules to achieve this, and then run through the **lateral movement** attack scenario again to see how lateral movement has now been limited to a particular environment.
 
 **Create a Distributed Firewall Environment Category Policy**
