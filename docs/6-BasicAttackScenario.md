@@ -5,7 +5,7 @@
 
 In this exercise, we will use **Metasploit** to launch a simple exploit against the **Drupal** service runnning on the **App1-WEB-TIER VM** and confirm the NSX Distributed IDS/IPS was able to detect this exploit attempt.
 
-![](assets/images/IDPS_POC_28.GIF)
+![](assets/images/IDPS_POC_28.gif)
 
 **Open a SSH/Console session to the External VM**
 1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
