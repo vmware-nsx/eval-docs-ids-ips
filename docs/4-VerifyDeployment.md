@@ -45,7 +45,7 @@ Login to lab vCenter and verify the cluster of 3 nested ESXi appliances is funct
 
 ![](assets/images/IDPS_POC_4.PNG)
 
-**Verify Nested Lab NSX Manager**
+**Verify Network Segmenets were created**
 
 Login to lab NSX Manager and run the below steps to verify the deployment:
 
@@ -57,9 +57,10 @@ Login to lab NSX Manager and run the below steps to verify the deployment:
 
 ![](assets/images/IDPS_POC_32.PNG)
 
+**Determine the IP address of every nested workload**
 3.	In the NSX Manager UI, navigate to Inventory -->  Virtual Machines
 4. Click **View Details**
-5. Note the IP addresses for the 4 VMs that were deployed
+5. Note the IP addresses for the 4 VMs that were deployed. You will need to what IP address has been assigned to every workloads in the next exercises. 
 
 ![](assets/images/IDPS_POC_11.PNG)
 ![](assets/images/IDPS_POC_12.PNG)
