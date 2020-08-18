@@ -53,7 +53,7 @@ localhost> get ids engine syslogstatus
 19. Confirm your syslog server/SIEM has received the IDS events, directly from the host
 ![](assets/images/IDPS_POC_26.PNG)
 
-This completes this exercise.
+This completes this exercise. Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
 ---
 
