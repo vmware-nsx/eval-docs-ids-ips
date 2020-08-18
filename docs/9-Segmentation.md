@@ -366,7 +366,7 @@ No active sessions.
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
 
-  ![](assets/images/IDPS_POC_39.PNG)
+  ![](assets/images/IDPS_POC_42.PNG)
   
   > **Note**: While the initial DrupalGeddon exploit has completed, the distributed firewall has prevented the reverse shell from being established from APP-1-WEB-TIER. As a result, the attacker is unable to move laterally in the environment.
 
