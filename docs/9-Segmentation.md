@@ -62,7 +62,7 @@ In order to reduce the time needed for this, you can run the **attack2** script 
     * One from the **APP1-WEB-TIER** VM
     * One from the **APP1-APP-TIER** VM 
 
-The exploit of the **APP2-APP-TIER** VM failed, because the Distributed Firewall policy you just configured isolated the **APP2** workloads that are part of the **Development Applications** Group (Zone) from the **APP1** workloads which are part of the **Production Applications** Group (Zone).
+> **Note**: The exploit of the **APP2-APP-TIER** VM failed, because the Distributed Firewall policy you just configured isolated the **APP2** workloads that are part of the **Development Applications** Group (Zone) from the **APP1** workloads which are part of the **Production Applications** Group (Zone).
 
 1. In the NSX Manager UI, navigate to Security -->  Distributed Firewa
 
