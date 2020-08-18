@@ -1,6 +1,6 @@
 
 ## 9. Segmentation
-**Estimated Time to Complete: 30 minutes**
+**Estimated Time to Complete: 60 minutes**
 
 In this final exercise, we will leverage the **Distributed Firewall** in order to limit the attack surface. 
 First, we will apply a **Macro-segmentation** policy which will isolate our **Production** environment and the applications deployed in it from the **Development** environment. 
