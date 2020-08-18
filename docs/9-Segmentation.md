@@ -206,19 +206,19 @@ Now that we have isolated production from development workloads, we will micro-s
 
 ***Create a Distributed Firewall Application Category Policy***
 1. In the NSX Manager UI, navigate to Security -->  Distributed Firewall
-2. Click on the **Application(0)** Category tab.
+2. Click on the **Application(1)** Category tab.
 3. Click **ADD POLICY**
 4. Click **New Policy** and change the name of the policy to **APP1 Micro-Segmentation**
 5. Check the checkbox next to the **APP1 Micro-Segmentation** Policy
 6. Click **ADD RULE** twice, and configure the new new rules as per below steps
 7. Rule 1
     * Name: **WEB-TIER-ACCESS**
-    * Source: **Production Applications** 
-    * Destination: **Development Applications** 
-    * Services: **ANY** 
-    * Profiles: **NONE** 
-    * Applied To: **Production Applications** , **Development Applications** 
-    * Action: **Drop**
+    * Source: **Any** 
+    * Destination: **APP1-WEB** 
+    * Services: Click **Raw Port-Protocols** and **ADD Service Entry**. Add a new entry of Service Type **TCP** and Destination Port **8080**
+    * Profiles: **HTTP** (This is a Layer-7 App-ID) 
+    * Applied To: **APP1-WEB** , **APP1-APP** 
+    * Action: **Allow**
 8. Rule 2
     * Name: **Isolate Development-Production**
     * Source: **Development Applications** 
