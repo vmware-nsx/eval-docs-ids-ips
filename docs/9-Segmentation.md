@@ -215,18 +215,37 @@ Now that we have isolated production from development workloads, we will micro-s
     * Name: **WEB-TIER-ACCESS**
     * Source: **Any** 
     * Destination: **APP1-WEB** 
-    * Services: Click **Raw Port-Protocols** and **ADD Service Entry**. Add a new entry of Service Type **TCP** and Destination Port **8080**
+    * Services: Click **Raw Port-Protocols** and **ADD Service Entry**. Add a new entry of Service Type **TCP** and Destination Port **8080** (The Drupal service listens on this port)
     * Profiles: **HTTP** (This is a Layer-7 App-ID) 
-    * Applied To: **APP1-WEB** , **APP1-APP** 
+    * Applied To: **APP1-WEB** 
     * Action: **Allow**
 8. Rule 2
-    * Name: **Isolate Development-Production**
-    * Source: **Development Applications** 
-    * Destination: **Production Applications**  
-    * Services: **ANY** 
-    * Profiles: **NONE** 
-    * Applied To: **Production Applications** , **Development Applications** 
-    * Action: **Drop**
+    * Name: **APP-TIER-ACCESS**
+    * Source: **APP1-WEB**
+    * Destination: **APP1-APP** 
+    * Services: Click **Raw Port-Protocols** and **ADD Service Entry**. Add a new entry of Service Type **TCP** and Destination Port **5984** (The CouchDB service listens on this port)
+    * Applied To: **APP1-WEB** , **APP1-APP** 
+    * Action: **Allow**
+3. Now that we micro-segmented APP1, let's do the same for APP2. Click **ADD POLICY**
+4. Click **New Policy** and change the name of the policy to **APP2 Micro-Segmentation**
+5. Check the checkbox next to the **APP2 Micro-Segmentation** Policy
+6. Click **ADD RULE** twice, and configure the new new rules as per below steps
+7. Rule 1
+    * Name: **WEB-TIER-ACCESS**
+    * Source: **Any** 
+    * Destination: **APP2-WEB** 
+    * Services: Click **Raw Port-Protocols** and **ADD Service Entry**. Add a new entry of Service Type **TCP** and Destination Port **8080** (The Drupal service listens on this port)
+    * Profiles: **HTTP** (This is a Layer-7 App-ID) 
+    * Applied To: **APP2-WEB** 
+    * Action: **Allow**
+8. Rule 2
+    * Name: **APP-TIER-ACCESS**
+    * Source: **APP2-WEB**
+    * Destination: **APP2-APP** 
+    * Services: Click **Raw Port-Protocols** and **ADD Service Entry**. Add a new entry of Service Type **TCP** and Destination Port **5984** (The CouchDB service listens on this port)
+    * Applied To: **APP2-WEB** , **APP2-APP** 
+    * Action: **Allow**
+9. We now have configured the appropriate allow-list policy for APP1 and APP2. Now we can change the default Distributed Firewall action from **Allow** to **Drop** in order to block all traffic except for the traffic we just allowed for our applications to function. 
 
 
 
