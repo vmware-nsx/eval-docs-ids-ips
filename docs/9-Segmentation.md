@@ -45,6 +45,7 @@ The goal of this exercise is to completley isolate workloads deployed in **Produ
 2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI. 
 
 ***Run through the the lateral attack scenario (again)***
+
 In order to reduce the time needed for this, you can run the **attack2** script from the **external VM** which will initiate the complete lateral attack scenario without needing any manual metasploit steps. If you prefer, you can also manually go though these steps (See the chapter on Lateral Movement Scenario)
 
 1. If you have not previously used this script, you will need to modify it to reflect your environment. Type **sudo nano attack2.rc** and replace the **RHOST** and **LHOST** IP addresses accordingly to match with the IP addresses in your environment. 
