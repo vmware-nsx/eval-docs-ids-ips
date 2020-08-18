@@ -52,7 +52,8 @@ In order to reduce the time needed for this, you can run the **attack2** script 
     * **RHOST** on line 3 should be the IP address of the App1-WEB-TIER VM 
     * **SUBNET** on line 6 (route add) should be the Internal Network subnet 
     * **LHOST** on line 9 should be the IP address of the External VM (this local machine) 
-    * **RHOST** on line 10 should be the IP address of the App1-APP-TIER VM RHOST on line 13 should be the IP address of the App2-APP-TIER VM
+    * **RHOST** on line 10 should be the IP address of the App1-APP-TIER VM 
+    * **RHOST** on line 13 should be the IP address of the App2-APP-TIER VM
 2. Type **CTRL-O** and confirm to save your changes, then **CTRL-X** to exit **Nano**.
 3. Type **sudo ./attack2.sh** to run the attack scenario
 
