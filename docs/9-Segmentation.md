@@ -170,9 +170,10 @@ Active sessions
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Apache CouchDB Remote Code Execution**, with **APP-1-WEB-TIER** and  **APP-1-APP-TIER** as Affected VMs
     * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER** and  **APP-1-APP-TIER** as Affected VMs
-
-> **Note**: Because the distributed firewall has isolated production from development workloads, we do not see  the exploit attempt of the **APP2-APP-TIER** VM.
-    ![](assets/images/IDPS_POC_39.PNG)
+  
+  ![](assets/images/IDPS_POC_39.PNG)
+  
+  > **Note**: Because the distributed firewall has isolated production from development workloads, we do not see  the exploit attempt of the **APP2-APP-TIER** VM.
 
 
 ---
