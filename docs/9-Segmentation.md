@@ -175,6 +175,37 @@ Active sessions
   
   > **Note**: Because the distributed firewall has isolated production from development workloads, we do not see  the exploit attempt of the **APP2-APP-TIER** VM.
 
+This completes the Macro-segmentation exercise. Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
+
+**Micro-Segmentation: Implementing a zero-trust network architecture for your applications**
+
+Now that we have isolated production from development workloads, we will micro-segment both of our applications by configuring an **allow-list** policty which explicitely only allows the flows required for our applications to fuction and blocks anything else. As a result, we will not only prevent lateral movement, but also prevent any reverse shell from being established. 
+
+***Create a Distributed Firewall Application Category Policy***
+1. In the NSX Manager UI, navigate to Security -->  Distributed Firewall
+2. Click on the **Application(0)** Category tab.
+3. Click **ADD POLICY**
+4. Click **New Policy** and change the name of the policy to **APP1 Micro-Segmentation**
+5. Check the checkbox next to the **APP1 Micro-Segmentation** Policy
+6. Click **ADD RULE** twice, and configure the new new rules as per below steps
+7. Rule 1
+    * Name: **WEB-TIER-ACCESS**
+    * Source: **Production Applications** 
+    * Destination: **Development Applications** 
+    * Services: **ANY** 
+    * Profiles: **NONE** 
+    * Applied To: **Production Applications** , **Development Applications** 
+    * Action: **Drop**
+8. Rule 2
+    * Name: **Isolate Development-Production**
+    * Source: **Development Applications** 
+    * Destination: **Production Applications**  
+    * Services: **ANY** 
+    * Profiles: **NONE** 
+    * Applied To: **Production Applications** , **Development Applications** 
+    * Action: **Drop**
+
+
 
 ---
 
