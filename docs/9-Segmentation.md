@@ -199,9 +199,10 @@ Now that we have isolated production from development workloads, we will micro-s
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals APP-2 Scope Application** AND **Virtual Machine Tag Equals App-Tier Scope Tier**  (click the **+** icon to specify the **AND** condition between the criteria).
      
 6. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 4 groups you created and confirm
-    * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
-    * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
-
+    * Members of **APP1-WEB**: **APP-1-WEB-TIER**
+    * Members of **APP1-APP**: **APP-1-APP-TIER**.
+    * Members of **APP2-WEB**: **APP-2-WEB-TIER**
+    * Members of **APP1-WEB**: **APP-2-APP-TIER**.    
 
 ***Create a Distributed Firewall Application Category Policy***
 1. In the NSX Manager UI, navigate to Security -->  Distributed Firewall
