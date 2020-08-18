@@ -184,17 +184,17 @@ Now that we have isolated production from development workloads, we will micro-s
 ***Create Granular Groups***
 1.	In the NSX Manager UI, navigate to Inventory -->  Groups 
 2. Click **ADD GROUP**
-3.	Create a Group with the below parameters. Click Save when done.
+3.	Create a Group with the below parameters. Click Apply when done.
     * Name **APP1-WEB**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals APP-1 Scope Application** AND **Virtual Machine Tag Equals Web-Tier Scope Tier**  (click the **+** icon to specify the **AND** condition between the criteria).
     ![](assets/images/IDPS_POC_40.PNG)     
-3.	Create another Group with the below parameters. Click Save when done.
+3.	Create another Group with the below parameters. Click Apply when done.
     * Name **APP1-APP**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals APP-1 Scope Application** AND **Virtual Machine Tag Equals App-Tier Scope Tier**  (click the **+** icon to specify the **AND** condition between the criteria).
-4.	Create another Group with the below parameters. Click Save when done.
+4.	Create another Group with the below parameters. Click Apply when done.
     * Name **APP2-WEB**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals APP-2 Scope Application** AND **Virtual Machine Tag Equals Web-Tier Scope Tier**  (click the **+** icon to specify the **AND** condition between the criteria).
-5.	Create another Group with the below parameters. Click Save when done.
+5.	Create another Group with the below parameters. Click Apply when done.
     * Name **APP2-APP**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals APP-2 Scope Application** AND **Virtual Machine Tag Equals App-Tier Scope Tier**  (click the **+** icon to specify the **AND** condition between the criteria).
      
