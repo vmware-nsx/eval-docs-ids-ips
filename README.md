@@ -26,7 +26,8 @@ The automation script is based on work done by [William Lam](https://github.com/
 
 * **07/8/2020**
   * Intial partial draft of the guide
-
+* **08/18/2020**
+  * Intial Completed guide
 ---
 ## Intended Audience
 This PoV guide is intended for existing and future NSX customers who want to evaluate the NSX Distributed IDS/IPS functionality. Ideally, the PoV process involves people covering these roles:
