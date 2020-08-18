@@ -163,11 +163,16 @@ Active sessions
   2         shell x64/linux                                      10.114.209.151:4445 -> 10.114.209.148:20667 (192.168.20.100)
 ```
 
-1. In the NSX Manager UI, navigate to Security -->  Distributed Firewa
+***Confirm IDS/IPS Events show up in the NSX Manager UI***
+1.	In the NSX Manager UI, navigate to Security --> East West Security --> Distributed IDS
+4. Confirm 4 signatures have fired:
+    * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Apache CouchDB Remote Code Execution**, with **APP-1-WEB-TIER** and  **APP-1-APP-TIER** as Affected VMs
+    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER** and  **APP-1-APP-TIER** as Affected VMs
 
-    ![](assets/images/IDPS_POC_38.PNG)
-    
-> **Note**: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
+> **Note**: Because the distributed firewall has isolated production from development workloads, we do not see  the exploit attempt of the **APP2-APP-TIER** VM.
+    ![](assets/images/IDPS_POC_39.PNG)
 
 
 ---
