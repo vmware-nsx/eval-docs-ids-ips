@@ -51,7 +51,7 @@ The expected time commitment to complete the PoV process is about 6 hours. This 
 | Simple Attack Scenario | 30 minutes | Week 1 | 
 | Lateral Attack Scenario | 60 minutes | Week 2 | 
 | Advanced Attack and configuration tuning | 60 minutes | Week 2 | 
-| Apply micro-segmentation to limit the attack surface | 30 minutes | Week 2 | 
+| Apply micro-segmentation to limit the attack surface | 60 minutes | Week 2 | 
 
 ---
 ## Support during the PoV Process
