@@ -1,6 +1,5 @@
  
 <p align="center">
-# DRAFT - WORK IN PROGRESS
 </p>
 
 # NSX-T - Distributed IDS/IPS Proof of Value Guide
