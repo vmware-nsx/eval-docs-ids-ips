@@ -257,7 +257,8 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
     * **RHOST** on line 3 should be the IP address of the App1-WEB-TIER VM 
     * **SUBNET** on line 6 (route add) should be the Internal Network subnet 
     * **LHOST** on line 9 should be the IP address of the External VM (this local machine) 
-    * **RHOST** on line 10 should be the IP address of the App1-APP-TIER VM RHOST on line 13 should be the IP address of the App2-APP-TIER VM
+    * **RHOST** on line 10 should be the IP address of the App1-APP-TIER VM
+    * **RHOST** on line 13 should be the IP address of the App2-APP-TIER VM
 > **Note**: This scripted attack does not upgrade shell sessions to meterpreter sessions nor does it interact with the sessions. To interact with the established sessions, but it will cause the same signatures to fire on the NSX IDS/IPS.
 
 7. Type **CTRL-O** and confirm to save your changes, then **CTRL-X** to exit **Nano**.
