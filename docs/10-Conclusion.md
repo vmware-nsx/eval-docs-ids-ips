@@ -1,5 +1,6 @@
 ## Conclusion
-Congratulations, you have now completed the NSX Distributed IDS/IPS Proof of Value/evaluation.
+Congratulations, you have now completed the NSX Distributed IDS/IPS Proof of Value/evaluation!
+
 Throughout this process, you should have disovered the unique benefits of having IDS/IPS built-in to the infrastructure versus bolted-on securitry controls. 
 Please reach out to your VMware NSX representative with any feedback you have aboutthe prodcut or about the PoV Process. 
 
