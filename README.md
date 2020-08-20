@@ -70,5 +70,6 @@ Existing NSX customers should reach out to their NSX account team for support du
 * [Lateral Movement Scenario](/docs/7-LateralMovementScenario.md)
 * [Advanced Exercises](/docs/8-AdvancedConfiguration.md)
 * [Segmenting the Evironment](/docs/9-Segmentation.md)
+* [Conclusion](/docs/10-Conclusion.md)
 
 [***Next Step: 1. Requirements***](docs/1-Requirements.md)
