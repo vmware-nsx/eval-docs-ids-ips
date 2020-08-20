@@ -374,4 +374,4 @@ This completes the NSX Distributed IDS/IPS PoV.
 
 ---
 
-[***Next Step: 10. Conclusion***](/docs/10-Conclusion)
+[***Next Step: 10. Conclusion***](/docs/10-Conclusion.md)
