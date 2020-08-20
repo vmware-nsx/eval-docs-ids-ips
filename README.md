@@ -24,8 +24,6 @@ NSX Intelligence is our distributed Visibility and analytics platform, fully int
 
 ## Introducing the NSX Distributed IDS/IPS
 
-![](docs/assets/images/IDPS_POC_44.PNG)
-
 One of the key challenges with traditional network-based IDS/IPS solutions is that they rely on a massive amount of traffic to be hairpinned or copied across to the centralized IPS appliance. This often involves network architecture and also means that growing organizations have to continuously keep adding firewalls or IDS appliances to their centralized cluster to keep up with the growing amount of traffic that needs inspection.
 Another challenge with these solutions is that they don't offer protection against lateral movement of attacks within a particular network segment. If we have two application workload deployed here in the same VLAN, there isn’t any feasible way to insert an inline IPS appliance in between these workloads and repeat that for all the workloads in your entire datacenter.
 Furthermore, in virtualized datacenters, by leveraging DRS and vmotion, workloads often move to other hosts, clusters or datacenters. This means that traffic now gets redirected to another IPS appliance which has no context of existing flow and may even have a different policy applied
