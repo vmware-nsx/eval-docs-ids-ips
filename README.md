@@ -16,7 +16,7 @@ While this PoV guide is quite prescriptive, participants can choose to modify an
 
 ## Introducing the VMware Service-defined Firewall
 
-![](assets/images/IDPS_POC_40.PNG)
+![](docs/assets/images/IDPS_POC_40.PNG)
 
 The VMware Service-defined firewall is VMware’s solution to secure east-to-west traffic across multi-cloud environments and is made up of 3 main components. First of all, we have our distributed firewall, which enables micro-segmentation. The distributed firewall is in essence an in kernel firewall that sits at the vNIC of every workload in the environment, enabling any level of filtering, micro-segmentation between the tiers of an application, or macro-segmentation for example isolating production from development workloads, or anything in between, completely independent of the underlying networking. Over the last few years, we’ve evolved the distributed firewall into a full Layer 7 stateful firewall.
 
@@ -24,8 +24,7 @@ NSX Intelligence is our distributed Visibility and analytics platform, fully int
 
 ## Introducing the NSX Distributed IDS/IPS
 
-![](assets/images/IDPS_POC_29.gif)
-![](assets/images/IDPS_POC_44.PNG)
+![](docs/assets/images/IDPS_POC_44.PNG)
 
 One of the key challenges with traditional network-based IDS/IPS solutions is that they rely on a massive amount of traffic to be hairpinned or copied across to the centralized IPS appliance. This often involves network architecture and also means that growing organizations have to continuously keep adding firewalls or IDS appliances to their centralized cluster to keep up with the growing amount of traffic that needs inspection.
 Another challenge with these solutions is that they don't offer protection against lateral movement of attacks within a particular network segment. If we have two application workload deployed here in the same VLAN, there isn’t any feasible way to insert an inline IPS appliance in between these workloads and repeat that for all the workloads in your entire datacenter.
