@@ -1,14 +1,3 @@
-
-<p align="center">
-</p>
-
-# NSX-T - Distributed IDS/IPS Proof of Value Guide
-
-<p align="center">
-  <img width="292" height="172" src="docs/assets/images/NSX_Logo.jpeg">
-</p>
-
----
 ## Conclusion
 Congratulations, you have now completed the NSX Distributed IDS/IPS Proof of Value/evaluation.
 Throughout this process, you should have disovered the unique benefits of having IDS/IPS built-in to the infrastructure versus bolted-on securitry controls. 
