@@ -309,4 +309,4 @@ Before moving to the next exercise, folow [these instructions](/docs/ClearingIDS
 
 ---
 
-[***Next Step: 8. Advanced Attack and Configuration***](/docs/8-AdvancedConfiguration.md)
+[***Next Step: 8. Advanced Configuration***](/docs/8-AdvancedConfiguration.md)
