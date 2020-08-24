@@ -12,7 +12,7 @@ $VCSAInstallerPath = "C:\Users\stijn\downloads\VCSA\VMware-VCSA-all-7.0.0-161890
 $NSXTManagerOVA = "C:\Users\stijn\downloads\NSXMgr\nsx-unified-appliance-3.0.0.0.0.15946739.ova"
 $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova"
 $ExternalVMOVA = "C:\Users\stijn\downloads\Attacker\External-VM.ova"
-$VictimVMOVA = "C:\Users\stijn\downloads/Victim\Victim-VM.ova"
+$VictimVMOVA = "C:\Users\stijn\downloads\Victim\Victim-VM.ova"
 
 
 # Nested ESXi VMs to deploy  - Replace IP addresses (nested ESXi VMMKnic) to match the assigned subnet in your physical eenvironment
@@ -108,6 +108,7 @@ $DHCPServerName = "DHCP_Server"
 
 # T0 Gateway - Adjust T0GatewayInterfaceAddress and Prefix as well as StaticRoute Address 
 $T0GatewayName = "PoV-T0-Gateway"
+$T0GatewayInterface = "t0_interface_01"
 $T0GatewayInterfaceAddress = "10.114.209.148" # should be a routable address
 $T0GatewayInterfacePrefix = "27" #adjust to the correct prefix for your enviornment
 $T0GatewayInterfaceStaticRouteName = "PoV-Static-Route"
