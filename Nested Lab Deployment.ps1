@@ -69,7 +69,7 @@ $StoragePolicyName = "PoV-gold-storage-policy"
 $StoragePolicyTagCategory = "PoV-demo-tag-category"
 $StoragePolicyTagName = "PoV-demo-storage"
 $DevOpsUsername = "devops"
-$DevOpsPassword = "VMware1!""
+$DevOpsPassword = "VMware1!"
 
 # NSX-T Configuration - Adjust variables (license key, VTEPNetwork) to match your environment
 $NSXLicenseKey = "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx" #Replace with valid NSX License key
