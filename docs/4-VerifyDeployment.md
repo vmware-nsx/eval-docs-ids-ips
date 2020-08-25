@@ -34,7 +34,7 @@ From the physical environent vCenter, open a console to **External VM** and take
 * Login with **vmware**/**VMware1!**
 * Type **sudo nano /etc/network/interfaces** to open the network configuration file
 ![](assets/images/IDPS_POC_16.PNG)
-* For interface **ens160** chgange the **address** and **netmask** to match the appropriate settings for your enviornment
+* For interface **ens160** change the **address** and **netmask** to match the appropriate settings for your enviornment
 * In the line that stats with **up route add**, change the **gw address** (10.114.209.148 in my example) to the **T0 Uplink interface IP address**
  
 **Verify Nested Lab vCenter**
