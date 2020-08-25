@@ -24,7 +24,7 @@ Login to the physial environment vcenter and Verify 6 VMs have been deployed, ar
 
 Confirm you are able to ping each nested ESXi, the Lab NSX Manager and the Lab vCenter.
 
-**Configure a static route on the External VM**
+**Configure IP address and  static route on the External VM**
 
 ![](assets/images/IDPS_POC_33.PNG)
 
@@ -36,6 +36,10 @@ From the physical environent vCenter, open a console to **External VM** and take
 ![](assets/images/IDPS_POC_16.PNG)
 * For interface **ens160** change the **address** and **netmask** to match the appropriate settings for your enviornment
 * In the line that stats with **up route add**, change the **gw address** (10.114.209.148 in my example) to the **T0 Uplink interface IP address**
+* Type **^O** (**Control-O**) to save the changes in Nano.
+* Type **^X** (**Control-X**) to exit Nano.
+* Type**sudo ip addr flush ens160** <enter> to clear the previously set IP address
+* Type **sudo systemctl restart networking.service** to restartthe networking service and realize the new IP address.
  
 **Verify Nested Lab vCenter**
 
