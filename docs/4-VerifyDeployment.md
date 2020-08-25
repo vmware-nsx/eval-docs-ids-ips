@@ -38,8 +38,8 @@ From the physical environent vCenter, open a console to **External VM** and take
 * In the line that stats with **up route add**, change the **gw address** (10.114.209.148 in my example) to the **T0 Uplink interface IP address**
 * Type **^O** (**Control-O**) to save the changes in Nano.
 * Type **^X** (**Control-X**) to exit Nano.
-* Type**sudo ip addr flush ens160** <enter> to clear the previously set IP address
-* Type **sudo systemctl restart networking.service** to restartthe networking service and realize the new IP address.
+* Type **sudo ip addr flush ens160** <enter> to clear the previously set IP address
+* Type **sudo systemctl restart networking.service** <enter> to restart the networking service and realize the new IP address.
  
 **Verify Nested Lab vCenter**
 
