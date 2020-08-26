@@ -101,7 +101,7 @@ $VlanTransportZoneNameHostSwitchName = "edgeswitch"
 
 # Network Segment - Default Values are sufficient
 $NetworkSegmentName = "PoV-Segment"
-$NetworkSegmentVlan = "213" 
+$NetworkSegmentVlan = "0" 
 
 # DHCP Server - Default Values are sufficient
 $DHCPServerName = "DHCP_Server"
