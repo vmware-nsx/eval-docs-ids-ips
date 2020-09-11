@@ -14,7 +14,7 @@ $NSXTEdgeOVA = "C:\Users\stijn\downloads\NSXEdge\nsx-edge-3.0.0.0.0.15946012.ova
 $ExternalVMOVA = "C:\Users\stijn\downloads\Attacker\External-VM.ova"
 $VictimVMOVA = "C:\Users\stijn\downloads\Victim\Victim-VM.ova"
 
-# Based on your operating system to run this script, please enter 1. Note: Only one operating system should 1 in front of it.
+# Based on your operating system to run this script, please enter 1. Note: Only one operating system should have 1 in front of it.
 $IsWindows = 1
 $IsMacOS = 0
 $IsLinux = 0 
