@@ -3,6 +3,8 @@
 ## 5. Initial IDS/IPS Configuration
 **Estimated Time to Complete: 30 minutes**
 
+> **Note**: If you are running though this PoV/Evaluation process using a VMWare hosted (OneCloud/HoL) environment, you can skip all the previous modules and start with this lab module (5), as everything has already been deployed. 
+
 Now that we have verified the lab has been deployed correctly, basic NSX networking configuration has been applied and the appropriate vunlerable application VMs have been deployed, we can configure the NSX Distributed IDS/IPS.
 
 **Create Groups**
