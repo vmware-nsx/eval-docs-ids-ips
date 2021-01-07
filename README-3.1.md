@@ -2,7 +2,7 @@
 <p align="center">
 </p>
 
-# NSX-T - Distributed IDS/IPS Proof of Value Guide
+# NSX-T 3.1 - Distributed IDS/IPS Evaluation and Lab Guide
 
 <p align="center">
   <img width="292" height="172" src="docs/assets/images/NSX_Logo.jpeg">
@@ -10,9 +10,10 @@
 
 ---
 ## Overview
-The goal of this Proof of Value (PoV) is to allow customers to get hands-on experience with the [NSX Distributed IDS/IPS](https://www.vmware.com/products/nsx-distributed-ids-ips.html). The expectation from people participating in the PoV is that they will complete the exercises outline in this guide in order to become familair with the key capabilities offered by the NSX Distributed IDS/IPS. While not the focus of this PoV guide, particpants will also gain basic experience with the Distributed Firewall and other NSX capabilities during this PoV process. 
+The goal of this evaluation is to allow customers to get hands-on experience with the [NSX Distributed IDS/IPS](https://www.vmware.com/products/nsx-distributed-ids-ips.html). The expectation from people participating in the PoV is that they will complete the exercises outline in this guide in order to become familair with the key capabilities offered by the NSX Distributed IDS/IPS. While not the focus of this guide, particpants will also gain basic experience with the Distributed Firewall and other NSX capabilities during this evaluation process. 
 
-While this PoV guide is quite prescriptive, participants can choose to modify any part of the workflow as desired. The guide is primarily focused on getting customers familiar with IDS/IPS, hence **the deployment of the lab environment and rest of the configuration is automated through the use of a provided PowerShell script**. After meeting the-requisites and running the script, a fully configured nested NSX-T environment is available to particpants, including a number of attacker and victim workload which are used as part of the IDS/IPS exercises. Once the nested lab has been deployed, the lab guide walks users through a number of attack scenarios, using tools like **Metasploit** to showcase the value of the NSX Distributed IDS/IPS.
+While this guide is quite prescriptive, participants can choose to modify any part of the workflow as desired. The guide is primarily focused on getting customers familiar with IDS/IPS, hence **the deployment of the lab environment and rest of the configuration is automated through the use of a provided PowerShell script**. After meeting the-requisites and running the script, a fully configured nested NSX-T environment is available to particpants, including a number of attacker and victim workload which are used as part of the IDS/IPS exercises. Once the nested lab has been deployed, the lab guide walks users through a number of attack scenarios, using tools like **Metasploit** to showcase the value of the NSX Distributed IDS/IPS.
+If you already have the lab deployed, you can skip module 1-4 of this guide.
 
 ## Introducing the VMware Service-defined Firewall
 
@@ -48,6 +49,8 @@ The automation script is based on work done by [William Lam](https://github.com/
 ---
 ## Changelog
 
+* **0/6/2020**
+  * Intial partial draft of NSX-T 3.1 version of the guide
 * **07/8/2020**
   * Intial partial draft of the guide
 * **08/18/2020**
@@ -65,7 +68,7 @@ This PoV guide is intended for existing and future NSX customers who want to eva
 
 ---
 ## Resources commitment and suggested timeline
-The expected time commitment to complete the PoV process is about 6 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
+The expected time commitment to complete the evaluation is about 6 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
 
 | Task  | Estimated Time to Complete | Suggested Week | 
 | ------------- | ------------- | ------------- |
@@ -73,27 +76,26 @@ The expected time commitment to complete the PoV process is about 6 hours. This 
 | Run Deployment Script  | 90 minutes | Week 1 | 
 | Verify Lab Deployment  | 30 minutes | Week 1 | 
 | Initial IDS/IPS Configuration  | 30 minutes | Week 1 | 
-| Simple Attack Scenario | 30 minutes | Week 1 | 
 | Lateral Attack Scenario | 60 minutes | Week 2 | 
 | Advanced Attack and configuration tuning | 60 minutes | Week 2 | 
-| Apply micro-segmentation to limit the attack surface | 60 minutes | Week 2 | 
+
 
 ---
 ## Support during the PoV Process
 
-Existing NSX customers should reach out to their NSX account team for support during the PoV process.
+Existing NSX customers should reach out to their NSX account team for support during the evaluation process.
 
 ---
 ## Table of Contents
-* [Requirements](/docs/1-Requirements.md)
-* [Customize Deployment Script](/docs/2-CustomizeScript.md)
-* [Run Deployment Script](/docs/3-RunScript.md)
-* [Verify Lab Deployment](/docs/4-VerifyDeployment.md)
-* [Initial IDS/IPS Configuration](/docs/5-InitialConfiguration.md)
-* [Basic Attack Scenario](/docs/6-BasicAttackScenario.md)
-* [Lateral Movement Scenario](/docs/7-LateralMovementScenario.md)
-* [Advanced Exercises](/docs/8-AdvancedConfiguration.md)
-* [Segmenting the Evironment](/docs/9-Segmentation.md)
-* [Conclusion](/docs/10-Conclusion.md)
+* [Requirements](/docs/3.1/1-Requirements.md)
+* [Customize Deployment Script](/docs/3.1/2-CustomizeScript.md)
+* [Run Deployment Script](/docs/3.1/3-RunScript.md)
+* [Verify Lab Deployment](/docs/3.1/4-VerifyDeployment.md)
+* [Initial IDS/IPS Configuration](/docs/3.1/5-InitialConfiguration.md)
+* [Basic Attack Scenario](/docs/3.1/6-BasicAttackScenario.md)
+* [Lateral Movement Scenario](/docs/3.1/7-LateralMovementScenario.md)
+* [Advanced Exercises](/docs/3.1/8-AdvancedConfiguration.md)
+* [Segmenting the Evironment](/docs/3.1/9-Segmentation.md)
+* [Conclusion](/docs/3.1/10-Conclusion.md)
 
-[***Next Step: 1. Requirements***](docs/1-Requirements.md)
+[***Next Step: 1. Requirements***](docs/3.1/1-Requirements.md)
