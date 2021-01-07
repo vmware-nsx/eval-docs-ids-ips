@@ -288,7 +288,7 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
     * Confirm that the IP addresses of the attacker and victim match with the **APP-1-APP-TIER VM** and **APP-2-APP-TIER VM** respectlively. This represents the last time this particular signature fired. 
     * click the **purple bar (Detected Only)** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.101) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.100)**. 
   
-![](assets/images/IDPS_POC_19.PNG)
+![](assets/images/IDPS_POC_55.PNG)
 
 > **Note**: You will see 2 log entries for the intrusion against the APP-2-APP-TIER VM (192.168.20.100) because the attempt was detected at both source (APP-1-APP-TIER) VM and destination (APP-2-APP-TIER) VM.
 
