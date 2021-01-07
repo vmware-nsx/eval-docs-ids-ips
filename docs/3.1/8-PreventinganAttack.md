@@ -20,7 +20,7 @@ Besides changing the signature action, you can also disable signatures as the gl
 5. You should see a filtered list with 4 signatures (may be different if you have a different signature package version deployed). 
 5. For each of the signatures displayed, set the Action to **Drop** or **Reject**. 
 
-![](assets/images/IDPS_POC_56.PNG)
+![](assets/images/IDPS_POC_57.PNG)
 
 
 
