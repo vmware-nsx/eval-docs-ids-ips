@@ -48,23 +48,24 @@ If you are the deployment script to deploy your own nested environment, and if y
 
 ![](assets/images/IDPS_POC_45.PNG)
 
-NSX can automatically update it’s IDS signatures by checking our cloud-based service. By default, NSX manager will check once per day and we publish new signature update versions every two week (with additional non-scheduled 0-day updates). NSX can also be configured to optionally automatically apply newly updated signatures to all hosts that have IDS enabled.
+NSX can automatically update it’s IDS/IPS signatures by checking our cloud-based service. By default, NSX manager will check once per day and we publish new signature update versions every two week (with additional non-scheduled 0-day updates). NSX can also be configured to optionally automatically apply newly updated signatures to all hosts that have IDS enabled.
 
 **Enable Automated Signature Update propagation**
-1.	Under Intrusion Detection Signatures, select **Auto Update new versions (recommended)** in order to propagate the latest signature updates from the cloud to the distributed IDS instances
+1.	Under Intrusion Detection Signatures, select **Auto Update new versions (recommended)** in order to propagate the latest signature updates from the cloud to the distributed IDS/IPS instances
 2.	Optionally, click **View and Change Versions** and expand one of the signature sets to see what signatures have been added/updated/disabled in this particular release 
 
 > **Note**: if a proxy server is configured for NSX Manager to access the internet, click Proxy Settings and complete the configuration
 
 
-**Create IDS Profiles**
-1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Profiles
-2. Click **ADD IDS PROFILE**
-3.	Create an IDS Profile with the below parameters. Click Save when done.
-    * Name **Production**
-    * Signatures to Include: **Critical**, **High**, **Medium**
-3.	Create another IDS Profile with the below parameters. Click Save when done.
-    * Name **Development**
+**Create IDS/IPS Profiles**
+1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS/IPS --> Profiles
+2. Click **ADD PROFILE**
+3.	Create a Profile with the below parameters. Click Save when done.
+    * Name **Web-FrontEnd**
+    * Signatures to Include: **Attack Targets**: **Web Server**
+	![](assets/images/IDPS_POC_47.PNG)
+3.	Create another Profile with the below parameters. Click Save when done.
+    * Name **Databases**
     * Signatures to Include: **Critical**, **High**
 
 ![](assets/images/IDPS_POC_6.PNG)
