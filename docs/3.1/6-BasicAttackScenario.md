@@ -120,15 +120,15 @@ meterpreter > ?
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
-![](assets/images/IDPS_POC_13.PNG)
+![](assets/images/IDPS_POC_51.PNG)
 3. Click  **APP-1-WEB-TIER** to open a filtered event view for this workload. 
 4. Confirm 2 signatures have fired; one exploit-specific signature for **DrupalGeddon2** and one broad signature indicating the use of a **Remote Code execution via a PHP script**
-![](assets/images/IDPS_POC_14.PNG)
+![](assets/images/IDPS_POC_52.PNG)
 > **Note**: You can zoom in/out to specific times using the timeline slider, filter the Events view based on Severity by selecting the desired severities or filter based on other criteria such as Attacker Target, Attack Type, CVSS, Product Affected or VM Name by using the **Appl Filter** box.
 5. Expand both of the events by clicking the **>** icon on the left side next to severity
 6.  For the  **DruppalGeddon2** event:
   *  Confirm that the IP addresses of the attacker and victim match with the **External VM** and **APP-1-WEB-TIER VM** respectlively.
-  *  click **View Intrusion History** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
+  *  click the **Purple Bar (Detected Only)** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
   *  this event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2018-7600** CVE link to open up the **Mittre** CVE page and learn more about the vulnerability.
 7. **Optionally**, you can check the  obove details as well for the secondary event (except for the vulnerability details, which are not applicable to this more general signature)
   
