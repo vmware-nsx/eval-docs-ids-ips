@@ -39,6 +39,7 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 If you are the deployment script to deploy your own nested environment, and if you previously provide an NSX Evalution license key which enables all functionality including IDS/IPS, or if the required license is already present, you can skip this step. 
 1.	In the NSX Manager UI, navigate to System --> License and upload either an ATP subscription license or an evaluation license
 2.	Click **+ADD LICENSE** 
+3.	Enter a valid license key and click **ADD**
 
 
 **Enable Intrusion Detection**
