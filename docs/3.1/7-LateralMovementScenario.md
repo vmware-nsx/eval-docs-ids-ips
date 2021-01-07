@@ -295,13 +295,13 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
 9. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS Apache CouchDB Remote Code Execution 1** event. Conirm the instrusion history matches the one of the event you previously looked at. 
 10. Now you can apply a wide array of filter criteria in order to only look at specific events. Use the checkboxes and filter to zoom in to specifc events:
      * Only look at **Critical Severity** level events. There should only be one.
-     * Only look at events related to the the **APP-1-APP-TIER** VM. There should be 4 as this VM was the initial target as well as the pivot of an attack.
-     * Only look at events with a **CVSS Score** of **9 and above**. There should be 3.
-     * Only look at events where the **affected product** is **Drupal Service**. There should be 1.
-     * Only look at events related to the **APP-1-APP-TIER** where the **CVSS** is **9 and above*. There should be 2.
+     * Only look at events related to the the **APP-1-APP-TIER** VM. There should be one.
+     * Only look at events with a **CVSS Score** of **9 and above**. There should be 2.
+     * Only look at events where the **affected product** is **apache_couchdb**. There should be 1.
 
-You have now successfully completed a lateral attack scenario ! 
-In the next (optional) exercise, we will configure some more advanced settings such as **signature exclusions/false positive tuning** and the ability to send IDS/IPS logs directly a SIEM from every host.
+You have now successfully completed a lateral attack scenario in detect-only mode ! 
+In the next  exercise, we will prevent the exploit by enabling detect and prevent mode.
+
 
 
 Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
