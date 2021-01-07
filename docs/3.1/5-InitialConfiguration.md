@@ -74,23 +74,25 @@ NSX can automatically update it’s IDS/IPS signatures by checking our cloud-bas
 ![](assets/images/IDPS_POC_49.PNG)
 
 **Create IDS Rules**
-1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Rules
+1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS/IPS --> Rules
 2. Click **ADD POLICY**
-3.	Create an IDS Policy named **NSX PoV** .
+3.	Create an IDS Policy named **NSX IDPS Evaluation** .
 4. Check the checkbox for the policy you just created and click **ADD RULE**.
 5. Add an IDS Rule with the following parameters
-    * Name **Production Applications IDS Policy**
-    * IDS Profile **Production**
-    * Applied to **Production Applicatons** (group)
+    * Name **Web-Tier Policy**
+    * IDS Profile **Web-FrontEnd**
+    * Applied to **Web-Tier** (group)
+	* Mode **Detect Only**
     * Leave other settings to defaults
 6. Add another IDS Rule with the following parameters
-    * Name **Development Applications IDS Policy**
-    * IDS Profile **Development**
-    * Applied to **Development Applicatons** (group)
+    * Name **App-Tier Policy**
+    * IDS Profile **Databases**
+    * Applied to **App-Tier** (group)
+		* Mode **Detect Only**
     * Leave other settings to defaults
 7. Click **Publish**
 
-![](assets/images/IDPS_POC_10.PNG)
+![](assets/images/IDPS_POC_50.PNG)
 
 You have now successfully configured the NSX Distributed IDS/IPS ! In the next exercise, we will run through a basic attack scenario to confirm intrusion attemtps are detected and get familair with the NSX IDS/IPS Events view.
 
