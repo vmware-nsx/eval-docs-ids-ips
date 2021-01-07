@@ -17,8 +17,15 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 3.	Create another Group with the below parameters. Click Save when done.
     * Name **Development Applications**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Development Scope Environment**
-    ![](assets/images/IDPS_POC_8.PNG)    
-4. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
+4.	Create another Group with the below parameters. Click Save when done.
+    * Name **Web-Tier**
+    * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Web-Tier Scope Tier**	
+5.	Create another Group with the below parameters. Click Save when done.
+    * Name **Web-Tier**
+    * Compute Members: Membership Criteria: **Virtual Machine Tag Equals App-Tier Scope Tier**
+    ![](assets/images/IDPS_POC_46.PNG)
+
+6. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
     * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
     * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
     ![](assets/images/IDPS_POC_9.PNG)    
