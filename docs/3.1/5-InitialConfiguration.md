@@ -35,6 +35,7 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
 > **Note**: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
 
 **Apply Evaluation License or ATP license**
+
 If you are the deployment script to deploy your own nested environment, and if you previously provide an NSX Evalution license key which enables all functionality including IDS/IPS, or if the required license is already present, you can skip this step. 
 1.	In the NSX Manager UI, navigate to System --> License and upload either an ATP subscription license or an evaluation license
 2.	Click **+ADD LICENSE** 
