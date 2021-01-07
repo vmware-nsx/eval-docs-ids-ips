@@ -267,21 +267,20 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
-![](assets/images/IDPS_POC_18.PNG)
+![](assets/images/IDPS_POC_53.PNG)
 3. Navigate to Security --> East West Security --> Distributed IDS
-4. Confirm 4 signatures have fired:
+4. Confirm 3 signatures have fired:
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
-    * Signature for **Apache CouchDB Remote Code Execution**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
     * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
     
-    ![](assets/images/IDPS_POC_20.PNG)
+    ![](assets/images/IDPS_POC_54.PNG)
 
 > **Note**: Events are ordered based on the time a particular signature last fired. The last event is at the top of the table.
 
 5. Now you can drill down into these events. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS [PT OPEN] Drupalgeddon2 <8.3.9 <8.4.6 <8.5.1 RCE Through Registration Form (CVE-2018-7600)** event near the bottom of the table to expand this event. 
     * Confirm that the IP addresses of the attacker and victim match with the **External VM** and **APP-1-WEB-TIER VM** respectlively.
-    * click **View Intrusion History** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
+    * click the **purple bar (Detected Only)** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
     * this event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2018-7600** CVE link to open up the **Mitre** CVE page and learn more about the vulnerability.
 6. **Optionally**, you can check the  obove details as well for the secondary event (except for the vulnerability details, which are not applicable to this more general signature)
 7. Now we can look at the **CouchDB** exploit, which we used to move laterally from **APP-1-WEB-TIER** to **APP-1-APP-TIER** and from **APP-1-APP-TIER**  to **APP-2-APP-TIER**. 
