@@ -25,9 +25,11 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals App-Tier Scope Tier**
     ![](assets/images/IDPS_POC_46.PNG)
 
-6. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 2 groups you created and confirm
+6. Confirm previously deployed VMs became a member of appropriate groups due to applied tags. Click **View Members** for the 4 groups you created and confirm
     * Members of **Development Applications**: **APP-2-APP-TIER**, **APP-2-WEB-TIER**
     * Members of **Production Applications**: **APP-1-APP-TIER**, **APP-1-WEB-TIER**
+	* Members of **Web-Tier**: **APP-1-WEB-TIER**, **APP-2-WEB-TIER**
+    * Members of **App-Tier Applications**: **APP-1-APP-TIER**, **APP-2-APP-TIER**
     ![](assets/images/IDPS_POC_9.PNG)    
     
 > **Note**: Tags were applied to the workloads through the Powershell script used to deploy the lab environment.
