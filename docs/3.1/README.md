@@ -68,16 +68,17 @@ This PoV guide is intended for existing and future NSX customers who want to eva
 
 ---
 ## Resources commitment and suggested timeline
-The expected time commitment to complete the evaluation is about 6 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
+The expected time commitment to complete the evaluation process is about 6 hours. This includes the time it takes for the automated deployment of the nested lab environment. We suggest to split up this time across 2 week. The below table provides an estimate of the time it takes to complete each task:
 
 | Task  | Estimated Time to Complete | Suggested Week | 
 | ------------- | ------------- | ------------- |
 | Customize Deployment Script Variables  | 30 minutes  | Week 1 | 
 | Run Deployment Script  | 90 minutes | Week 1 | 
 | Verify Lab Deployment  | 30 minutes | Week 1 | 
-| Initial IDS/IPS Configuration  | 30 minutes | Week 1 | 
-| Lateral Attack Scenario | 60 minutes | Week 2 | 
-| Advanced Attack and configuration tuning | 60 minutes | Week 2 | 
+| Initial IDS/IPS Configuration  | 30 minutes | Week 2 | 
+| Detecting a Simple Intrusion | 30 minutes | Week 2 | 
+| Detecting an Advanced Attack | 60 minutes | Week 2 | 
+| Preventing an Attack | 30 minutes | Week 2 | 
 
 
 ---
@@ -92,10 +93,9 @@ Existing NSX customers should reach out to their NSX account team for support du
 * [Run Deployment Script](/docs/3.1/3-RunScript.md)
 * [Verify Lab Deployment](/docs/3.1/4-VerifyDeployment.md)
 * [Initial IDS/IPS Configuration](/docs/3.1/5-InitialConfiguration.md)
-* [Basic Attack Scenario](/docs/3.1/6-BasicAttackScenario.md)
-* [Lateral Movement Scenario](/docs/3.1/7-LateralMovementScenario.md)
-* [Advanced Exercises](/docs/3.1/8-AdvancedConfiguration.md)
-* [Segmenting the Evironment](/docs/3.1/9-Segmentation.md)
-* [Conclusion](/docs/3.1/10-Conclusion.md)
+* [Detecting a simple Intrusion](/docs/3.1/6-DetectingASimpleIntrusion.md)
+* [Detecting an Advanced Attack](/docs/3.1/7-DetectinganAdvancedAttack.md)
+* [Preventing an Attack](/docs/3.1/8-PreventinganAttack.md)
+
 
 [***Next Step: 1. Requirements***](docs/3.1/1-Requirements.md)
