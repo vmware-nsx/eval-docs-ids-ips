@@ -18,13 +18,50 @@ Besides changing the signature action, you can also disable signatures as the gl
 ![](assets/images/IDPS_POC_56.PNG)
 
 5. You should see a filtered list with 4 signatures (may be different if you have a different signature package version deployed). 
-5. For each of the signatures displayed, set the Action to **Drop** or **Reject**. 
+5. For each of the signatures displayed, set the Action to **Drop** or **Reject**. Click **Apply** to confirm.
 
 ![](assets/images/IDPS_POC_57.PNG)
 
+6. Click **SAVE** to save the changes to the **Web-FrontEnd** profile.
+
+**Tune the Web-FrontEnd Profile**
+
+Now we will also set the action for signatures related to **CouchDB** in the **Databases** profile to **Drop**.
+
+1. In the NSX Manager UI, navigate to Security -->  Distributed IDS/IPS --> Profiles
+2. Click the 3 dots icon next to the  **Databasesprofile** and then click **Edit**.
+3. Click **Manage signatures for this profile**.
+4. You should see a filtered list with 7 signatures (may be different if you have a different signature package version deployed). 
+5. Click the selection box on top to select all signatures.  
+6. Click the **ACTION** button on top and choose **Drop** to change the action for all selected signatures to **Drop**. Click **Apply** to confirm.
+7. Click **SAVE** to save the changes to the **Databases** profile.
+
+**Change the IDS/IPS Mode to Detect and Prevent**
+
+1. In the NSX Manager UI, navigate to Security -->  Distributed IDS/IPS --> Rules
+2. Click **ADD POLICY**
+3. Create an IDS Policy named **NSX IDPS Evaluation** .
+4. Check the checkbox for the policy you just created and click **ADD RULE**.
+5. Add an IDS Rule with the following parameters
+    * Name **Web-Tier Policy**
+    * IDS Profile **Web-FrontEnd**
+    * Applied to **Web-Tier** (group)
+	* Mode **Detect Only**
+    * Leave other settings to defaults
+6. Add another IDS Rule with the following parameters
+    * Name **App-Tier Policy**
+    * IDS Profile **Databases**
+    * Applied to **App-Tier** (group)
+		* Mode **Detect Only**
+    * Leave other settings to defaults
+7. Click **Publish**
+
+![](assets/images/IDPS_POC_50.PNG)
 
 
-> **Note**: The **Drop** action will lead to the offending flow being dropped. With **Reject**, in addition to dropping the flow a TCP RST packet is sent to source and destination (in case of TCP traffic).
+Now we will also set the action for signatures related to **CouchDB** in the **Databases** profile to **Drop**.
+
+1. In t
 
 
 3.	Create a Profile with the below parameters. Click Save when done.
