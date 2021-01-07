@@ -44,14 +44,14 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
 ### OVAs and images for the nested Lab
 * vSphere 7 & NSX-T OVAs:
     * [vCenter Server Appliance 7.0.0B](https://my.vmware.com/group/vmware/downloads/details?downloadGroup=VC700B&productId=974&rPId=47905)
-    * [NSX-T Manager 3.0.1 OVA](https://my.vmware.com/group/vmware/downloads/details?downloadGroup=NSX-T-301&productId=982&rPId=48086)
-    * [NSX-T Edge 3.0.1 for ESXi OVA](https://my.vmware.com/group/vmware/downloads/details?downloadGroup=NSX-T-301&productId=982&rPId=48086)
+    * [NSX-T Manager 3.1.0 OVA](https://my.vmware.com/group/vmware/downloads/details?downloadGroup=NSX-T-310&productId=982&rPId=56490)
+    * [NSX-T Edge 3.1.0 for ESXi OVA](https://my.vmware.com/group/vmware/downloads/details?downloadGroup=NSX-T-310&productId=982&rPId=56490)
     * [Nested ESXi 7.0 OVA - Build 15344619](https://download3.vmware.com/software/vmw-tools/nested-esxi/Nested_ESXi7.0_Appliance_Template_v1.ova)
     * External VM and Victim VM OVA - Links to these will be provided to PoV participatns by their NSX account team.
 * Preferrably, the deployed NSX Manager should have Internet access in order to download the lastest set of IDS/IPS signatures.
     
 > **Note**: if you are not entitled or not able to access the above links, you can download a free trial and obtain a license for all of the above through https://www.vmware.com/try-vmware.html 
-
+> **Note**: in order to use IDS/IPS you to provide either an evaluation license or an NSX ATP Subscription license
 
 
 ---
