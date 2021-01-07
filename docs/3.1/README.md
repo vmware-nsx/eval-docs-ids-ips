@@ -82,7 +82,7 @@ The expected time commitment to complete the evaluation process is about 6 hours
 
 
 ---
-## Support during the PoV Process
+## Support during the evaluation Process
 
 Existing NSX customers should reach out to their NSX account team for support during the evaluation process.
 

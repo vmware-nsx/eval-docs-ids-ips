@@ -1,8 +1,46 @@
 
-## 8. Advanced Configuration
+## 8. Preventing an Attack
 **Estimated Time to Complete: 30 minutes**
 
-In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration
+In this exercise, we will show how the NSX Distributed IDS/IPS can just detect but also prevent an attack. We will run the same attack scenario as before.
+
+** Tune the Web-FrontEnd Profile**
+
+In order to prevent an attack, we need to both change the mode in our IDS/IPS rule(s) to **detect and prevent** and ensure that relevant signature actions are set to either **drop** or **reject**.
+The default VMware-recommend signature action can be overrided both at the global level, or within a profile. For the purpose of this lab, we will make the modification within the profile.
+Besides changing the signature action, you can also disable signatures as the global or per-profile level, which may be needed in case of false-positives.
+
+1. In the NSX Manager UI, navigate to Security -->  Distributed IDS/IPS --> Profiles
+2. Click the 3 dots icon next to the  **Web-FrontEnd** profile and then click **Edit**.
+3. Click **Manage signatures for this profile**.
+4. In the Filter field, select **Product Affected** and type **drupal_drupal** and click **Apply** to only show the signatures related to Drupal.
+
+![](assets/images/IDPS_POC_56.PNG)
+
+5. You should see a filtered list with 4 signatures (may be different if you have a different signature package version deployed). 
+5. For each of the signatures displayed, set the Action to **Drop** or **Reject**. 
+
+![](assets/images/IDPS_POC_56.PNG)
+
+
+
+> **Note**: The **Drop** action will lead to the offending flow being dropped. With **Reject**, in addition to dropping the flow a TCP RST packet is sent to source and destination (in case of TCP traffic).
+
+
+3.	Create a Profile with the below parameters. Click Save when done.
+    * Name **Web-FrontEnd**
+    * Signatures to Include: **Attack Targets**: **Web Server**
+	
+![](assets/images/IDPS_POC_47.PNG)
+
+3.	Create another Profile with the below parameters. Click Save when done.
+    * Name **Databases**
+    * Signatures to Include: **Products Affected**: **apache couchdb**
+
+![](assets/images/IDPS_POC_48.PNG)
+![](assets/images/IDPS_POC_49.PNG)
+
+
 
 **Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM**
 
