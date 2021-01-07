@@ -65,11 +65,13 @@ NSX can automatically update it’s IDS/IPS signatures by checking our cloud-bas
     * Signatures to Include: **Attack Targets**: **Web Server**
 	
 ![](assets/images/IDPS_POC_47.PNG)
+
 3.	Create another Profile with the below parameters. Click Save when done.
     * Name **Databases**
-    * Signatures to Include: **Critical**, **High**
+    * Signatures to Include: **Products Affected**: **apache couchdb**
 
-![](assets/images/IDPS_POC_6.PNG)
+![](assets/images/IDPS_POC_48.PNG)
+![](assets/images/IDPS_POC_49.PNG)
 
 **Create IDS Rules**
 1.	In the NSX Manager UI, navigate to Security -->  Distributed IDS --> Rules
