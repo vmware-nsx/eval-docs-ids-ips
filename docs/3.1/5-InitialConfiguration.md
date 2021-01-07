@@ -63,6 +63,7 @@ NSX can automatically update it’s IDS/IPS signatures by checking our cloud-bas
 3.	Create a Profile with the below parameters. Click Save when done.
     * Name **Web-FrontEnd**
     * Signatures to Include: **Attack Targets**: **Web Server**
+	
 ![](assets/images/IDPS_POC_47.PNG)
 3.	Create another Profile with the below parameters. Click Save when done.
     * Name **Databases**
