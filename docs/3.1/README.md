@@ -17,7 +17,7 @@ If you already have the lab deployed, you can skip module 1-4 of this guide.
 
 ## Introducing the VMware Service-defined Firewall
 
-![](docs/assets/images/IDPS_POC_43.PNG)
+![](assets/images/IDPS_POC_43.PNG)
 
 The VMware Service-defined firewall is VMware’s solution to secure east-to-west traffic across multi-cloud environments and is made up of 3 main components. First of all, we have our distributed firewall, which enables micro-segmentation. The distributed firewall is in essence an in kernel firewall that sits at the vNIC of every workload in the environment, enabling any level of filtering, micro-segmentation between the tiers of an application, or macro-segmentation for example isolating production from development workloads, or anything in between, completely independent of the underlying networking. Over the last few years, we’ve evolved the distributed firewall into a full Layer 7 stateful firewall.
 
