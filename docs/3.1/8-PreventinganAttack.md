@@ -4,7 +4,7 @@
 
 In this exercise, we will show how the NSX Distributed IDS/IPS can just detect but also prevent an attack. We will run the same attack scenario as before.
 
-** Tune the Web-FrontEnd Profile**
+**Tune the Web-FrontEnd Profile**
 
 In order to prevent an attack, we need to both change the mode in our IDS/IPS rule(s) to **detect and prevent** and ensure that relevant signature actions are set to either **drop** or **reject**.
 The default VMware-recommend signature action can be overrided both at the global level, or within a profile. For the purpose of this lab, we will make the modification within the profile.
