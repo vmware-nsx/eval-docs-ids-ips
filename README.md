@@ -2,7 +2,7 @@
 <p align="center">
 </p>
 
-# NSX-T - Distributed IDS/IPS Proof of Value Guide
+# NSX-T 3.0 - Distributed IDS/IPS Proof of Value Guide
 
 <p align="center">
   <img width="292" height="172" src="docs/assets/images/NSX_Logo.jpeg">
