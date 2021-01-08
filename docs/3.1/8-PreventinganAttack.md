@@ -82,41 +82,25 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
 ![](assets/images/IDPS_POC_53.PNG)
 3. Navigate to Security --> East West Security --> Distributed IDS
-4. Confirm 3 signatures have fired:
+4. Confirm 2 signatures have fired:
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
-    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
     
-    ![](assets/images/IDPS_POC_54.PNG)
-
-> **Note**: Events are ordered based on the time a particular signature last fired. The last event is at the top of the table.
+    ![](assets/images/IDPS_POC_59.PNG)
 
 5. Now you can drill down into these events. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS [PT OPEN] Drupalgeddon2 <8.3.9 <8.4.6 <8.5.1 RCE Through Registration Form (CVE-2018-7600)** event near the bottom of the table to expand this event. 
     * Confirm that the IP addresses of the attacker and victim match with the **External VM** and **APP-1-WEB-TIER VM** respectlively.
-    * click the **purple bar (Detected Only)** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
-    * this event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2018-7600** CVE link to open up the **Mitre** CVE page and learn more about the vulnerability.
-6. **Optionally**, you can check the  obove details as well for the secondary event (except for the vulnerability details, which are not applicable to this more general signature)
-7. Now we can look at the **CouchDB** exploit, which we used to move laterally from **APP-1-WEB-TIER** to **APP-1-APP-TIER** and from **APP-1-APP-TIER**  to **APP-2-APP-TIER**. 
-8. Click the **>** symbol to the left of the **SLR Alert - Apache CouchDB Remote Privilege Escalation (CVE-2017-12635)** event
-    * Confirm that the IP addresses of the attacker and victim match with the **APP-1-APP-TIER VM** and **APP-2-APP-TIER VM** respectlively. This represents the last time this particular signature fired. 
-    * click the **purple bar (Detected Only)** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.101) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.100)**. 
-  
-![](assets/images/IDPS_POC_55.PNG)
+    * click the **green bar (Prevented)** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
 
-> **Note**: You will see 2 log entries for the intrusion against the APP-2-APP-TIER VM (192.168.20.100) because the attempt was detected at both source (APP-1-APP-TIER) VM and destination (APP-2-APP-TIER) VM.
+  ![](assets/images/IDPS_POC_60.PNG)
 
-9. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS Apache CouchDB Remote Code Execution 1** event. Conirm the instrusion history matches the one of the event you previously looked at. 
-10. Now you can apply a wide array of filter criteria in order to only look at specific events. Use the checkboxes and filter to zoom in to specifc events:
-     * Only look at **Critical Severity** level events. There should only be one.
-     * Only look at events related to the the **APP-1-APP-TIER** VM. There should be one.
-     * Only look at events with a **CVSS Score** of **9 and above**. There should be 2.
-     * Only look at events where the **affected product** is **apache_couchdb**. There should be 1.
+You have now successfully prevented the initial exploit and further lateral movement.
+This completes this exercise and the lab. You may continue with some optional exercises. 
 
-You have now successfully completed a lateral attack scenario in detect-only mode ! 
-In the next  exercise, we will prevent the exploit by enabling detect and prevent mode.
+This completes this exercise and the lab. You may continue with some optional exercises. See  
 
-This completes this exercise. Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
+Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
 ---
 
-[***Next Step: 9. Segmentation***](/docs/9-Segmentation.md)
+[***Next Step (Optional): 9. Segmentation***](/docs/9-Segmentation.md)
