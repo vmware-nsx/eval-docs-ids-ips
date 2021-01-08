@@ -3,7 +3,9 @@
 **Estimated Time to Complete: 30 minutes**
 
 In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration
+
 **IMPORTANT**: Prior to this exercise, change the **Mode** for both the **App-Tier** and **Web-Tier** IDS/IPS policy back to **Detect Only**.  
+
 
 **Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM**
 
