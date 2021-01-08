@@ -167,17 +167,17 @@ Active sessions
 
 ***Confirm IDS/IPS Events show up in the NSX Manager UI***
 1.	In the NSX Manager UI, navigate to Security --> East West Security --> Distributed IDS
-2. Confirm 4 signatures have fired:
+2. Confirm 3 signatures have fired:
+4. Confirm 3 signatures have fired:
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
-    * Signature for **Apache CouchDB Remote Code Execution**, with **APP-1-WEB-TIER** and  **APP-1-APP-TIER** as Affected VMs
-    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER** and  **APP-1-APP-TIER** as Affected VMs
-  
-  ![](assets/images/IDPS_POC_39.PNG)
+    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER** as Affected VM
+    
+    ![](assets/images/IDPS_POC_54.PNG)
   
   > **Note**: Because the distributed firewall has isolated production from development workloads, we do not see  the exploit attempt of the **APP2-APP-TIER** VM.
 
-This completes the Macro-segmentation exercise. Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
+This completes the Macro-segmentation exercise. Before moving to the next exercise, folow [these instructions](ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
 **Micro-Segmentation: Implementing a zero-trust network architecture for your applications**
 
@@ -360,7 +360,7 @@ Active sessions
 
 No active sessions.
 ```
-> **Note**: The micro-segmentation policy applies allows the applictions to function but reduces the attack surface by preventing any communication to a service that is not explicitely allowed. As a result, while the initial exploit against the vulnerable drupal server was completed, no reverse shell was established as the distributed firewall is not allowing the APP1-WEB-TIER VM to establish a session to the external VM.
+> **Note**: The micro-segmentation policy applies allows the applictions to function but reduces the attack surface by preventing any communication to a service that is not explicitely allowed. 
 
 ***Confirm IDS/IPS Events show up in the NSX Manager UI***
 1.	In the NSX Manager UI, navigate to Security --> East West Security --> Distributed IDS
@@ -368,9 +368,9 @@ No active sessions.
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
 
-  ![](assets/images/IDPS_POC_42.PNG)
+  ![](assets/images/IDPS_POC_59.PNG)
   
-  > **Note**: While the initial DrupalGeddon exploit has completed, the distributed firewall has prevented the reverse shell from being established from APP-1-WEB-TIER. As a result, the attacker is unable to move laterally in the environment.
+  > **Note**: While the initial DrupalGeddon exploit has completed, the distributed firewall has prevented the reverse shell from being established from APP-1-WEB-TIER. As a result, the attacker is unable to move laterally in the environment. In addition, you can enable a **detect & prevent** policy once again to ensure the initial exploit is prevented.
 
 This completes the NSX Distributed IDS/IPS Evaluation and Optional exercises. 
 
