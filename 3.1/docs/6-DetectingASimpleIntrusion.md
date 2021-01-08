@@ -146,4 +146,4 @@ Before moving to the next exercise, folow [these instructions](ClearingIDSEvents
 
 ---
 
-[***Next Step: 7. Lateral Movement Scenario***](7-LateralMovementScenario.md)
+[***Next Step: 7. Lateral Movement Scenario***](7-DetectinganAdvancedAttack.md)
