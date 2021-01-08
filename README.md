@@ -9,6 +9,9 @@
 </p>
 
 ---
+**NEW!** Click [here](/3.1/README.md) for the NSX-T 3.1 IDS/IPS Guide
+
+---
 ## Overview
 The goal of this Proof of Value (PoV) is to allow customers to get hands-on experience with the [NSX Distributed IDS/IPS](https://www.vmware.com/products/nsx-distributed-ids-ips.html). The expectation from people participating in the PoV is that they will complete the exercises outline in this guide in order to become familair with the key capabilities offered by the NSX Distributed IDS/IPS. While not the focus of this PoV guide, particpants will also gain basic experience with the Distributed Firewall and other NSX capabilities during this PoV process. 
 
