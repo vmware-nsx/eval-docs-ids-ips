@@ -171,7 +171,7 @@ Active sessions
 4. Confirm 3 signatures have fired:
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
     * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
-    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER** as Affected VM
+    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-APP-TIER** as Affected VM
     
     ![](assets/images/IDPS_POC_54.PNG)
   
