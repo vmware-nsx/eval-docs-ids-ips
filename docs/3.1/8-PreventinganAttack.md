@@ -97,10 +97,12 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
 You have now successfully prevented the initial exploit and further lateral movement.
 This completes this exercise and the lab. You may continue with some optional exercises. 
 
-This completes this exercise and the lab. You may continue with some optional exercises. See  
+This completes this exercise and the lab. You may continue with some optional exercises:   
+[***Optional: 9. Segmentation***](/docs/9-Segmentation.md) 
+[***Optional: 9. Segmentation***](/docs/9-Segmentation.md) 
 
 Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
 ---
 
-[***Next Step (Optional): 9. Segmentation***](/docs/9-Segmentation.md)
+[***Next Step : 11. Conclusion**](/docs/11-Conclusion.md) 
