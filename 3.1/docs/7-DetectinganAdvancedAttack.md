@@ -1,5 +1,5 @@
 
-## 7. Lateral Movement Scenario
+## 7. Detecting an Advanced Attack
 **Estimated Time to Complete: 60 minutes**
 
 In this exercise, we will again establish a **reverse shell** from the Drupal server, and use it as a **pivot** to gain access to the internal network which is not direclty accessible from the external VM. Traffic to the internal network will be routed through the established **reverse shell** from the **App1-WEB-TIER VM**. We will use a **CouchDB** exploit against the **App1-APP-TIER VM** and then pivot once more and now use this compromised workload to target the **App2-APP-TIER VM** using the same exploit.
@@ -304,8 +304,8 @@ In the next  exercise, we will prevent the exploit by enabling detect and preven
 
 
 
-Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
+Before moving to the next exercise, folow [these instructions](ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
 ---
 
-[***Next Step: 8. Advanced Configuration***](/docs/8-AdvancedConfiguration.md)
+[***Next Step: 8. Advanced Configuration***](8-PreventinganAttack.md)
