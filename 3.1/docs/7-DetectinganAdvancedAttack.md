@@ -308,4 +308,4 @@ Before moving to the next exercise, folow [these instructions](ClearingIDSEvents
 
 ---
 
-[***Next Step: 8. Advanced Configuration***](8-PreventinganAttack.md)
+[***Next Step: 8. Preventing an Attack***](8-PreventinganAttack.md)
