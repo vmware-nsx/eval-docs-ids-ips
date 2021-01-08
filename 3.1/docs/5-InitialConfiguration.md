@@ -98,4 +98,4 @@ You have now successfully configured the NSX Distributed IDS/IPS ! In the next e
 
 ---
 
-[***Next Step: 6. Basic Attack Scenario***](/docs/6-BasicAttackScenario.md)
+[***Next Step: 6. Basic Attack Scenario***](6-BasicAttackScenario.md)
