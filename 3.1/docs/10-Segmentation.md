@@ -1,10 +1,12 @@
 
-## 9. Segmentation
+## 10. Segmentation
 **Estimated Time to Complete: 60 minutes**
 
-In this final exercise, we will leverage the **Distributed Firewall** in order to limit the attack surface. 
+In this optional exercise, we will leverage the **Distributed Firewall** in order to limit the attack surface. 
 First, we will apply a **Macro-segmentation** policy which will isolate our **Production** environment and the applications deployed in it from the **Development** environment. 
 Then, we will implement a **Micro-segmentation** policy, which will employ an **allow-list** to only allow the flows required for our applications to function and block everything else.
+
+**IMPORTANT**: Prior to this exercise, change the **Mode** for both the **App-Tier** and **Web-Tier** IDS/IPS policy back to **Detect Only**.  
 
 **Macro-Segmentation: Isolating the Production and Development environnments**
 
@@ -370,8 +372,8 @@ No active sessions.
   
   > **Note**: While the initial DrupalGeddon exploit has completed, the distributed firewall has prevented the reverse shell from being established from APP-1-WEB-TIER. As a result, the attacker is unable to move laterally in the environment.
 
-This completes the NSX Distributed IDS/IPS PoV. 
+This completes the NSX Distributed IDS/IPS Evaluation and Optional exercises. 
 
 ---
 
-[***Next Step: 10. Conclusion***](/docs/10-Conclusion.md)
+[***Next Step: 11. Conclusion***](11-Conclusion.md)
