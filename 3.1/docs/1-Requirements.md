@@ -56,5 +56,5 @@ Here are the requirements for NSX-T Distributed IDS/IPS Evaluation
 
 ---
 
-[***Next Step: 2. Customize Deployment Script***](docs/2-CustomizeScript.md))
+[***Next Step: 2. Customize Deployment Script***](2-CustomizeScript.md))
 
