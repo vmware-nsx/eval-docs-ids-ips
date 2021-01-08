@@ -13,4 +13,4 @@ Once the deployment completes, you will receive a confirmation and can now move 
 
 ---
 
-[***Next Step: 4. Verify Lab Deployment***](/docs/4-VerifyDeployment.md)
+[***Next Step: 4. Verify Lab Deployment***](4-VerifyDeployment.md)
