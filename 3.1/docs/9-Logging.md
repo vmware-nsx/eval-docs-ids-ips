@@ -1,5 +1,5 @@
 
-## 8. Advanced Configuration
+## 9. Logging to an External Collector
 **Estimated Time to Complete: 30 minutes**
 
 In this **optional** exercise, we will explore some more advanced options in the NSX Distributed IDS/IPS Configuration
