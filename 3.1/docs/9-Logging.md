@@ -24,21 +24,21 @@ We will not cover how to install **vRealize Log Insight** or any other logging p
 10. Tick the checkbox next to **syslog** to allow outbuound syslog from the host.
 11. Repeat the same for the remaining 2 hosts.
 ![](assets/images/IDPS_POC_24.PNG)
-12. Open a terminal session to one of the lab hypervisors , login with **root**/**VMware1!** and execute the below commands to enable IDS log export via syslog
-    * Type **nsxcli** to enter the NSX CLI on the host
-    * Type **set ids engine syslogstatus enable** to enable syslog event export
-    * Confirm syslog event export was succesfully enabled by running the command **get ids engine syslogstatus**
-
-```console
-[root@localhost:~] nsxcli
-localhost> set ids engine syslogstatus enable
-    result: success
-    
-localhost> get ids engine syslogstatus
-       NSX IDS Engine Syslog Status Setting
---------------------------------------------------
-                       true
+12. Open Postman or another API tool and execute the below API PUT call to NSX Manager to enable IDS log export via syslog
+    * URI: https://10.114.222.108/api/v1/global-configs/IdsGlobalConfig (replace IP address with the IP address of your NSX Manager)
+    * Method: PUT
+	* Authentication: Basic (enter username/password)
+	* Body: 
+	```console
+	{
+    "global_idsevents_to_syslog_enabled": true,
+    "resource_type": "IdsGlobalConfig",
+    "_revision": 36
+}
 ```
+
+![](assets/images/IDPS_POC_62.PNG)
+
 13. Login to your syslog collector/SIEM and confirm you are receiving logs form each host.
 14. Configure a parser or a filter to only look at IDS events. You can for example filter on the string **IDPS_EVT**. 
 ![](assets/images/IDPS_POC_25.PNG)
@@ -57,4 +57,4 @@ This completes this exercise. Before moving to the next exercise, folow [these i
 
 ---
 
-[***Next Step: 9. Segmentation***](/docs/9-Segmentation.md)
+[***Next Step : (Optional) 10. Segmenting the Environment***](10-Segmentation.md)
