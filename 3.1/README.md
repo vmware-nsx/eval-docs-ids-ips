@@ -90,7 +90,7 @@ Existing NSX customers should reach out to their NSX account team for support du
 ---
 ## Table of Contents
 * [Requirements](1-Requirements.md)
-* [Customize Deployment Script](/docs/3.1/2-CustomizeScript.md)
+* [Customize Deployment Script](2-CustomizeScript.md)
 * [Run Deployment Script](/docs/3.1/3-RunScript.md)
 * [Verify Lab Deployment](/docs/3.1/4-VerifyDeployment.md)
 * [Initial IDS/IPS Configuration](/docs/3.1/5-InitialConfiguration.md)
