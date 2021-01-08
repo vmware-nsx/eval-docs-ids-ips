@@ -103,10 +103,8 @@ Before moving to the next exercise, folow [these instructions](ClearingIDSEvents
 
 ---
 
-[***Next Step : (Optional) 9. Logging to an external collector**](9-Logging.md)
-
-[***Next Step : (Optional) 10. Segmenting the Environment**](10-Segmentation.md) 
-
-[***Next Step : 11. Conclusion**](11-Conclusion.md)
+[***Next Step : (Optional) 9. Logging to an external collector***](9-Logging.md)
+[***Next Step : (Optional) 10. Segmenting the Environment***](10-Segmentation.md) 
+[***Next Step : 11. Conclusion***](11-Conclusion.md)
  
 
