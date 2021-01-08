@@ -29,13 +29,12 @@ We will not cover how to install **vRealize Log Insight** or any other logging p
     * Method: PUT
 	* Authentication: Basic (enter username/password)
 	* Body: 
-	```console
 	{
     "global_idsevents_to_syslog_enabled": true,
     "resource_type": "IdsGlobalConfig",
     "_revision": 36
    }
-   ```
+
 ![](assets/images/IDPS_POC_62.PNG)
 
 13. Login to your syslog collector/SIEM and confirm you are receiving logs form each host.
