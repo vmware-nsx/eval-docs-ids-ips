@@ -64,7 +64,7 @@ This Evalution guide is intended for existing and future NSX customers who want 
 * Network Architects
 * Security Architects
 * Security Operations Center Analyst
-* Enterprise Applicatoin Owner
+* Enterprise Application Owner
 
 ---
 ## Resources commitment and suggested timeline
