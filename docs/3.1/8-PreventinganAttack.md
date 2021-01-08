@@ -24,7 +24,7 @@ Besides changing the signature action, you can also disable signatures as the gl
 
 6. Click **SAVE** to save the changes to the **Web-FrontEnd** profile.
 
-**Tune the Web-FrontEnd Profile**
+**Tune the Databases Profile**
 
 Now we will also set the action for signatures related to **CouchDB** in the **Databases** profile to **Drop**.
 
