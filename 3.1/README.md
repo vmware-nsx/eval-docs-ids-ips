@@ -75,11 +75,12 @@ The expected time commitment to complete the evaluation process is about 6 hours
 | Customize Deployment Script Variables  | 30 minutes  | Week 1 | 
 | Run Deployment Script  | 90 minutes | Week 1 | 
 | Verify Lab Deployment  | 30 minutes | Week 1 | 
-| Initial IDS/IPS Configuration  | 30 minutes | Week 2 | 
+| Initial IDS/IPS Configuration  | 30 minutes | Week 1 | 
 | Detecting a Simple Intrusion | 30 minutes | Week 2 | 
 | Detecting an Advanced Attack | 60 minutes | Week 2 | 
 | Preventing an Attack | 30 minutes | Week 2 | 
-
+| Optional: Logging to an external collector | 30 minutes | Week 2 | 
+| Optional: Segmenting the Environment| 60 minutes | Week 2 | 
 
 ---
 ## Support during the evaluation Process
@@ -88,7 +89,7 @@ Existing NSX customers should reach out to their NSX account team for support du
 
 ---
 ## Table of Contents
-* [Requirements](/docs/3.1/1-Requirements.md)
+* [Requirements](/1-Requirements.md)
 * [Customize Deployment Script](/docs/3.1/2-CustomizeScript.md)
 * [Run Deployment Script](/docs/3.1/3-RunScript.md)
 * [Verify Lab Deployment](/docs/3.1/4-VerifyDeployment.md)
@@ -96,6 +97,7 @@ Existing NSX customers should reach out to their NSX account team for support du
 * [Detecting a simple Intrusion](/docs/3.1/6-DetectingASimpleIntrusion.md)
 * [Detecting an Advanced Attack](/docs/3.1/7-DetectinganAdvancedAttack.md)
 * [Preventing an Attack](/docs/3.1/8-PreventinganAttack.md)
-
+* [Optional: Logging to an external collector](/docs/3.1/8-PreventinganAttack.md)
+* [Optional: Logging to an external collector](/docs/3.1/8-PreventinganAttack.md)
 
 [***Next Step: 1. Requirements***](docs/3.1/1-Requirements.md)
