@@ -99,5 +99,6 @@ Existing NSX customers should reach out to their NSX account team for support du
 * [Preventing an Attack](8-PreventinganAttack.md)
 * [Optional: Logging to an external collector](9-Logging.md)
 * [Optional: Segmenting the Environment](10-Segmentation.md)
+* [Conclusion](11-Conclusion.md)
 
-[***Next Step: 1. Requirements***](docs/3.1/1-Requirements.md)
+[***Next Step: 1. Requirements***](1-Requirements.md)
