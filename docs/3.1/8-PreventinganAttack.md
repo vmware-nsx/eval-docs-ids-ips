@@ -80,7 +80,7 @@ msf5 exploit(unix/webapp/drupal_drupalgeddon2) >
 **Confirm IDS/IPS Events show up in the NSX Manager UI**
 1.	In the NSX Manager UI, navigate to Security -->  Security Overview
 2. Under the **Insights** tab, confirm you see a number of attempted intrusion against the  **APP-1-WEB-TIER** workload
-![](assets/images/IDPS_POC_53.PNG)
+![](assets/images/IDPS_POC_61.PNG)
 3. Navigate to Security --> East West Security --> Distributed IDS
 4. Confirm 2 signatures have fired:
     * Signature for **DrupalGeddon2**, with **APP-1-WEB-TIER** as Affected VM
