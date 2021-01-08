@@ -16,7 +16,7 @@ Below is a diagram of what is deployed as part of the solution and you simply ne
 * Orange: NSX Overlay Internal Segment and vulnerable App-VMs connected to it. Segment created and VMs deployed by PowerCLI Script.
 
 ### Physical Lab Requirements
-Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
+Here are the requirements for NSX-T Distributed IDS/IPS Evaluation
 
 #### vCenter
 * vCenter Server running at least vSphere 6.7 or later
@@ -56,4 +56,5 @@ Here are the requirements for NSX-T Distributed IDS/IPS Proof of Value.
 
 ---
 
-[***Next Step: 2. Customize Deployment Script***](/docs/2-CustomizeScript.md)
+[***Next Step: 2. Customize Deployment Script***](docs/2-CustomizeScript.md))
+

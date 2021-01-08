@@ -134,4 +134,4 @@ $NSXTEdgeHostnameToIPs = @{
 
 ---
 
-[***Next Step: 3. Run Deployment Script***](/docs/3-RunScript.md)
+[***Next Step: 3. Run Deployment Script***](docs/3-RunScript.md)
