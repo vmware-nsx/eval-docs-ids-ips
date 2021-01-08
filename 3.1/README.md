@@ -5,7 +5,7 @@
 # NSX-T 3.1 - Distributed IDS/IPS Evaluation and Lab Guide
 
 <p align="center">
-  <img width="292" height="172" src="assets/images/NSX_Logo.jpeg">
+  <img width="292" height="172" src="docs/assets/images/NSX_Logo.jpeg">
 </p>
 
 ---
