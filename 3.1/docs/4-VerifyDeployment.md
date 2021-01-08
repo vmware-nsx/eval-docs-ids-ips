@@ -99,4 +99,4 @@ This completes Lab Deployment Verification. You can now move to the next exercis
 
 ---
 
-[***Next Step: 5. Initial IDS/IPS Configuration***](/docs/5-InitialConfiguration.md)
+[***Next Step: 5. Initial IDS/IPS Configuration***](5-InitialConfiguration.md)
