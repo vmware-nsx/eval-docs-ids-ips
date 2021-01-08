@@ -1,5 +1,5 @@
 
-## 10. Segmentation
+## 10. Segmentating the Environment
 **Estimated Time to Complete: 60 minutes**
 
 In this optional exercise, we will leverage the **Distributed Firewall** in order to limit the attack surface. 
