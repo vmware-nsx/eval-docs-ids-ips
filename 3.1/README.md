@@ -49,7 +49,7 @@ The automation script is based on work done by [William Lam](https://github.com/
 ---
 ## Changelog
 
-* **01/7/2020**
+* **01/7/2021**
   * Copmpletion of NSX-T 3.1 version of the guide
 * **07/8/2020**
   * Intial partial draft of the guide
