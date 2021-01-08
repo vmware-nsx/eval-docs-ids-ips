@@ -24,17 +24,22 @@ We will not cover how to install **vRealize Log Insight** or any other logging p
 10. Tick the checkbox next to **syslog** to allow outbuound syslog from the host.
 11. Repeat the same for the remaining 2 hosts.
 ![](assets/images/IDPS_POC_24.PNG)
-12. Open Postman or another API tool and execute the below API PUT call to NSX Manager to enable IDS log export via syslog
+12. Open Postman or another API tool and execute the below API PUT call to NSX Manager to retrieve the current syslog configuration. Note the **Revision** number from the API return body.
+    * URI: https://10.114.222.108/api/v1/global-configs/IdsGlobalConfig (replace IP address with the IP address of your NSX Manager)
+    * Method: GET
+	* Authentication: Basic (enter username/password)
+13. Now run a PUT call to enable syslog
     * URI: https://10.114.222.108/api/v1/global-configs/IdsGlobalConfig (replace IP address with the IP address of your NSX Manager)
     * Method: PUT
 	* Authentication: Basic (enter username/password)
 	* Body: 
 	{
+	```console
     "global_idsevents_to_syslog_enabled": true,
     "resource_type": "IdsGlobalConfig",
-    "_revision": 36
+    "_revision": 36 (change this to the revision number from the get call **incremented with 1**)
    }
-
+   ```
 ![](assets/images/IDPS_POC_62.PNG)
 
 13. Login to your syslog collector/SIEM and confirm you are receiving logs form each host.
