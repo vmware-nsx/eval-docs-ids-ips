@@ -40,7 +40,7 @@ We will not cover how to install **vRealize Log Insight** or any other logging p
     {
     "global_idsevents_to_syslog_enabled": true,
     "resource_type": "IdsGlobalConfig",
-    "_revision": 36 (change this to the revision number from the get call **incremented with 1**)
+    "_revision": 36 (change this to the revision number from the get call)
    }
 ```
 ![](assets/images/IDPS_POC_62.PNG)
