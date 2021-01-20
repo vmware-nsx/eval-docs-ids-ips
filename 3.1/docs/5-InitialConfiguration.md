@@ -21,7 +21,7 @@ Now that we have verified the lab has been deployed correctly, basic NSX network
     * Name **Web-Tier**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals Web-Tier Scope Tier**	
 5.	Create another Group with the below parameters. Click Save when done.
-    * Name **Web-Tier**
+    * Name **App-Tier**
     * Compute Members: Membership Criteria: **Virtual Machine Tag Equals App-Tier Scope Tier**
     ![](assets/images/IDPS_POC_46.PNG)
 
