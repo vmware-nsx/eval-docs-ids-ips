@@ -2,7 +2,7 @@
 ## 8. Preventing an Attack
 **Estimated Time to Complete: 30 minutes**
 
-In this exercise, we will show how the NSX Distributed IDS/IPS can just detect but also prevent an attack. We will run the same attack scenario as before.
+In this exercise, we will show how the NSX Distributed IDS/IPS can not just detect but also prevent an attack. We will run the same attack scenario as before.
 
 **Tune the Web-FrontEnd Profile**
 
